@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BasicRangedEnemyTop4.png-c3471e3d2ec084a7bf215a82c8e2a928.stex"
+path="res://.import/BasicRangedEnemyTop3.png-d85b88559d85aa94364f0bd87e15839d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BasicRangedEnemy/BasicRangedEnemyTop4.png"
-dest_files=[ "res://.import/BasicRangedEnemyTop4.png-c3471e3d2ec084a7bf215a82c8e2a928.stex" ]
+source_file="res://Sprites/BasicRangedEnemy/BasicRangedEnemyTop3.png"
+dest_files=[ "res://.import/BasicRangedEnemyTop3.png-d85b88559d85aa94364f0bd87e15839d.stex" ]
 
 [params]
 
