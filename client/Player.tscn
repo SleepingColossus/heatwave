@@ -33,34 +33,34 @@ animations = [ {
 "name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IdleBottom",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "MoveBottom",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "MoveTop",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "IdleLeft",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "IdleRight",
+"name": "IdleBottom",
 "speed": 5.0
 } ]
 
@@ -73,6 +73,7 @@ height = 0.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "IdleBottom"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
