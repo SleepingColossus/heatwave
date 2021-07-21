@@ -28,6 +28,11 @@ animations = [ {
 "name": "MoveLeft",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ), ExtResource( 11 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Dying",
@@ -36,11 +41,6 @@ animations = [ {
 "frames": [ ExtResource( 15 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "MoveBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "MoveTop",
 "speed": 5.0
 } ]
 
