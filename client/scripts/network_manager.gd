@@ -34,7 +34,7 @@ func _ready():
 
 func _on_connected(_protocol: String):
 	var msg_body = Dictionary()
-	var join_message = create_message(ClientEventType.JOIN_GAME, msg_body)
+	var join_message = create_message(MessageType.ClientMessageType.JOIN_GAME, msg_body)
 	
 	# convert to JSON
 	var packet: PoolByteArray = JSON.print(join_message).to_utf8()
@@ -58,21 +58,6 @@ func _on_data():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	ws_client.poll()
-
-# ---
-
-enum ClientEventType {
-	JOIN_GAME = 0,
-}
-
-# ---
-
-enum ServerEventTypes {
-	PLAYER_CONNECTED = 0
-	PLAYER_DISCONNECTED = 1
-}
-
-# ---
 
 func create_message(msg_type, msg_body: Dictionary) -> Dictionary:
 	return {
