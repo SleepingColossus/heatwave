@@ -1,11 +1,16 @@
 extends Node
 
+# server settings
 export var server_port = 8080
 export var server_address = "localhost"
 var server_url = "ws://%s:%s/ws" % [server_address, server_port]
+
+var actor_manager
 var ws_client : WebSocketClient
 
 func _ready():
+	actor_manager = get_node("/root/main/actor_manager")
+	
 	ws_client = WebSocketClient.new()
 	
 	# Connect base signals to get notified of connection open, close, and errors.
@@ -23,6 +28,9 @@ func _ready():
 	if err != OK:
 		print("Unable to connect")
 		set_process(false)
+		
+	var actor_type = 0 #ActorType.PLAYER
+	actor_manager.create_actor("test-123", actor_type, Vector2(1000, 600))
 
 func _on_connected(_protocol: String):
 	var msg_body = Dictionary()
