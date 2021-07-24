@@ -3,7 +3,8 @@ extends Node
 class_name MessageType
 
 enum ClientMessageType {
-	JOIN_GAME = 0,
+	JOIN_GAME = 0
+	LEAVE_GAME = 1
 }
 
 enum ServerMessageTypes {

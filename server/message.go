@@ -3,6 +3,7 @@ package main
 // client message types
 const(
 	JoinGame int = iota
+	LeaveGame
 )
 
 // server message types

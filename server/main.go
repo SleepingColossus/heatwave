@@ -4,26 +4,46 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/SleepingColossus/heatwave/game"
+	"github.com/google/uuid"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/websocket"
 )
 
+// server vars
 var (
 	addr = flag.String("addr", ":8080", "http service address")
 	upgrader = websocket.Upgrader{} // use default options
+
+	// active players
+	clients = make(map[uuid.UUID]*websocket.Conn)
+)
+
+// game state vars
+var (
+	actors = make([]game.Actor, 0)
+)
+
+// game state constants
+const (
+	screenWidth = 1920
+	screenHeight = 1080
 )
 
 func echo(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("echo start")
 
 	conn, err := upgrader.Upgrade(w, r, nil)
+
 	if err != nil {
 		log.Print("upgrade:", err)
 		return
 	}
 	defer conn.Close()
+
 	for {
 		mt, strMessage, err := conn.ReadMessage()
 
@@ -41,6 +61,41 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		log.Printf("event type: %d", message.MessageType)
 		log.Printf("event body: %s", message.MessageBody)
 
+		var response *Message
+		switch message.MessageType {
+			case JoinGame:
+				clientId := uuid.New()
+
+				// add new active client
+				clients[clientId] = conn
+
+				// create reply with coords of player
+				msgBody := map[string]string {
+					"clientId":  clientId.String(),
+					"actorType": strconv.Itoa(game.Player),
+					"x":         "1000",
+					"y":         "500",
+				}
+				response = newMessage(PlayerConnected, msgBody)
+		}
+
+		go broadcast(mt, response)
+	}
+
+	fmt.Println("echo end")
+}
+
+func broadcast(mt int, message *Message) {
+	fmt.Println("broadcast start")
+
+	for _, conn := range clients {
+		strMessage, err := json.Marshal(*message)
+
+		if err != nil {
+			log.Println("marshall error:", err)
+			return
+		}
+
 		err = conn.WriteMessage(mt, strMessage)
 
 		if err != nil {
@@ -49,7 +104,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Println("echo end")
+	fmt.Println("broadcast end")
 }
 
 func main() {
