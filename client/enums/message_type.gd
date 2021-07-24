@@ -8,6 +8,8 @@ enum ClientMessageType {
 }
 
 enum ServerMessageTypes {
-	PLAYER_CONNECTED = 0
-	PLAYER_DISCONNECTED = 1
+	NOTIFICATION = 0
+	SELF_CONNECTED = 1          # you have joined the game
+	PLAYER_CONNECTED = 2        # friendly player has joined the game
+	PLAYER_DISCONNECTED = 3
 }

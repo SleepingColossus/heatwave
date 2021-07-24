@@ -20,12 +20,13 @@ var (
 	upgrader = websocket.Upgrader{} // use default options
 
 	// active players
-	clients = make(map[uuid.UUID]*websocket.Conn)
+	clients = make(map[string]*websocket.Conn)
 )
 
 // game state vars
 var (
 	actors = make([]game.Actor, 0)
+	broadcastCh = make(chan *Message)
 )
 
 // game state constants
@@ -67,8 +68,8 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		case JoinGame:
 			clientId := uuid.New()
 
-			// add new active client
-			clients[clientId] = conn
+			// add new active player
+			clients[clientId.String()] = conn
 
 			// create reply with coords of player
 			msgBody := map[string]string{
@@ -77,20 +78,59 @@ func echo(w http.ResponseWriter, r *http.Request) {
 				"x":         "1000",
 				"y":         "500",
 			}
-			response = newMessage(PlayerConnected, msgBody)
+
+			// send join response to currently connecting player
+			response = newMessage(SelfConnected, msgBody)
+			go send(mt, *response, conn)
+
+			// change message type before broadcasting to all other players
+			response.MessageType = PlayerConnected
+			fmt.Printf("player has joined: %s\n", clientId)
+
+		case LeaveGame:
+			clientId, ok := message.MessageBody["clientId"]
+
+			if !ok {
+				fmt.Println("client id is blank")
+				return
+			}
+
+			delete(clients, clientId)
+
+			msgBody := map[string]string {
+				"clientId": clientId,
+			}
+
+			response = newMessage(PlayerDisconnected, msgBody)
+			fmt.Printf("player has left: %s\n", clientId)
 		}
 
-		go broadcast(mt, response)
+		go broadcast(mt, *response)
 	}
 
 	fmt.Println("echo end")
 }
 
-func broadcast(mt int, message *Message) {
+func send(mt int, message Message, conn *websocket.Conn) {
+	strMessage, err :=json.Marshal(message)
+
+	if err != nil {
+		log.Println("marshall error:", err)
+		return
+	}
+
+	err = conn.WriteMessage(mt, strMessage)
+
+	if err != nil {
+		log.Println("write:", err)
+	}
+}
+
+func broadcast(mt int, message Message) {
 	fmt.Println("broadcast start")
 
 	for _, conn := range clients {
-		strMessage, err := json.Marshal(*message)
+		strMessage, err := json.Marshal(message)
 
 		if err != nil {
 			log.Println("marshall error:", err)

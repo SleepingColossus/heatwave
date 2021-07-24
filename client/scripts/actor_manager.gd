@@ -12,13 +12,13 @@ var player_resource = load("res://prefabs/player.tscn")
 
 func create_actor(actor_id: String, actor_type: int, position: Vector2):
 	print("creating actor type: %d with id: %s" % [actor_type, actor_id])
-	
+
 	var new_actor = create_resource_instance(actor_type)
 	new_actor.position = position
-	
+
 	actor_container_node.add_child(new_actor)
 	actors[actor_id] = new_actor
-	
+
 func delete_actor(actor_id: String):
 	if actors.erase(actor_id):
 		print("deleted actor " % actor_id)
