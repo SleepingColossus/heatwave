@@ -4,18 +4,19 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/SleepingColossus/heatwave/game"
-	"github.com/google/uuid"
 	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/SleepingColossus/heatwave/game"
+
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )
 
 // server vars
 var (
-	addr = flag.String("addr", ":8080", "http service address")
+	addr     = flag.String("addr", ":8080", "http service address")
 	upgrader = websocket.Upgrader{} // use default options
 
 	// active players
@@ -29,7 +30,7 @@ var (
 
 // game state constants
 const (
-	screenWidth = 1920
+	screenWidth  = 1920
 	screenHeight = 1080
 )
 
@@ -63,20 +64,20 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 		var response *Message
 		switch message.MessageType {
-			case JoinGame:
-				clientId := uuid.New()
+		case JoinGame:
+			clientId := uuid.New()
 
-				// add new active client
-				clients[clientId] = conn
+			// add new active client
+			clients[clientId] = conn
 
-				// create reply with coords of player
-				msgBody := map[string]string {
-					"clientId":  clientId.String(),
-					"actorType": strconv.Itoa(game.Player),
-					"x":         "1000",
-					"y":         "500",
-				}
-				response = newMessage(PlayerConnected, msgBody)
+			// create reply with coords of player
+			msgBody := map[string]string{
+				"clientId":  clientId.String(),
+				"actorType": strconv.Itoa(game.Player),
+				"x":         "1000",
+				"y":         "500",
+			}
+			response = newMessage(PlayerConnected, msgBody)
 		}
 
 		go broadcast(mt, response)
