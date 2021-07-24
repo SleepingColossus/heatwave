@@ -4,6 +4,7 @@ package main
 const (
 	JoinGame int = iota
 	LeaveGame
+	Move
 )
 
 // server message types
@@ -12,6 +13,7 @@ const (
 	SelfConnected       // you have joined the game
 	PlayerConnected     // friendly player has joined the game
 	PlayerDisconnected
+	ActorMoved
 )
 
 type Message struct {

@@ -25,6 +25,15 @@ func delete_actor(actor_id: String):
 	else:
 		push_error("unknown actor id: %s" % actor_id)
 
+func move_actor(actor_id: String, new_position: Vector2):
+	print_debug("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
+
+	if actors.has(actor_id):
+		var actor = actors[actor_id]
+		actor.position = new_position
+	else:
+		push_error("unknown actor: %s" % actor_id)
+
 func create_resource_instance(resource_type: int):
 	match resource_type:
 		ActorType.ActorType.PLAYER:

@@ -6,6 +6,7 @@ export var server_address = "localhost"
 var server_url = "ws://%s:%s/ws" % [server_address, server_port]
 
 var actor_manager
+var direction: Vector2
 var ws_client : WebSocketClient
 
 # unique identifier
@@ -15,6 +16,7 @@ var client_id: String = ""
 
 func _ready():
 	actor_manager = get_node("/root/main/actor_manager")
+	direction = Vector2(0, 0)
 
 	ws_client = WebSocketClient.new()
 
@@ -31,6 +33,52 @@ func _ready():
 
 func _process(_delta):
 	ws_client.poll()
+
+	var new_direction = poll_inputs()
+
+	# is the direction the same as last time
+	if direction.x == new_direction.x && direction.y == new_direction.y:
+		# yes - do nothing
+		pass
+	else:
+		# no - send message to server
+		var move_body = {
+			"clientId": client_id,
+			"x": new_direction.x as String,
+			"y": new_direction.y as String,
+		}
+
+		var move_message = create_message(MessageType.ClientMessageType.MOVE, move_body)
+
+		print_debug(move_message)
+
+		var packet: PoolByteArray = JSON.print(move_message).to_utf8()
+		ws_client.get_peer(1).put_packet(packet)
+
+		# update last know direction
+		direction = new_direction
+
+func poll_inputs() -> Vector2:
+
+	var new_direction = Vector2(0, 0)
+
+	# horizontal
+	if Input.is_action_pressed("move_left"):
+		new_direction.x = -1
+	elif Input.is_action_pressed("move_right"):
+		new_direction.x = 1
+	else:
+		new_direction.x = 0
+
+	# vertical
+	if Input.is_action_pressed("move_up"):
+		new_direction.y = -1
+	elif Input.is_action_pressed("move_down"):
+		new_direction.y = 1
+	else:
+		new_direction.y = 0
+
+	return new_direction
 
 func _on_connected(_protocol: String):
 	var msg_body = Dictionary()
@@ -137,6 +185,15 @@ func handle_message(msg: Dictionary):
 			MessageType.ServerMessageTypes.PLAYER_DISCONNECTED:
 				var actor_id = msg_body["clientId"]
 				actor_manager.delete_actor(actor_id)
+
+			MessageType.ServerMessageTypes.ACTOR_MOVED:
+				var actor_id = msg_body["clientId"]
+				var position_x = msg_body["positionX"] as int
+				var position_y = msg_body["positionY"] as int
+
+				var position = Vector2(position_x, position_y)
+
+				actor_manager.move_actor(actor_id, position)
 
 	print_debug("handle message end")
 

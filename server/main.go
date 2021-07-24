@@ -25,7 +25,7 @@ var (
 
 // game state vars
 var (
-	actors = make([]game.Actor, 0)
+	players     = make(map[string]*game.Actor, 0)
 	broadcastCh = make(chan *Message)
 )
 
@@ -66,17 +66,18 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		var response *Message
 		switch message.MessageType {
 		case JoinGame:
-			clientId := uuid.New()
+			clientId := uuid.New().String()
 
 			// add new active player
-			clients[clientId.String()] = conn
+			clients[clientId] = conn
+			players[clientId] = game.NewActor(clientId, game.DefaultPlayerPosition())
 
 			// create reply with coords of player
 			msgBody := map[string]string{
-				"clientId":  clientId.String(),
+				"clientId":  clientId,
 				"actorType": strconv.Itoa(game.Player),
-				"x":         "1000",
-				"y":         "500",
+				"x":         "100",
+				"y":         "100",
 			}
 
 			// send join response to currently connecting player
@@ -96,13 +97,39 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			}
 
 			delete(clients, clientId)
+			delete(players, clientId)
 
-			msgBody := map[string]string {
+			msgBody := map[string]string{
 				"clientId": clientId,
 			}
 
 			response = newMessage(PlayerDisconnected, msgBody)
 			fmt.Printf("player has left: %s\n", clientId)
+
+		case Move:
+			clientId := message.MessageBody["clientId"]
+			directionX, _ := strconv.Atoi(message.MessageBody["x"])
+			directionY, _ := strconv.Atoi(message.MessageBody["y"])
+
+			direction := game.NewVector2(directionX, directionY)
+
+			actor, ok := players[clientId]
+
+			if !ok {
+				fmt.Println("unknown actor", clientId)
+				return
+			}
+
+			newPosition := game.Move(actor.Position, direction)
+
+			msgBody := map[string]string{
+				"clientId":  clientId,
+				"positionX": strconv.Itoa(newPosition.X),
+				"positionY": strconv.Itoa(newPosition.Y),
+			}
+			response = newMessage(ActorMoved, msgBody)
+
+			actor.Position = &newPosition
 		}
 
 		go broadcast(mt, *response)
@@ -112,7 +139,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 }
 
 func send(mt int, message Message, conn *websocket.Conn) {
-	strMessage, err :=json.Marshal(message)
+	strMessage, err := json.Marshal(message)
 
 	if err != nil {
 		log.Println("marshall error:", err)

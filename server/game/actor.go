@@ -1,20 +1,25 @@
 package game
 
-import "github.com/google/uuid"
-
 // actor types
 const(
 	Player int = iota
 )
 
 type Actor struct {
-	Id uuid.UUID
-	Position Vector2
+	Id string
+	Position *Vector2
 }
 
-func newActor(pos Vector2) *Actor {
+func NewActor(id string, pos *Vector2) *Actor {
 	return &Actor{
-		Id: uuid.New(),
+		Id: id,
 		Position: pos,
+	}
+}
+
+func Move(position, direction *Vector2) Vector2 {
+	return Vector2{
+		X: position.X + direction.X,
+		Y: position.Y + direction.Y,
 	}
 }
