@@ -1,9 +1,5 @@
 extends Node
 
-enum ActorType {
-	PLAYER = 0
-}
-
 # node all new actors will be appended to
 var actor_container_node
 
@@ -31,7 +27,7 @@ func delete_actor(actor_id: String):
 
 func create_resource_instance(resource_type: int):
 	match resource_type:
-		ActorType.PLAYER:
+		ActorType.ActorType.PLAYER:
 			return player_resource.instance()
 		_:
 			push_error("unknown resource type: %d" % resource_type)

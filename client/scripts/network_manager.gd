@@ -29,7 +29,7 @@ func _ready():
 		print("Unable to connect")
 		set_process(false)
 		
-	var actor_type = 0 #ActorType.PLAYER
+	var actor_type = ActorType.ActorType.PLAYER
 	actor_manager.create_actor("test-123", actor_type, Vector2(1000, 600))
 
 func _on_connected(_protocol: String):

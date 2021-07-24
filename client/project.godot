@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ActorType",
+"language": "GDScript",
+"path": "res://enums/actor_type.gd"
+} ]
+_global_script_class_icons={
+"ActorType": ""
+}
+
 [application]
 
 config/name="Heatwave"
