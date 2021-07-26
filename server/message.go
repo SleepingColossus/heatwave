@@ -1,5 +1,7 @@
 package main
 
+import "github.com/gorilla/websocket"
+
 // client message types
 const (
 	JoinGame int = iota
@@ -16,26 +18,36 @@ const (
 	ActorsMoved
 )
 
+// message type received from game via websocket
 type ClientMessage struct {
 	MessageType int               `json:"messageType"`
 	MessageBody map[string]string `json:"messageBody"`
 }
 
+// message type sent to game via websocket
 type ServerMessage struct {
 	MessageType int                 `json:"messageType"`
 	MessageBody []map[string]string `json:"messageBody"`
 }
 
-func newClientMessage(msgType int, msgBody map[string]string) *ClientMessage {
-	return &ClientMessage{
+func newServerMessage(msgType int, msgBody []map[string]string) ServerMessage {
+	return ServerMessage{
 		MessageType: msgType,
 		MessageBody: msgBody,
 	}
 }
 
-func newServerMessage(msgType int, msgBody []map[string]string) *ServerMessage {
-	return &ServerMessage{
+// message type sent to send and broadcast channels
+type ServerChannelMessage struct {
+	MessageType int
+	Message     ServerMessage
+	Connection  *websocket.Conn
+}
+
+func newChannelMessage(msgType int, msg ServerMessage, conn *websocket.Conn) *ServerChannelMessage {
+	return &ServerChannelMessage{
 		MessageType: msgType,
-		MessageBody: msgBody,
+		Message:     msg,
+		Connection:  conn,
 	}
 }

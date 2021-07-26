@@ -23,8 +23,14 @@ var (
 	// active players
 	clients = make(map[string]*websocket.Conn)
 
-	sendCh      = make(chan *ServerMessage)
-	broadcastCh = make(chan *ServerMessage)
+	sendCh      = make(chan *ServerChannelMessage)
+	broadcastCh = make(chan *ServerChannelMessage)
+)
+
+// server constants
+const (
+	// binary message type
+	binMt = 2
 )
 
 // game state vars
@@ -39,7 +45,7 @@ const (
 	screenHeight = 1080
 
 	// 30 fps
-	tickRate time.Duration = 1000 / 30
+	tickRate time.Duration = time.Second / 30
 )
 
 func echo(w http.ResponseWriter, r *http.Request) {
@@ -70,7 +76,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		log.Printf("event type: %d", message.MessageType)
 		log.Printf("event body: %s", message.MessageBody)
 
-		var response *ServerMessage
+		var response ServerMessage
 		switch message.MessageType {
 		case JoinGame:
 			clientId := uuid.New().String()
@@ -89,10 +95,12 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 			// send join response to currently connecting player
 			response = newServerMessage(SelfConnected, msgBody)
-			go send(mt, *response, conn)
+			sendCh <- newChannelMessage(mt, response, conn)
 
 			// change message type before broadcasting to all other players
 			response.MessageType = PlayerConnected
+			broadcastCh <- newChannelMessage(mt, response, nil)
+
 			fmt.Printf("player has joined: %s\n", clientId)
 
 		case LeaveGame:
@@ -111,14 +119,12 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			}}
 
 			response = newServerMessage(PlayerDisconnected, msgBody)
+			broadcastCh <- newChannelMessage(mt, response, nil)
+
 			fmt.Printf("player has left: %s\n", clientId)
 
 		case Move:
 			updatePlayerDirection(message.MessageBody)
-		}
-
-		if response != nil {
-			go broadcast(mt, *response)
 		}
 	}
 
@@ -145,10 +151,10 @@ func updatePlayerDirection(dir map[string]string) {
 func moveActors() {
 	lastTime := time.Now()
 	for {
-		t := time.Now()
-		dt := t.Sub(lastTime)
-
 		if len(players) > 0 {
+			t := time.Now()
+			dt := t.Sub(lastTime)
+
 			// is it time for the next frame?
 			if dt >= tickRate {
 
@@ -171,7 +177,7 @@ func moveActors() {
 				response := newServerMessage(ActorsMoved, messageBody)
 
 				// broadcast event
-				go broadcast(0, *response)
+				broadcastCh <- newChannelMessage(binMt, response, nil)
 
 				// set timer for next iteration
 				lastTime = t
@@ -180,41 +186,36 @@ func moveActors() {
 	}
 }
 
-func send(mt int, message ServerMessage, conn *websocket.Conn) {
-	strMessage, err := json.Marshal(message)
+func startSendListener() {
+	for {
+		chanMsg := <-sendCh
 
-	if err != nil {
-		log.Println("marshall error:", err)
-		return
-	}
-
-	err = conn.WriteMessage(mt, strMessage)
-
-	if err != nil {
-		log.Println("write:", err)
-	}
-}
-
-func broadcast(mt int, message ServerMessage) {
-	fmt.Println("broadcast start")
-
-	for _, conn := range clients {
-		strMessage, err := json.Marshal(message)
+		strMessage, err := json.Marshal(chanMsg.Message)
 
 		if err != nil {
 			log.Println("marshall error:", err)
 			return
 		}
 
-		err = conn.WriteMessage(mt, strMessage)
+		err = chanMsg.Connection.WriteMessage(chanMsg.MessageType, strMessage)
 
 		if err != nil {
 			log.Println("write:", err)
-			break
 		}
 	}
+}
 
-	fmt.Println("broadcast end")
+func startBroadcastListener() {
+	for {
+		chanMsg := <-broadcastCh
+
+		fmt.Println("broadcast start")
+		for _, conn := range clients {
+			chanMsg.Connection = conn
+			sendCh <- chanMsg
+		}
+		fmt.Println("broadcast end")
+	}
 }
 
 func main() {
@@ -222,7 +223,9 @@ func main() {
 	log.SetFlags(0)
 	http.HandleFunc("/ws", echo)
 
-	//go moveActors()
+	go startSendListener()
+	go startBroadcastListener()
+	go moveActors()
 
 	fmt.Println("listening on:", *addr)
 	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))
