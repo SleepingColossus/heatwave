@@ -23,6 +23,11 @@ func NewActor(id string, pos *Vector2) *Actor {
 	}
 }
 
+func (actor *Actor) SetDirection(newDirection Vector2) {
+	actor.Direction.X = newDirection.X
+	actor.Direction.Y = newDirection.Y
+}
+
 func (actor *Actor) Move() {
 	actor.Position.X += actor.Direction.X * actor.Velocity
 	actor.Position.Y += actor.Direction.Y * actor.Velocity

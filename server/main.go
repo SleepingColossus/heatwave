@@ -124,31 +124,27 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			fmt.Printf("player has left: %s\n", clientId)
 
 		case Move:
-			updatePlayerDirection(message.MessageBody)
+			actorId := message.MessageBody["clientId"]
+			directionX, _ := strconv.Atoi(message.MessageBody["x"])
+			directionY, _ := strconv.Atoi(message.MessageBody["y"])
+
+			direction := game.NewVector2(directionX, directionY)
+
+			actor, ok := players[actorId]
+
+			if !ok {
+				fmt.Println("unknown actor", actorId)
+				return
+			}
+
+			actor.SetDirection(*direction)
 		}
 	}
 
 	fmt.Println("echo end")
 }
 
-func updatePlayerDirection(dir map[string]string) {
-	actorId := dir["clientId"]
-	directionX, _ := strconv.Atoi(dir["x"])
-	directionY, _ := strconv.Atoi(dir["y"])
-
-	direction := game.NewVector2(directionX, directionY)
-
-	actor, ok := players[actorId]
-
-	if !ok {
-		fmt.Println("unknown actor", actorId)
-		return
-	}
-
-	actor.Direction = direction
-}
-
-func moveActors() {
+func startMoveActorsTask() {
 	lastTime := time.Now()
 	for {
 		if len(players) > 0 {
@@ -225,7 +221,7 @@ func main() {
 
 	go startSendListener()
 	go startBroadcastListener()
-	go moveActors()
+	go startMoveActorsTask()
 
 	fmt.Println("listening on:", *addr)
 	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))
