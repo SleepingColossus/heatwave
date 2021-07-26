@@ -150,15 +150,17 @@ func handle_message(msg: Dictionary):
 		return
 	else:
 		var msg_type : int = msg["messageType"]
-		var msg_body : Dictionary = msg["messageBody"]
+		var msg_body : Array = msg["messageBody"]
 
 		match msg_type:
 			MessageType.ServerMessageTypes.SELF_CONNECTED:
+				var body = msg_body[0]
+
 				# create a new player actor
-				var actor_id = msg_body["clientId"]
-				var actor_type = msg_body["actorType"] as int # TODO error handling around type cast
-				var x = msg_body["x"] as int # TODO error handling around type cast
-				var y = msg_body["y"] as int # TODO error handling around type cast
+				var actor_id = body["clientId"]
+				var actor_type = body["actorType"] as int # TODO error handling around type cast
+				var x = body["x"] as int # TODO error handling around type cast
+				var y = body["y"] as int # TODO error handling around type cast
 
 				# spawn self
 				var position = Vector2(x, y)
@@ -168,32 +170,35 @@ func handle_message(msg: Dictionary):
 				set_client_id(actor_id)
 
 			MessageType.ServerMessageTypes.PLAYER_CONNECTED:
-				var actor_id = msg_body["clientId"]
+				for body in msg_body:
+					var actor_id = body["clientId"]
 
-				if actor_id == client_id:
-					print_debug("received PLAYER_CONNECTED for self. pass")
-					return
+					if actor_id == client_id:
+						print_debug("received PLAYER_CONNECTED for self. pass")
+						return
 
-				var actor_type = msg_body["actorType"] as int # TODO error handling around type cast
-				var x = msg_body["x"] as int # TODO error handling around type cast
-				var y = msg_body["y"] as int # TODO error handling around type cast
+					var actor_type = body["actorType"] as int # TODO error handling around type cast
+					var x = body["x"] as int # TODO error handling around type cast
+					var y = body["y"] as int # TODO error handling around type cast
 
-				# spawn friendly player
-				var position = Vector2(x, y)
-				actor_manager.create_actor(actor_id, actor_type, position)
+					# spawn friendly player
+					var position = Vector2(x, y)
+					actor_manager.create_actor(actor_id, actor_type, position)
 
 			MessageType.ServerMessageTypes.PLAYER_DISCONNECTED:
-				var actor_id = msg_body["clientId"]
-				actor_manager.delete_actor(actor_id)
+				for body in msg_body:
+					var actor_id = body["clientId"]
+					actor_manager.delete_actor(actor_id)
 
 			MessageType.ServerMessageTypes.ACTOR_MOVED:
-				var actor_id = msg_body["clientId"]
-				var position_x = msg_body["positionX"] as int
-				var position_y = msg_body["positionY"] as int
+				for body in msg_body:
+					var actor_id = body["clientId"]
+					var position_x = body["positionX"] as int
+					var position_y = body["positionY"] as int
 
-				var position = Vector2(position_x, position_y)
+					var position = Vector2(position_x, position_y)
 
-				actor_manager.move_actor(actor_id, position)
+					actor_manager.move_actor(actor_id, position)
 
 	print_debug("handle message end")
 

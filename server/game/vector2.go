@@ -11,7 +11,11 @@ type Vector2 struct {
 }
 
 func NewVector2(x, y int) *Vector2 {
-	return &Vector2{X: x, Y: y}
+	return &Vector2{x, y}
+}
+
+func ZeroVector() *Vector2 {
+	return NewVector2(0, 0)
 }
 
 func DefaultPlayerPosition() *Vector2 {

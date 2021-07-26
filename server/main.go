@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/SleepingColossus/heatwave/game"
 
@@ -21,18 +22,24 @@ var (
 
 	// active players
 	clients = make(map[string]*websocket.Conn)
+
+	sendCh      = make(chan *ServerMessage)
+	broadcastCh = make(chan *ServerMessage)
 )
 
 // game state vars
 var (
-	players     = make(map[string]*game.Actor, 0)
-	broadcastCh = make(chan *Message)
+	players = make(map[string]*game.Actor, 0)
+	enemies = make(map[string]*game.Actor, 0)
 )
 
 // game state constants
 const (
 	screenWidth  = 1920
 	screenHeight = 1080
+
+	// 30 fps
+	tickRate time.Duration = 1000 / 30
 )
 
 func echo(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +61,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		var message Message
+		var message ClientMessage
 		if err = json.Unmarshal(strMessage, &message); err != nil {
 			log.Println("unmarshal:", err)
 			break
@@ -63,7 +70,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		log.Printf("event type: %d", message.MessageType)
 		log.Printf("event body: %s", message.MessageBody)
 
-		var response *Message
+		var response *ServerMessage
 		switch message.MessageType {
 		case JoinGame:
 			clientId := uuid.New().String()
@@ -73,15 +80,15 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			players[clientId] = game.NewActor(clientId, game.DefaultPlayerPosition())
 
 			// create reply with coords of player
-			msgBody := map[string]string{
+			msgBody := []map[string]string{{
 				"clientId":  clientId,
 				"actorType": strconv.Itoa(game.Player),
 				"x":         "100",
 				"y":         "100",
-			}
+			}}
 
 			// send join response to currently connecting player
-			response = newMessage(SelfConnected, msgBody)
+			response = newServerMessage(SelfConnected, msgBody)
 			go send(mt, *response, conn)
 
 			// change message type before broadcasting to all other players
@@ -99,46 +106,81 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			delete(clients, clientId)
 			delete(players, clientId)
 
-			msgBody := map[string]string{
+			msgBody := []map[string]string{{
 				"clientId": clientId,
-			}
+			}}
 
-			response = newMessage(PlayerDisconnected, msgBody)
+			response = newServerMessage(PlayerDisconnected, msgBody)
 			fmt.Printf("player has left: %s\n", clientId)
 
 		case Move:
-			clientId := message.MessageBody["clientId"]
-			directionX, _ := strconv.Atoi(message.MessageBody["x"])
-			directionY, _ := strconv.Atoi(message.MessageBody["y"])
-
-			direction := game.NewVector2(directionX, directionY)
-
-			actor, ok := players[clientId]
-
-			if !ok {
-				fmt.Println("unknown actor", clientId)
-				return
-			}
-
-			newPosition := game.Move(actor.Position, direction)
-
-			msgBody := map[string]string{
-				"clientId":  clientId,
-				"positionX": strconv.Itoa(newPosition.X),
-				"positionY": strconv.Itoa(newPosition.Y),
-			}
-			response = newMessage(ActorMoved, msgBody)
-
-			actor.Position = &newPosition
+			updatePlayerDirection(message.MessageBody)
 		}
 
-		go broadcast(mt, *response)
+		if response != nil {
+			go broadcast(mt, *response)
+		}
 	}
 
 	fmt.Println("echo end")
 }
 
-func send(mt int, message Message, conn *websocket.Conn) {
+func updatePlayerDirection(dir map[string]string) {
+	actorId := dir["clientId"]
+	directionX, _ := strconv.Atoi(dir["x"])
+	directionY, _ := strconv.Atoi(dir["y"])
+
+	direction := game.NewVector2(directionX, directionY)
+
+	actor, ok := players[actorId]
+
+	if !ok {
+		fmt.Println("unknown actor", actorId)
+		return
+	}
+
+	actor.Direction = direction
+}
+
+func moveActors() {
+	lastTime := time.Now()
+	for {
+		t := time.Now()
+		dt := t.Sub(lastTime)
+
+		if len(players) > 0 {
+			// is it time for the next frame?
+			if dt >= tickRate {
+
+				// container for new positions
+				var messageBody []map[string]string
+
+				// move all players
+				for _, actor := range players {
+					actor.Move()
+					messageBody = append(messageBody, actor.ToMap())
+				}
+
+				// move all enemies
+				for _, enemy := range enemies {
+					enemy.Move()
+					messageBody = append(messageBody, enemy.ToMap())
+				}
+
+				// create payload
+				response := newServerMessage(ActorsMoved, messageBody)
+
+				// broadcast event
+				go broadcast(0, *response)
+
+				// set timer for next iteration
+				lastTime = t
+			}
+		}
+	}
+}
+
+func send(mt int, message ServerMessage, conn *websocket.Conn) {
 	strMessage, err := json.Marshal(message)
 
 	if err != nil {
@@ -153,7 +195,7 @@ func send(mt int, message Message, conn *websocket.Conn) {
 	}
 }
 
-func broadcast(mt int, message Message) {
+func broadcast(mt int, message ServerMessage) {
 	fmt.Println("broadcast start")
 
 	for _, conn := range clients {
@@ -179,6 +221,8 @@ func main() {
 	flag.Parse()
 	log.SetFlags(0)
 	http.HandleFunc("/ws", echo)
+
+	//go moveActors()
 
 	fmt.Println("listening on:", *addr)
 	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))

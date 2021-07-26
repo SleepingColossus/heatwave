@@ -13,16 +13,28 @@ const (
 	SelfConnected       // you have joined the game
 	PlayerConnected     // friendly player has joined the game
 	PlayerDisconnected
-	ActorMoved
+	ActorsMoved
 )
 
-type Message struct {
+type ClientMessage struct {
 	MessageType int               `json:"messageType"`
 	MessageBody map[string]string `json:"messageBody"`
 }
 
-func newMessage(msgType int, msgBody map[string]string) *Message {
-	return &Message{
+type ServerMessage struct {
+	MessageType int                 `json:"messageType"`
+	MessageBody []map[string]string `json:"messageBody"`
+}
+
+func newClientMessage(msgType int, msgBody map[string]string) *ClientMessage {
+	return &ClientMessage{
+		MessageType: msgType,
+		MessageBody: msgBody,
+	}
+}
+
+func newServerMessage(msgType int, msgBody []map[string]string) *ServerMessage {
+	return &ServerMessage{
 		MessageType: msgType,
 		MessageBody: msgBody,
 	}

@@ -1,25 +1,37 @@
 package game
 
+import "strconv"
+
 // actor types
-const(
+const (
 	Player int = iota
 )
 
 type Actor struct {
-	Id string
-	Position *Vector2
+	Id        string
+	Position  *Vector2
+	Direction *Vector2
+	Velocity  int
 }
 
 func NewActor(id string, pos *Vector2) *Actor {
 	return &Actor{
-		Id: id,
-		Position: pos,
+		Id:        id,
+		Position:  pos,
+		Direction: ZeroVector(),
+		Velocity:  1,
 	}
 }
 
-func Move(position, direction *Vector2) Vector2 {
-	return Vector2{
-		X: position.X + direction.X,
-		Y: position.Y + direction.Y,
+func (actor *Actor) Move() {
+	actor.Position.X += actor.Direction.X * actor.Velocity
+	actor.Position.Y += actor.Direction.Y * actor.Velocity
+}
+
+func (actor *Actor) ToMap() map[string]string {
+	return map[string]string{
+		"clientId":  actor.Id,
+		"positionX": strconv.Itoa(actor.Position.X),
+		"positionY": strconv.Itoa(actor.Position.Y),
 	}
 }
