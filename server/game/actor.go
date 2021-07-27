@@ -19,7 +19,6 @@ type Actor struct {
 	Velocity  int
 }
 
-
 func NewPlayer(id string) *Actor {
 	return &Actor{
 		Id:        id,

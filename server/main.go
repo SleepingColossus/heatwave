@@ -35,8 +35,7 @@ const (
 
 // game state vars
 var (
-	players = make(map[string]*game.Actor)
-	enemies = make(map[string]*game.Actor)
+	gameState = game.NewGameState()
 )
 
 // game state constants
@@ -82,7 +81,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 			// add new active player
 			clients[clientId] = conn
-			players[clientId] = player
+			gameState.AddPlayer(player)
 
 			// create reply with coords of player
 			msgBody := []map[string]string{{
@@ -111,7 +110,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			}
 
 			delete(clients, clientId)
-			delete(players, clientId)
+			gameState.DeletePlayer(clientId)
 
 			msgBody := []map[string]string{{
 				"clientId": clientId,
@@ -129,7 +128,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 			direction := game.NewVector2(directionX, directionY)
 
-			actor, ok := players[actorId]
+			actor, ok := gameState.Players[actorId]
 
 			if !ok {
 				fmt.Println("unknown actor", actorId)
@@ -146,7 +145,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 func startMoveActorsTask() {
 	lastTime := time.Now()
 	for {
-		if len(players) > 0 {
+		if len(gameState.Players) > 0 {
 			t := time.Now()
 			dt := t.Sub(lastTime)
 
@@ -157,15 +156,16 @@ func startMoveActorsTask() {
 				var messageBody []map[string]string
 
 				// move all players
-				for _, actor := range players {
+				for _, actor := range gameState.Players {
 					actor.Move()
 					messageBody = append(messageBody, actor.ToMap())
 				}
 
 				// move all enemies
-				for _, enemy := range enemies {
+				for _, enemy := range gameState.Wave.Enemies {
 					enemy.Move()
-					messageBody = append(messageBody, enemy.ToMap())
+					// TODO enable
+					//messageBody = append(messageBody, enemy.ToMap())
 				}
 
 				// create payload
@@ -204,12 +204,12 @@ func startBroadcastListener() {
 	for {
 		chanMsg := <-broadcastCh
 
-		fmt.Println("broadcast start")
+		//fmt.Println("broadcast start")
 		for _, conn := range clients {
 			chanMsg.Connection = conn
 			sendCh <- chanMsg
 		}
-		fmt.Println("broadcast end")
+		//fmt.Println("broadcast end")
 	}
 }
 
