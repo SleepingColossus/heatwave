@@ -1,24 +1,32 @@
 package game
 
-import "strconv"
+import (
+	"strconv"
+)
 
 // actor types
 const (
 	Player int = iota
+	EnemyMeleeBasic
 )
 
 type Actor struct {
 	Id        string
+	Type      int
 	Position  *Vector2
 	Direction *Vector2
+	Hitbox    *Hitbox
 	Velocity  int
 }
 
-func NewActor(id string, pos *Vector2) *Actor {
+
+func NewPlayer(id string) *Actor {
 	return &Actor{
 		Id:        id,
-		Position:  pos,
+		Type:      Player,
+		Position:  center(),
 		Direction: ZeroVector(),
+		Hitbox:    smallHitbox(),
 		Velocity:  1,
 	}
 }

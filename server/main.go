@@ -35,15 +35,12 @@ const (
 
 // game state vars
 var (
-	players = make(map[string]*game.Actor, 0)
-	enemies = make(map[string]*game.Actor, 0)
+	players = make(map[string]*game.Actor)
+	enemies = make(map[string]*game.Actor)
 )
 
 // game state constants
 const (
-	screenWidth  = 1920
-	screenHeight = 1080
-
 	// 30 fps
 	tickRate time.Duration = time.Second / 30
 )
@@ -81,16 +78,18 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		case JoinGame:
 			clientId := uuid.New().String()
 
+			player := game.NewPlayer(clientId)
+
 			// add new active player
 			clients[clientId] = conn
-			players[clientId] = game.NewActor(clientId, game.DefaultPlayerPosition())
+			players[clientId] = player
 
 			// create reply with coords of player
 			msgBody := []map[string]string{{
 				"clientId":  clientId,
-				"actorType": strconv.Itoa(game.Player),
-				"x":         "100",
-				"y":         "100",
+				"actorType": strconv.Itoa(player.Type),
+				"x":         strconv.Itoa(player.Position.X),
+				"y":         strconv.Itoa(player.Position.Y),
 			}}
 
 			// send join response to currently connecting player
