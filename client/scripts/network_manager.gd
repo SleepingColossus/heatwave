@@ -28,7 +28,7 @@ func _ready():
 
 	var err = ws_client.connect_to_url(server_url)
 	if err != OK:
-		print("Unable to connect")
+		push_error("Unable to connect")
 		set_process(false)
 
 func _process(_delta):
