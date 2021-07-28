@@ -10,6 +10,18 @@ const (
 	right
 )
 
+// movement directions - horizontal
+const (
+	moveLeft  = -1
+	moveRight = 1
+)
+
+// movement directions - vertical
+const (
+	moveUp = -1
+	moveDown = 1
+)
+
 const (
 	screenWidth  = 1920
 	screenHeight = 1080

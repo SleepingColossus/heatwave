@@ -124,8 +124,6 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 			directionX, _ := strconv.Atoi(message.MessageBody["x"])
 			directionY, _ := strconv.Atoi(message.MessageBody["y"])
 
-			direction := game.NewVector2(directionX, directionY)
-
 			actor, ok := gameState.Players[actorId]
 
 			if !ok {
@@ -133,7 +131,7 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			actor.SetDirection(*direction)
+			actor.SetDirection(directionX, directionY)
 		}
 	}
 }

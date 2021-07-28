@@ -6,8 +6,8 @@ import (
 
 // actor types
 const (
-	Player int = iota
-	EnemyMeleeBasic
+	player int = iota
+	enemyMeleeBasic
 )
 
 type Updatable interface {
@@ -23,24 +23,13 @@ type Actor struct {
 	Velocity  int
 }
 
-func NewPlayer(id string) *Actor {
-	return &Actor{
-		Id:        id,
-		Type:      Player,
-		Position:  center(),
-		Direction: ZeroVector(),
-		Hitbox:    smallHitbox(),
-		Velocity:  1,
-	}
+func (actor *Actor) SetDirection(newX, newY int) {
+	actor.Direction.X = newX
+	actor.Direction.Y = newY
 }
 
-func (actor *Actor) SetDirection(newDirection Vector2) {
-	actor.Direction.X = newDirection.X
-	actor.Direction.Y = newDirection.Y
-}
-
-// called on every tick
-func (actor *Actor) Update() {
+func (actor *Actor) move() {
+	// move in current direction
 	actor.Position.X += actor.Direction.X * actor.Velocity
 	actor.Position.Y += actor.Direction.Y * actor.Velocity
 }

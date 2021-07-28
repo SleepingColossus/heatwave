@@ -4,7 +4,7 @@ import "github.com/google/uuid"
 
 type Enemy struct {
 	Actor
-	Target *Actor // target player to chase
+	Target *Player // target player to chase
 }
 
 func newEnemy(t int) *Enemy {
@@ -21,11 +21,38 @@ func newEnemy(t int) *Enemy {
 	}
 }
 
-func newEnemyMeleeBasic() * Enemy {
-	return newEnemy(EnemyMeleeBasic)
+func (e *Enemy) update() {
+	e.setChaseDirection()
+	e.move()
 }
 
-func (e *Enemy) setTarget(players []*Actor) {
+func (e *Enemy) setChaseDirection() {
+	if e.Target != nil {
+		var moveh, movev int
+
+		// is target on right side?
+		if e.Position.X < e.Target.Position.X {
+			moveh = moveRight
+		} else {
+			moveh = moveLeft
+		}
+
+		// is target below?
+		if e.Position.Y < e.Target.Position.Y {
+			movev = moveDown
+		} else {
+			movev = moveUp
+		}
+
+		e.SetDirection(moveh, movev)
+	}
+}
+
+func newEnemyMeleeBasic() * Enemy {
+	return newEnemy(enemyMeleeBasic)
+}
+
+func (e *Enemy) setTarget(players []*Player) {
 	if len(players) > 0 {
 		e.Target = players[0]
 	}

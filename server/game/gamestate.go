@@ -6,7 +6,7 @@ import (
 
 type GameState struct {
 	Phase   int
-	Players map[string]*Actor
+	Players map[string]*Player
 	Wave    *Wave
 	Channel chan interface{}
 }
@@ -14,7 +14,7 @@ type GameState struct {
 func NewGameState() *GameState {
 	return &GameState{
 		Phase:   pending,
-		Players: make(map[string]*Actor),
+		Players: make(map[string]*Player),
 		Wave:    nil,
 	}
 }
@@ -23,7 +23,7 @@ func (gs *GameState) IsPending() bool {
 	return gs.Phase == pending
 }
 
-func (gs *GameState) AddPlayer(player *Actor) {
+func (gs *GameState) AddPlayer(player *Player) {
 	gs.Players[player.Id] = player
 
 	// TODO
@@ -58,12 +58,12 @@ func (gs *GameState) StartGame() []map[string]string {
 
 func (gs *GameState) Update() {
 	for _, p := range gs.Players {
-		p.Update()
+		p.update()
 	}
 
 	if gs.Wave != nil {
 		for _, e := range gs.Wave.Enemies {
-			e.Update()
+			e.update()
 		}
 	}
 }
@@ -100,8 +100,8 @@ func (gs *GameState) toEnemyMap() []map[string]string {
 	return m
 }
 
-func (gs *GameState) players() []*Actor {
-	var p []*Actor
+func (gs *GameState) players() []*Player {
+	var p []*Player
 
 	for _, player := range gs.Players {
 		p = append(p, player)
