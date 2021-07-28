@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://enums/actor_type.gd"
 }, {
+"base": "Reference",
+"class": "DebugLog",
+"language": "GDScript",
+"path": "res://scripts/dlog.gd"
+}, {
 "base": "Node",
 "class": "MessageType",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActorType": "",
+"DebugLog": "",
 "MessageType": ""
 }
 
