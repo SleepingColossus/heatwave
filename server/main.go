@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -44,9 +43,7 @@ const (
 	tickRate time.Duration = time.Second / 30
 )
 
-func echo(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("echo start")
-
+func handleWS(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 
 	if err != nil {
@@ -69,8 +66,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		log.Printf("event type: %d", message.MessageType)
-		log.Printf("event body: %s", message.MessageBody)
+		log.Printf("event type: %d\t event body: %s", message.MessageType, message.MessageBody)
 
 		var response ServerMessage
 		switch message.MessageType {
@@ -99,13 +95,17 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			response.MessageType = PlayerConnected
 			broadcastCh <- newChannelMessage(response, nil)
 
-			fmt.Printf("player has joined: %s\n", clientId)
+			// start the game if this is the first player joining
+			if len(gameState.Players) > 0 && gameState.IsPending() {
+				wave := gameState.StartGame()
+				broadcastWaveSpawn(wave)
+			}
 
 		case LeaveGame:
 			clientId, ok := message.MessageBody["clientId"]
 
 			if !ok {
-				fmt.Println("client id is blank")
+				log.Println("client id is blank")
 				return
 			}
 
@@ -119,8 +119,6 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			response = newServerMessage(PlayerDisconnected, msgBody)
 			broadcastCh <- newChannelMessage(response, nil)
 
-			fmt.Printf("player has left: %s\n", clientId)
-
 		case Move:
 			actorId := message.MessageBody["clientId"]
 			directionX, _ := strconv.Atoi(message.MessageBody["x"])
@@ -131,15 +129,13 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			actor, ok := gameState.Players[actorId]
 
 			if !ok {
-				fmt.Println("unknown actor", actorId)
+				log.Println("unknown actor", actorId)
 				return
 			}
 
 			actor.SetDirection(*direction)
 		}
 	}
-
-	fmt.Println("echo end")
 }
 
 // TODO move logic to gamestate.go
@@ -167,6 +163,12 @@ func startMoveActorsTask() {
 			}
 		}
 	}
+}
+
+func broadcastWaveSpawn(wave []map[string]string) {
+	msg := newServerMessage(EnemySpawned, wave)
+	chanMsg := newChannelMessage(msg, nil)
+	broadcastCh <- chanMsg
 }
 
 func startSendListener() {
@@ -201,13 +203,13 @@ func startBroadcastListener() {
 func main() {
 	flag.Parse()
 	log.SetFlags(0)
-	http.HandleFunc("/ws", echo)
+	http.HandleFunc("/ws", handleWS)
 
 	go startSendListener()
 	go startBroadcastListener()
 	go startMoveActorsTask()
 
-	fmt.Println("listening on:", *addr)
+	log.Println("listening on:", *addr)
 	log.Fatal(http.ListenAndServe(*addr, logRequest(http.DefaultServeMux)))
 }
 

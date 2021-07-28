@@ -50,7 +50,7 @@ func _process(_delta):
 
 		var move_message = create_message(MessageType.ClientMessageType.MOVE, move_body)
 
-		print_debug(move_message)
+		DebugLog.log(move_message)
 
 		var packet: PoolByteArray = JSON.print(move_message).to_utf8()
 		ws_client.get_peer(1).put_packet(packet)
@@ -102,11 +102,11 @@ func _on_data():
 # Gracefully disconnect on quit
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		print_debug("quitting game")
+		DebugLog.log("quitting game")
 		send_disconnect_message()
 
 func send_disconnect_message():
-	print_debug("disconnect message start")
+	DebugLog.log("disconnect message start")
 
 	if client_id == "":
 		push_error("client id is blank")
@@ -120,7 +120,7 @@ func send_disconnect_message():
 	var packet: PoolByteArray = JSON.print(dc_msg).to_utf8()
 	ws_client.get_peer(1).put_packet(packet)
 
-	print_debug("disconnect message end")
+	DebugLog.log("disconnect message end")
 
 func create_message(msg_type, msg_body: Dictionary) -> Dictionary:
 	return {
@@ -129,21 +129,21 @@ func create_message(msg_type, msg_body: Dictionary) -> Dictionary:
 	}
 
 func decode_message(packet: PoolByteArray) -> Dictionary:
-	print_debug("decode start")
+	DebugLog.log("decode start")
 	var msg_str = packet.get_string_from_utf8()
 	var parse_result: JSONParseResult = JSON.parse(msg_str)
 
 	if parse_result.error == OK:
-		print_debug("decode ok")
+		DebugLog.log("decode ok")
 		return parse_result.result
 	else:
-		print_debug("decode error")
+		DebugLog.log("decode error")
 		push_error(parse_result.error_string)
 		return Dictionary()
 
 func handle_message(msg: Dictionary):
-	print_debug("handle message start")
-	print_debug(msg)
+	DebugLog.log("handle message start")
+	DebugLog.log(msg)
 
 	if msg.empty():
 		# failed to decode - do nothing
@@ -200,8 +200,19 @@ func handle_message(msg: Dictionary):
 
 					actor_manager.move_actor(actor_id, position)
 
-	print_debug("handle message end")
+			MessageType.ServerMessageTypes.ENEMY_SPAWNED:
+				for body in msg_body:
+					var actor_id = body["clientId"]
+					var actor_type = body["actorType"] as int # TODO error handling around type cast
+					var x = body["positionX"] as int # TODO error handling around type cast
+					var y = body["positionY"] as int # TODO error handling around type cast
+
+					# spawn friendly player
+					var position = Vector2(x, y)
+					actor_manager.create_actor(actor_id, actor_type, position)
+
+	DebugLog.log("handle message end")
 
 func set_client_id(id: String):
-	print_debug("setting client id to %s" % id)
+	DebugLog.log("setting client id to %s" % id)
 	client_id = id

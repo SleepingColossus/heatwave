@@ -9,9 +9,10 @@ var actors : Dictionary = {}
 
 # preload all actor resources
 var player_resource = load("res://prefabs/player.tscn")
+var enemy_melee_basic = load("res://prefabs/enemy_melee_basic.tscn")
 
 func create_actor(actor_id: String, actor_type: int, position: Vector2):
-	print_debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
+	DebugLog.log("creating actor type: %d with id: %s" % [actor_type, actor_id])
 
 	var new_actor = create_resource_instance(actor_type)
 	new_actor.position = position
@@ -21,12 +22,12 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2):
 
 func delete_actor(actor_id: String):
 	if actors.erase(actor_id):
-		print_debug("deleted actor " % actor_id)
+		DebugLog.log("deleted actor " % actor_id)
 	else:
 		push_error("unknown actor id: %s" % actor_id)
 
 func move_actor(actor_id: String, new_position: Vector2):
-	print_debug("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
+	DebugLog.log("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
 
 	if actors.has(actor_id):
 		var actor = actors[actor_id]
@@ -38,6 +39,8 @@ func create_resource_instance(resource_type: int):
 	match resource_type:
 		ActorType.ActorType.PLAYER:
 			return player_resource.instance()
+		ActorType.ActorType.ENEMY_MELEE_BASIC:
+			return enemy_melee_basic.instance()
 		_:
 			push_error("unknown resource type: %d" % resource_type)
 

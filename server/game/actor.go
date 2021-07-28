@@ -48,6 +48,7 @@ func (actor *Actor) Update() {
 func (actor *Actor) toMap() map[string]string {
 	return map[string]string{
 		"clientId":  actor.Id,
+		"actorType": strconv.Itoa(actor.Type),
 		"positionX": strconv.Itoa(actor.Position.X),
 		"positionY": strconv.Itoa(actor.Position.Y),
 	}

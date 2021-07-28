@@ -12,8 +12,9 @@ func newWave(enemies []*Enemy) *Wave {
 	}
 }
 
-func (wave *Wave) Start() {
+func (wave *Wave) Start(players []*Actor) {
 	wave.State = started
+	wave.setTargets(players)
 }
 
 func (wave *Wave) End() {
@@ -21,7 +22,7 @@ func (wave *Wave) End() {
 }
 
 // TODO set target to closets player
-func (wave *Wave) SetTargets(players []*Actor) {
+func (wave *Wave) setTargets(players []*Actor) {
 	for _, enemy := range wave.Enemies {
 		enemy.setTarget(players)
 	}

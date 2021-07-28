@@ -16,6 +16,7 @@ const (
 	PlayerConnected     // friendly player has joined the game
 	PlayerDisconnected
 	ActorsMoved
+	EnemySpawned
 )
 
 // message type received from game via websocket

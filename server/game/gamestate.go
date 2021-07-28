@@ -1,5 +1,9 @@
 package game
 
+import (
+	"log"
+)
+
 type GameState struct {
 	Phase   int
 	Players map[string]*Actor
@@ -15,12 +19,19 @@ func NewGameState() *GameState {
 	}
 }
 
+func (gs *GameState) IsPending() bool {
+	return gs.Phase == pending
+}
+
 func (gs *GameState) AddPlayer(player *Actor) {
 	gs.Players[player.Id] = player
 
-	if len(gs.Players) > 0 && gs.Phase == pending {
-		gs.Phase = ready
-	}
+	// TODO
+	//if len(gs.Players) > 0 && gs.Phase == pending {
+	//	gs.StartGame()
+	//}
+
+	log.Printf("player has joined: %s\n", player.Id)
 }
 
 func (gs *GameState) DeletePlayer(id string) {
@@ -29,14 +40,20 @@ func (gs *GameState) DeletePlayer(id string) {
 	if len(gs.Players) == 0 {
 		gs.Phase = over
 	}
+
+	log.Printf("player has left: %s\n", id)
 }
 
-func (gs *GameState) StartGame() {
-	if gs.Phase == ready {
+func (gs *GameState) StartGame() []map[string]string {
+	if gs.Phase == pending {
 		gs.Phase = started
 		gs.Wave = waveData[0]
-		gs.Wave.Start()
+		gs.Wave.Start(gs.players())
 	}
+
+	log.Println("game started")
+
+	return gs.toEnemyMap()
 }
 
 func (gs *GameState) Update() {
@@ -51,6 +68,8 @@ func (gs *GameState) Update() {
 	}
 }
 
+// returns map of all actors
+// used after calls to update()
 func (gs *GameState) ToActorMap() []map[string]string {
 	var m []map[string]string
 
@@ -65,4 +84,28 @@ func (gs *GameState) ToActorMap() []map[string]string {
 	}
 
 	return m
+}
+
+// returns map of all enemies
+// used after new wave spawns
+func (gs *GameState) toEnemyMap() []map[string]string {
+	var m []map[string]string
+
+	if gs.Wave != nil {
+		for _, e := range gs.Wave.Enemies {
+			m = append(m, e.toMap())
+		}
+	}
+
+	return m
+}
+
+func (gs *GameState) players() []*Actor {
+	var p []*Actor
+
+	for _, player := range gs.Players {
+		p = append(p, player)
+	}
+
+	return p
 }

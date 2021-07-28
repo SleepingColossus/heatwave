@@ -13,5 +13,6 @@ enum ServerMessageTypes {
 	SELF_CONNECTED = 1          # you have joined the game
 	PLAYER_CONNECTED = 2        # friendly player has joined the game
 	PLAYER_DISCONNECTED = 3
-	ACTOR_MOVED
+	ACTOR_MOVED = 4
+	ENEMY_SPAWNED = 5
 }
