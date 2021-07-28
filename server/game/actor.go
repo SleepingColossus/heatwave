@@ -10,6 +10,10 @@ const (
 	EnemyMeleeBasic
 )
 
+type Updatable interface {
+	update()
+}
+
 type Actor struct {
 	Id        string
 	Type      int
@@ -35,12 +39,13 @@ func (actor *Actor) SetDirection(newDirection Vector2) {
 	actor.Direction.Y = newDirection.Y
 }
 
-func (actor *Actor) Move() {
+// called on every tick
+func (actor *Actor) Update() {
 	actor.Position.X += actor.Direction.X * actor.Velocity
 	actor.Position.Y += actor.Direction.Y * actor.Velocity
 }
 
-func (actor *Actor) ToMap() map[string]string {
+func (actor *Actor) toMap() map[string]string {
 	return map[string]string{
 		"clientId":  actor.Id,
 		"positionX": strconv.Itoa(actor.Position.X),

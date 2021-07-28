@@ -142,6 +142,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("echo end")
 }
 
+// TODO move logic to gamestate.go
 func startMoveActorsTask() {
 	lastTime := time.Now()
 	for {
@@ -152,21 +153,8 @@ func startMoveActorsTask() {
 			// is it time for the next frame?
 			if dt >= tickRate {
 
-				// container for new positions
-				var messageBody []map[string]string
-
-				// move all players
-				for _, actor := range gameState.Players {
-					actor.Move()
-					messageBody = append(messageBody, actor.ToMap())
-				}
-
-				// move all enemies
-				for _, enemy := range gameState.Wave.Enemies {
-					enemy.Move()
-					// TODO enable
-					//messageBody = append(messageBody, enemy.ToMap())
-				}
+				gameState.Update()
+				messageBody := gameState.ToActorMap()
 
 				// create payload
 				response := newServerMessage(ActorsMoved, messageBody)
