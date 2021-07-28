@@ -28,7 +28,7 @@ func _ready():
 
 	var err = ws_client.connect_to_url(server_url)
 	if err != OK:
-		push_error("Unable to connect")
+		DebugLog.error("Unable to connect")
 		set_process(false)
 
 func _process(_delta):
@@ -50,7 +50,7 @@ func _process(_delta):
 
 		var move_message = create_message(MessageType.ClientMessageType.MOVE, move_body)
 
-		DebugLog.log(move_message)
+		DebugLog.debug(move_message)
 
 		var packet: PoolByteArray = JSON.print(move_message).to_utf8()
 		ws_client.get_peer(1).put_packet(packet)
@@ -102,14 +102,14 @@ func _on_data():
 # Gracefully disconnect on quit
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		DebugLog.log("quitting game")
+		DebugLog.info("quitting game")
 		send_disconnect_message()
 
 func send_disconnect_message():
-	DebugLog.log("disconnect message start")
+	DebugLog.debug("disconnect message start")
 
 	if client_id == "":
-		push_error("client id is blank")
+		DebugLog.error("client id is blank")
 		return
 
 	var leave_body = {
@@ -120,7 +120,7 @@ func send_disconnect_message():
 	var packet: PoolByteArray = JSON.print(dc_msg).to_utf8()
 	ws_client.get_peer(1).put_packet(packet)
 
-	DebugLog.log("disconnect message end")
+	DebugLog.debug("disconnect message end")
 
 func create_message(msg_type, msg_body: Dictionary) -> Dictionary:
 	return {
@@ -129,21 +129,21 @@ func create_message(msg_type, msg_body: Dictionary) -> Dictionary:
 	}
 
 func decode_message(packet: PoolByteArray) -> Dictionary:
-	DebugLog.log("decode start")
+	DebugLog.debug("decode start")
 	var msg_str = packet.get_string_from_utf8()
 	var parse_result: JSONParseResult = JSON.parse(msg_str)
 
 	if parse_result.error == OK:
-		DebugLog.log("decode ok")
+		DebugLog.debug("decode ok")
 		return parse_result.result
 	else:
-		DebugLog.log("decode error")
-		push_error(parse_result.error_string)
+		DebugLog.debug("decode error")
+		DebugLog.error(parse_result.error_string)
 		return Dictionary()
 
 func handle_message(msg: Dictionary):
-	DebugLog.log("handle message start")
-	DebugLog.log(msg)
+	DebugLog.debug("handle message start")
+	DebugLog.debug(msg)
 
 	if msg.empty():
 		# failed to decode - do nothing
@@ -174,7 +174,7 @@ func handle_message(msg: Dictionary):
 					var actor_id = body["clientId"]
 
 					if actor_id == client_id:
-						print_debug("received PLAYER_CONNECTED for self. pass")
+						DebugLog.debug("received PLAYER_CONNECTED for self. pass")
 						return
 
 					var actor_type = body["actorType"] as int # TODO error handling around type cast
@@ -211,8 +211,8 @@ func handle_message(msg: Dictionary):
 					var position = Vector2(x, y)
 					actor_manager.create_actor(actor_id, actor_type, position)
 
-	DebugLog.log("handle message end")
+	DebugLog.debug("handle message end")
 
 func set_client_id(id: String):
-	DebugLog.log("setting client id to %s" % id)
+	DebugLog.info("setting client id to %s" % id)
 	client_id = id
