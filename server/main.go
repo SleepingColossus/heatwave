@@ -56,7 +56,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	defer conn.Close()
 
 	for {
-		mt, strMessage, err := conn.ReadMessage()
+		_, strMessage, err := conn.ReadMessage()
 
 		if err != nil {
 			log.Println("read:", err)
@@ -93,11 +93,11 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 			// send join response to currently connecting player
 			response = newServerMessage(SelfConnected, msgBody)
-			sendCh <- newChannelMessage(mt, response, conn)
+			sendCh <- newChannelMessage(response, conn)
 
 			// change message type before broadcasting to all other players
 			response.MessageType = PlayerConnected
-			broadcastCh <- newChannelMessage(mt, response, nil)
+			broadcastCh <- newChannelMessage(response, nil)
 
 			fmt.Printf("player has joined: %s\n", clientId)
 
@@ -117,7 +117,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			}}
 
 			response = newServerMessage(PlayerDisconnected, msgBody)
-			broadcastCh <- newChannelMessage(mt, response, nil)
+			broadcastCh <- newChannelMessage(response, nil)
 
 			fmt.Printf("player has left: %s\n", clientId)
 
@@ -172,7 +172,7 @@ func startMoveActorsTask() {
 				response := newServerMessage(ActorsMoved, messageBody)
 
 				// broadcast event
-				broadcastCh <- newChannelMessage(binMt, response, nil)
+				broadcastCh <- newChannelMessage(response, nil)
 
 				// set timer for next iteration
 				lastTime = t
@@ -183,16 +183,16 @@ func startMoveActorsTask() {
 
 func startSendListener() {
 	for {
-		chanMsg := <-sendCh
+		msg := <-sendCh
 
-		strMessage, err := json.Marshal(chanMsg.Message)
+		strMessage, err := json.Marshal(msg.Message)
 
 		if err != nil {
 			log.Println("marshall error:", err)
 			return
 		}
 
-		err = chanMsg.Connection.WriteMessage(chanMsg.MessageType, strMessage)
+		err = msg.Connection.WriteMessage(binMt, strMessage)
 
 		if err != nil {
 			log.Println("write:", err)
@@ -202,14 +202,11 @@ func startSendListener() {
 
 func startBroadcastListener() {
 	for {
-		chanMsg := <-broadcastCh
-
-		//fmt.Println("broadcast start")
+		msg := <-broadcastCh
 		for _, conn := range clients {
-			chanMsg.Connection = conn
-			sendCh <- chanMsg
+			msg.Connection = conn
+			sendCh <- msg
 		}
-		//fmt.Println("broadcast end")
 	}
 }
 

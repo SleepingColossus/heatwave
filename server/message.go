@@ -39,14 +39,12 @@ func newServerMessage(msgType int, msgBody []map[string]string) ServerMessage {
 
 // message type sent to send and broadcast channels
 type ServerChannelMessage struct {
-	MessageType int
 	Message     ServerMessage
 	Connection  *websocket.Conn
 }
 
-func newChannelMessage(msgType int, msg ServerMessage, conn *websocket.Conn) *ServerChannelMessage {
+func newChannelMessage(msg ServerMessage, conn *websocket.Conn) *ServerChannelMessage {
 	return &ServerChannelMessage{
-		MessageType: msgType,
 		Message:     msg,
 		Connection:  conn,
 	}
