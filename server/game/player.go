@@ -12,7 +12,7 @@ func NewPlayer(id string) *Player {
 			Position:  center(),
 			Direction: ZeroVector(),
 			Hitbox:    smallHitbox(),
-			Velocity:  1,
+			Velocity:  2,
 		},
 	}
 }
