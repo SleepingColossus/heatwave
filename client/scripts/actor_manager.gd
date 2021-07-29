@@ -26,12 +26,15 @@ func delete_actor(actor_id: String):
 	else:
 		DebugLog.error("unknown actor id: %s" % actor_id)
 
-func move_actor(actor_id: String, new_position: Vector2):
+func move_actor(actor_id: String, new_position: Vector2, new_direction: Vector2):
 	DebugLog.debug("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
 
 	if actors.has(actor_id):
 		var actor = actors[actor_id]
 		actor.position = new_position
+
+		if actor.has_method("set_direction"):
+			actor.set_direction(new_direction)
 	else:
 		DebugLog.error("unknown actor: %s" % actor_id)
 

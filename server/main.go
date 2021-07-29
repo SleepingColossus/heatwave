@@ -80,12 +80,7 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 			gameState.AddPlayer(player)
 
 			// create reply with coords of player
-			msgBody := []map[string]string{{
-				"clientId":  clientId,
-				"actorType": strconv.Itoa(player.Type),
-				"x":         strconv.Itoa(player.Position.X),
-				"y":         strconv.Itoa(player.Position.Y),
-			}}
+			msgBody := []map[string]string{ player.ToMap() }
 
 			// send join response to currently connecting player
 			response = newServerMessage(SelfConnected, msgBody)

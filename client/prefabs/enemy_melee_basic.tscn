@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyLeft3.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyRight1.png" type="Texture" id=2]
@@ -15,24 +15,10 @@
 [ext_resource path="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyBottom2.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyDying1.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyBottom1.png" type="Texture" id=15]
+[ext_resource path="res://scripts/actor.gd" type="Script" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "MoveLeft",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "MoveTop",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 11 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Dying",
@@ -42,6 +28,21 @@ animations = [ {
 "loop": true,
 "name": "MoveBottom",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -49,6 +50,7 @@ radius = 11.3859
 height = 2.56844
 
 [node name="BasicMeleeEnemy" type="KinematicBody2D"]
+script = ExtResource( 16 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

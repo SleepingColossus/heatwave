@@ -34,11 +34,13 @@ func (actor *Actor) move() {
 	actor.Position.Y += actor.Direction.Y * actor.Velocity
 }
 
-func (actor *Actor) toMap() map[string]string {
+func (actor *Actor) ToMap() map[string]string {
 	return map[string]string{
 		"clientId":  actor.Id,
 		"actorType": strconv.Itoa(actor.Type),
 		"positionX": strconv.Itoa(actor.Position.X),
 		"positionY": strconv.Itoa(actor.Position.Y),
+		"directionX": strconv.Itoa(actor.Direction.X),
+		"directionY": strconv.Itoa(actor.Direction.Y),
 	}
 }

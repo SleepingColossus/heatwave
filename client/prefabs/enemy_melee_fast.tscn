@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/BeachBall/BeachBallHorizontal2.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/BeachBall/BeachBallDying1.png" type="Texture" id=2]
@@ -6,29 +6,31 @@
 [ext_resource path="res://Sprites/BeachBall/BeachBallDying2.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/BeachBall/BeachBallHorizontal1.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/BeachBall/BeachBallVertical1.png" type="Texture" id=6]
+[ext_resource path="res://scripts/actor.gd" type="Script" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "MoveVertical",
-"speed": 7.0
+"name": "Dying",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "MoveHorizontal",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "Dying",
-"speed": 5.0
+"name": "MoveVertical",
+"speed": 7.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 15.9419
 
 [node name="FastMeleeEnemy" type="KinematicBody2D"]
+script = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

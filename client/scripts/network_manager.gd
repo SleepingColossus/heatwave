@@ -159,8 +159,8 @@ func handle_message(msg: Dictionary):
 				# create a new player actor
 				var actor_id = body["clientId"]
 				var actor_type = body["actorType"] as int # TODO error handling around type cast
-				var x = body["x"] as int # TODO error handling around type cast
-				var y = body["y"] as int # TODO error handling around type cast
+				var x = body["positionX"] as int # TODO error handling around type cast
+				var y = body["positionY"] as int # TODO error handling around type cast
 
 				# spawn self
 				var position = Vector2(x, y)
@@ -195,10 +195,12 @@ func handle_message(msg: Dictionary):
 					var actor_id = body["clientId"]
 					var position_x = body["positionX"] as int
 					var position_y = body["positionY"] as int
+					var direction_x = body["directionX"] as int
+					var direction_y = body["directionY"] as int
 
 					var position = Vector2(position_x, position_y)
-
-					actor_manager.move_actor(actor_id, position)
+					var direction = Vector2(direction_x, direction_y)
+					actor_manager.move_actor(actor_id, position, direction)
 
 			MessageType.ServerMessageTypes.ENEMY_SPAWNED:
 				for body in msg_body:

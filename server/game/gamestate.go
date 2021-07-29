@@ -74,12 +74,12 @@ func (gs *GameState) ToActorMap() []map[string]string {
 	var m []map[string]string
 
 	for _, p := range gs.Players {
-		m = append(m, p.toMap())
+		m = append(m, p.ToMap())
 	}
 
 	if gs.Wave != nil {
 		for _, e := range gs.Wave.Enemies {
-			m = append(m, e.toMap())
+			m = append(m, e.ToMap())
 		}
 	}
 
@@ -93,7 +93,7 @@ func (gs *GameState) toEnemyMap() []map[string]string {
 
 	if gs.Wave != nil {
 		for _, e := range gs.Wave.Enemies {
-			m = append(m, e.toMap())
+			m = append(m, e.ToMap())
 		}
 	}
 
