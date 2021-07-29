@@ -18,14 +18,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "MoveLeft",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "MoveRight",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ) ],
@@ -33,25 +33,20 @@ animations = [ {
 "name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "MoveBottom",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleTop",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "MoveTop",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "IdleTop",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -62,6 +57,11 @@ animations = [ {
 "loop": true,
 "name": "IdleBottom",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
