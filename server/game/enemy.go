@@ -33,15 +33,19 @@ func (e *Enemy) setChaseDirection() {
 		// is target on right side?
 		if e.Position.X < e.Target.Position.X {
 			moveh = moveRight
-		} else {
+		} else if e.Position.X > e.Target.Position.X {
 			moveh = moveLeft
+		} else {
+			moveh = 0
 		}
 
 		// is target below?
 		if e.Position.Y < e.Target.Position.Y {
 			movev = moveDown
-		} else {
+		} else if e.Position.Y > e.Target.Position.Y {
 			movev = moveUp
+		} else {
+			movev = 0
 		}
 
 		e.SetDirection(moveh, movev)
