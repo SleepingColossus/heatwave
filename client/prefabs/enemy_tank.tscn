@@ -20,9 +20,9 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 12 ), ExtResource( 3 ), ExtResource( 12 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "Dying",
+"name": "MoveTop",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 13 ), ExtResource( 2 ), ExtResource( 14 ) ],
@@ -30,9 +30,29 @@ animations = [ {
 "name": "MoveBottom",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 3 ), ExtResource( 12 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 16 ) ],
 "loop": true,
-"name": "MoveTop",
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleRight",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 15 ) ],
@@ -55,8 +75,7 @@ script = ExtResource( 17 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "MoveBottom"
-frame = 3
+animation = "IdleLeft"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
