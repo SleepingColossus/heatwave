@@ -6,6 +6,7 @@ enum ClientMessageType {
 	JOIN_GAME = 0
 	LEAVE_GAME = 1
 	MOVE = 2
+	SHOOT = 3
 }
 
 enum ServerMessageTypes {
@@ -15,4 +16,5 @@ enum ServerMessageTypes {
 	PLAYER_DISCONNECTED = 3
 	ACTOR_MOVED = 4
 	ENEMY_SPAWNED = 5
+	PROJECTILE_SPAWNED = 6
 }

@@ -12,10 +12,12 @@ func newEnemy(t int) *Enemy {
 		Actor: Actor{
 			Id:        uuid.New().String(),
 			Type:      t,
-			Position:  randomPosition(),
-			Direction: ZeroVector(),
-			Hitbox:    smallHitbox(),
-			Velocity:  1,
+			Body2D: Body2D{
+				Position:  randomPosition(),
+				Direction: ZeroVector(),
+				Hitbox:    smallHitbox(),
+				Velocity:  1,
+			},
 		},
 		Target: nil,
 	}

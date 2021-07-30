@@ -8,6 +8,14 @@ import (
 const (
 	player int = iota
 	enemyMeleeBasic
+	enemyMeleeFast
+	enemyRangedBasic
+	enemyRangedAdvanced
+	enemyTank
+	projectilePlayerBullet
+	projectilePlayerHarpoon
+	projectileEnemyBullet
+	projectileEnemyHarpoon
 )
 
 type Updatable interface {
@@ -17,21 +25,7 @@ type Updatable interface {
 type Actor struct {
 	Id        string
 	Type      int
-	Position  *Vector2
-	Direction *Vector2
-	Hitbox    *Hitbox
-	Velocity  int
-}
-
-func (actor *Actor) SetDirection(newX, newY int) {
-	actor.Direction.X = newX
-	actor.Direction.Y = newY
-}
-
-func (actor *Actor) move() {
-	// move in current direction
-	actor.Position.X += actor.Direction.X * actor.Velocity
-	actor.Position.Y += actor.Direction.Y * actor.Velocity
+	Body2D
 }
 
 func (actor *Actor) ToMap() map[string]string {

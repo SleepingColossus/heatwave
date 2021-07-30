@@ -7,6 +7,7 @@ const (
 	JoinGame int = iota
 	LeaveGame
 	Move
+	Shoot
 )
 
 // server message types
@@ -17,6 +18,7 @@ const (
 	PlayerDisconnected
 	ActorsMoved
 	EnemySpawned
+	ProjectileSpawned
 )
 
 // message type received from game via websocket

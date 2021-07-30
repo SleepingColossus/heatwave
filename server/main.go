@@ -127,6 +127,18 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 			}
 
 			actor.SetDirection(directionX, directionY)
+
+		case Shoot:
+			actorId := message.MessageBody["clientId"]
+			projectile, err := gameState.PlayerShoot(actorId)
+
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			msgBody := []map[string]string { projectile.ToMap() }
+			response = newServerMessage(ProjectileSpawned, msgBody)
 		}
 	}
 }

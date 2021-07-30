@@ -1,6 +1,7 @@
 package game
 
 import (
+	"fmt"
 	"log"
 )
 
@@ -8,7 +9,7 @@ type GameState struct {
 	Phase   int
 	Players map[string]*Player
 	Wave    *Wave
-	Channel chan interface{}
+	Projectiles map[string]*Projectile
 }
 
 func NewGameState() *GameState {
@@ -16,6 +17,7 @@ func NewGameState() *GameState {
 		Phase:   pending,
 		Players: make(map[string]*Player),
 		Wave:    nil,
+		Projectiles: make(map[string]*Projectile),
 	}
 }
 
@@ -66,6 +68,23 @@ func (gs *GameState) Update() {
 			e.update()
 		}
 	}
+
+	for _, pr := range gs.Projectiles {
+		pr.update()
+	}
+}
+
+func (gs *GameState) PlayerShoot(playerId string) (*Projectile, error) {
+	player, ok := gs.Players[playerId]
+
+	if !ok {
+		return nil, fmt.Errorf("player %s not found", playerId)
+	}
+
+	projectile := newFriendlyProjectile(player.Body2D)
+	gs.Projectiles[projectile.Id] = projectile
+
+	return projectile, nil
 }
 
 // returns map of all actors

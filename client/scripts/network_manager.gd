@@ -34,9 +34,9 @@ func _ready():
 func _process(_delta):
 	ws_client.poll()
 
-	var new_direction = poll_inputs()
+	var new_direction = poll_movement_inputs()
 
-	# is the direction the same as last time
+	# is the direction the same as last frame
 	if direction.x == new_direction.x && direction.y == new_direction.y:
 		# yes - do nothing
 		pass
@@ -58,7 +58,19 @@ func _process(_delta):
 		# update last know direction
 		direction = new_direction
 
-func poll_inputs() -> Vector2:
+	var should_shoot = poll_action_inputs()
+
+	if should_shoot:
+		var shoot_body = {
+			"clientId": client_id,
+		}
+
+		var shoot_message = create_message(MessageType.ClientMessageType.SHOOT, shoot_body)
+
+		var packet: PoolByteArray = JSON.print(shoot_message).to_utf8()
+		ws_client.get_peer(1).put_packet(packet)
+
+func poll_movement_inputs() -> Vector2:
 
 	var new_direction = Vector2(0, 0)
 
@@ -79,6 +91,9 @@ func poll_inputs() -> Vector2:
 		new_direction.y = 0
 
 	return new_direction
+
+func poll_action_inputs() -> bool:
+	return Input.is_action_just_pressed("shoot")
 
 func _on_connected(_protocol: String):
 	var msg_body = Dictionary()
@@ -212,6 +227,18 @@ func handle_message(msg: Dictionary):
 					# spawn friendly player
 					var position = Vector2(x, y)
 					actor_manager.create_actor(actor_id, actor_type, position)
+
+			MessageType.ServerMessageTypes.PROJECTILE_SPAWNED:
+				for body in msg_body:
+					var actor_id = body["clientId"]
+					var actor_type = body["actorType"] as int
+					var x = body["positionX"] as int
+					var y = body["positionY"] as int
+
+					# spawn friendly player
+					var position = Vector2(x, y)
+					actor_manager.create_actor(actor_id, actor_type, position)
+
 
 	DebugLog.debug("handle message end")
 

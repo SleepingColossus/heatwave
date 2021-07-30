@@ -9,10 +9,12 @@ func NewPlayer(id string) *Player {
 		Actor: Actor{
 			Id:        id,
 			Type:      player,
-			Position:  center(),
-			Direction: ZeroVector(),
-			Hitbox:    smallHitbox(),
-			Velocity:  2,
+			Body2D: Body2D{
+				Position:  center(),
+				Direction: ZeroVector(),
+				Hitbox:    smallHitbox(),
+				Velocity:  2,
+			},
 		},
 	}
 }
