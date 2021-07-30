@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/Weapons/Projectiles/PlayerHarpoonWE.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Weapons/Projectiles/PlayerHarpoonNWSE.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Weapons/Projectiles/PlayerHarpoonSWNE.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapons/Projectiles/PlayerHarpoonNS.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "NS",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "WE",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "NESW",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "NWSE",
+"speed": 5.0
+} ]
+
+[node name="PlayerHarpoon" type="KinematicBody2D"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "NS"
