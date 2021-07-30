@@ -37,15 +37,15 @@ type Vector2 struct {
 	Y int
 }
 
-func NewVector2(x, y int) *Vector2 {
-	return &Vector2{x, y}
+func NewVector2(x, y int) Vector2 {
+	return Vector2{x, y}
 }
 
-func ZeroVector() *Vector2 {
+func ZeroVector() Vector2 {
 	return NewVector2(0, 0)
 }
 
-func center() *Vector2 {
+func center() Vector2 {
 	return NewVector2(boundary.X / 2, boundary.Y / 2)
 }
 
@@ -54,7 +54,7 @@ func (from *Vector2) distanceTo(to *Vector2) float64 {
 	return 0.0
 }
 
-func randomPosition() *Vector2 {
+func randomPosition() Vector2 {
 	edge := rand.Intn(4)
 
 	if edge == top {

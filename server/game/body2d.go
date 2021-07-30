@@ -1,9 +1,9 @@
 package game
 
 type Body2D struct {
-	Position  *Vector2
-	Direction *Vector2
-	Hitbox    *Hitbox
+	Position  Vector2
+	Direction Vector2
+	Hitbox    Hitbox
 	Velocity  int
 }
 

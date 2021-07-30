@@ -102,6 +102,10 @@ func (gs *GameState) ToActorMap() []map[string]string {
 		}
 	}
 
+	for _, pr := range gs.Projectiles {
+		m = append(m, pr.ToMap())
+	}
+
 	return m
 }
 

@@ -139,6 +139,7 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 
 			msgBody := []map[string]string { projectile.ToMap() }
 			response = newServerMessage(ProjectileSpawned, msgBody)
+			broadcastCh <- newChannelMessage(response, nil)
 		}
 	}
 }

@@ -11,6 +11,8 @@ var actors : Dictionary = {}
 var player_resource = load("res://prefabs/player.tscn")
 var enemy_melee_basic = load("res://prefabs/enemy_melee_basic.tscn")
 
+var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
+
 func create_actor(actor_id: String, actor_type: int, position: Vector2):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
 
@@ -44,6 +46,8 @@ func create_resource_instance(resource_type: int):
 			return player_resource.instance()
 		ActorType.ActorType.ENEMY_MELEE_BASIC:
 			return enemy_melee_basic.instance()
+		ActorType.ActorType.PROJECTILE_PLAYER_BULLET:
+			return projectile_player_bullet.instance()
 		_:
 			DebugLog.error("unknown resource type: %d" % resource_type)
 

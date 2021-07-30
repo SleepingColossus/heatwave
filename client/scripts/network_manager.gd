@@ -235,7 +235,7 @@ func handle_message(msg: Dictionary):
 					var x = body["positionX"] as int
 					var y = body["positionY"] as int
 
-					# spawn friendly player
+					# spawn projectile
 					var position = Vector2(x, y)
 					actor_manager.create_actor(actor_id, actor_type, position)
 
