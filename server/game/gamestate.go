@@ -107,7 +107,7 @@ func (gs *GameState) startGame() {
 	if gs.Phase == pending {
 		gs.Phase = started
 		gs.Wave = waveData[0]
-		gs.Wave.Start(gs.players())
+		gs.Wave.start(gs.players())
 	}
 }
 

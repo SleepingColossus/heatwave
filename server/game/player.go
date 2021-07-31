@@ -7,14 +7,14 @@ type Player struct {
 func newPlayer(id string) *Player {
 	return &Player{
 		Actor: Actor{
-			Id:        id,
-			Type:      player,
-			State:     actorCreated,
+			Id:    id,
+			Type:  player,
+			State: actorCreated,
 			Body2D: Body2D{
 				Position:  center(),
-				Direction: ZeroVector(),
-				Hitbox:    smallHitbox(),
-				Velocity:  2,
+				Direction: zeroVector(),
+				hitbox:    smallHitbox(),
+				velocity:  2,
 			},
 		},
 	}

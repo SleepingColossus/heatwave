@@ -33,20 +33,20 @@ var (
 )
 
 type Vector2 struct {
-	X int
-	Y int
+	X int `json:"x"`
+	Y int `json:"y"`
 }
 
-func NewVector2(x, y int) Vector2 {
+func newVector2(x, y int) Vector2 {
 	return Vector2{x, y}
 }
 
-func ZeroVector() Vector2 {
-	return NewVector2(0, 0)
+func zeroVector() Vector2 {
+	return newVector2(0, 0)
 }
 
 func center() Vector2 {
-	return NewVector2(boundary.X / 2, boundary.Y / 2)
+	return newVector2(boundary.X/ 2, boundary.Y/ 2)
 }
 
 // TODO implement
@@ -58,12 +58,12 @@ func randomPosition() Vector2 {
 	edge := rand.Intn(4)
 
 	if edge == top {
-		return NewVector2(rand.Intn(boundary.X), -offset)
+		return newVector2(rand.Intn(boundary.X), -offset)
 	} else if edge == bottom {
-		return NewVector2(rand.Intn(boundary.X), boundary.Y + offset)
+		return newVector2(rand.Intn(boundary.X), boundary.Y+ offset)
 	} else if edge == left {
-		return NewVector2(-offset, rand.Intn(boundary.Y))
+		return newVector2(-offset, rand.Intn(boundary.Y))
 	} else {
-		return NewVector2(boundary.X + offset, rand.Intn(boundary.Y))
+		return newVector2(boundary.X+ offset, rand.Intn(boundary.Y))
 	}
 }

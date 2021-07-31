@@ -1,10 +1,10 @@
 package game
 
 type Body2D struct {
-	Position  Vector2
-	Direction Vector2
-	Hitbox    Hitbox
-	Velocity  int
+	Position  Vector2 `json:"position"`
+	Direction Vector2 `json:"direction"`
+	hitbox    Hitbox
+	velocity int
 }
 
 func (actor *Body2D) setDirection(newX, newY int) {
@@ -14,6 +14,6 @@ func (actor *Body2D) setDirection(newX, newY int) {
 
 func (actor *Body2D) move() {
 	// move in current direction
-	actor.Position.X += actor.Direction.X * actor.Velocity
-	actor.Position.Y += actor.Direction.Y * actor.Velocity
+	actor.Position.X += actor.Direction.X * actor.velocity
+	actor.Position.Y += actor.Direction.Y * actor.velocity
 }

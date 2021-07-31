@@ -27,8 +27,8 @@ type Updatable interface {
 }
 
 type Actor struct {
-	Id        string
-	State     int
-	Type      int
+	Id    string `json:"id"`
+	State int `json:"state"`
+	Type  int `json:"type"`
 	Body2D
 }

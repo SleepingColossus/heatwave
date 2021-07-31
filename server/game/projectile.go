@@ -11,14 +11,14 @@ type Projectile struct {
 func newFriendlyProjectile(parent Body2D) *Projectile {
 	return &Projectile{
 		Actor: Actor{
-			Id:   uuid.New().String(),
-			Type: projectilePlayerBullet,
+			Id:    uuid.New().String(),
+			Type:  projectilePlayerBullet,
 			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
 				Direction: parent.Direction,
-				Hitbox:    ZeroVector(),
-				Velocity:  10, // TODO get from resource file
+				hitbox:    zeroVector(),
+				velocity:  10, // TODO get from resource file
 			},
 		},
 	}
@@ -27,14 +27,14 @@ func newFriendlyProjectile(parent Body2D) *Projectile {
 func newHostileProjectile(parent Body2D) *Projectile {
 	return &Projectile{
 		Actor: Actor{
-			Id:   uuid.New().String(),
-			Type: projectileEnemyBullet,
+			Id:    uuid.New().String(),
+			Type:  projectileEnemyBullet,
 			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
 				Direction: parent.Direction,
-				Hitbox:    ZeroVector(),
-				Velocity:  5, // TODO get from resource file
+				hitbox:    zeroVector(),
+				velocity:  5, // TODO get from resource file
 			},
 		},
 	}

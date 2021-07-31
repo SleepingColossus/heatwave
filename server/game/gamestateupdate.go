@@ -1,9 +1,10 @@
 package game
 
+// contans snapshots of game state that is sent to clients
 type GameStateUpdate struct {
-	ClientId      string
-	Notifications []string
-	ActorUpdates  []Actor
+	ClientId      string    `json:"clientId"`
+	Notifications []string  `json:"notifications"`
+	ActorUpdates  []Actor   `json:"actorUpdates"`
 }
 
 func newGameStateUpdate(gs *GameState) GameStateUpdate {

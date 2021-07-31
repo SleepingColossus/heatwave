@@ -169,57 +169,57 @@ func handle_message(msg: Dictionary):
 
 		match msg_type:
 			MessageType.ServerMessageTypes.INIT_NEW_PLAYER:
-				set_client_id(msg_body["ClientId"])
+				set_client_id(msg_body["clientId"])
 
-				var actor_updates = msg_body["ActorUpdates"]
+				var actor_updates = msg_body["actorUpdates"]
 
 				for a in actor_updates:
 					# Since this is our first time joining
 					# Create all actors except ones marked for deletion
-					if a["State"] != ActorState.ActorState.DELETED:
-						var id = a["Id"]
-						var type = a["Type"]
-						var position_x = a["Position"]["X"]
-						var position_y = a["Position"]["Y"]
+					if a["state"] != ActorState.ActorState.DELETED:
+						var id = a["id"]
+						var type = a["type"]
+						var position_x = a["position"]["x"]
+						var position_y = a["position"]["y"]
 
 						var pos = Vector2(position_x, position_y)
 						actor_manager.create_actor(id, type, pos)
 
 			MessageType.ServerMessageTypes.GAME_STATE_UPDATED:
-				var actor_updates = msg_body["ActorUpdates"]
+				var actor_updates = msg_body["actorUpdates"]
 
 				for a in actor_updates:
 					# must conver to int
 					# otherwise will be considered a float
 					# and will fail to match!
-					var state = a["State"] as int
+					var state = a["state"] as int
 
 					match state:
 						ActorState.ActorState.CREATED:
-							var id = a["Id"]
+							var id = a["id"]
 
 							# prevent spawning self multiple times by accident
 							if id == client_id:
 								pass
 							else:
-								var type = a["Type"]
-								var position_x = a["Position"]["X"]
-								var position_y = a["Position"]["Y"]
+								var type = a["type"]
+								var position_x = a["position"]["x"]
+								var position_y = a["position"]["y"]
 
 								var pos = Vector2(position_x, position_y)
 								actor_manager.create_actor(id, type, pos)
 
 						ActorState.ActorState.DELETED:
-							var id = a["Id"]
+							var id = a["id"]
 							actor_manager.delete_actor(id)
 
 						ActorState.ActorState.UPDATED:
-							var id = a["Id"]
-							var type = a["Type"]
-							var position_x = a["Position"]["X"]
-							var position_y = a["Position"]["Y"]
-							var direction_x = a["Direction"]["X"]
-							var direction_y = a["Direction"]["Y"]
+							var id = a["id"]
+							var type = a["type"]
+							var position_x = a["position"]["x"]
+							var position_y = a["position"]["y"]
+							var direction_x = a["direction"]["x"]
+							var direction_y = a["direction"]["y"]
 
 							var pos = Vector2(position_x, position_y)
 							var dir = Vector2(direction_x, direction_y)

@@ -12,12 +12,12 @@ func newWave(enemies map[string]*Enemy) *Wave {
 	}
 }
 
-func (wave *Wave) Start(players []*Player) {
+func (wave *Wave) start(players []*Player) {
 	wave.State = started
 	wave.setTargets(players)
 }
 
-func (wave *Wave) End() {
+func (wave *Wave) end() {
 	wave.State = over
 }
 
