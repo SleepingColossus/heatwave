@@ -42,4 +42,14 @@ func newHostileProjectile(parent Body2D) *Projectile {
 
 func (p *Projectile) update() {
 	p.move()
+	p.deleteIfOffScreen()
+}
+
+func (p *Projectile) deleteIfOffScreen() {
+	if p.Position.X < 0 - offset ||
+	p.Position.X > screenWidth + offset ||
+	p.Position.Y < 0 - offset ||
+	p.Position.Y > screenHeight + offset {
+		p.State = actorDeleted
+	}
 }

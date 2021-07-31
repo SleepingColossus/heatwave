@@ -81,6 +81,8 @@ func (gs *GameState) processActorStates() {
 
 	for _, projectileId := range deletedProjectiles {
 		delete(gs.Projectiles, projectileId)
+
+		log.Printf("projectile deleted: %s\n", projectileId)
 	}
 
 	// enemies

@@ -24,7 +24,7 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2):
 
 func delete_actor(actor_id: String):
 	if actors.erase(actor_id):
-		DebugLog.debug("deleted actor " % actor_id)
+		DebugLog.debug("deleted actor %s" % actor_id)
 	else:
 		DebugLog.error("unknown actor id: %s" % actor_id)
 
