@@ -7,7 +7,7 @@ type Body2D struct {
 	Velocity  int
 }
 
-func (actor *Body2D) SetDirection(newX, newY int) {
+func (actor *Body2D) setDirection(newX, newY int) {
 	actor.Direction.X = newX
 	actor.Direction.Y = newY
 }

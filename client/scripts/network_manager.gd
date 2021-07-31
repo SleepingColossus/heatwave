@@ -165,80 +165,68 @@ func handle_message(msg: Dictionary):
 		return
 	else:
 		var msg_type : int = msg["messageType"]
-		var msg_body : Array = msg["messageBody"]
+		var msg_body : Dictionary = msg["messageBody"]
 
 		match msg_type:
-			MessageType.ServerMessageTypes.SELF_CONNECTED:
-				var body = msg_body[0]
+			MessageType.ServerMessageTypes.INIT_NEW_PLAYER:
+				set_client_id(msg_body["ClientId"])
 
-				# create a new player actor
-				var actor_id = body["clientId"]
-				var actor_type = body["actorType"] as int # TODO error handling around type cast
-				var x = body["positionX"] as int # TODO error handling around type cast
-				var y = body["positionY"] as int # TODO error handling around type cast
+				var actor_updates = msg_body["ActorUpdates"]
 
-				# spawn self
-				var position = Vector2(x, y)
-				actor_manager.create_actor(actor_id, actor_type, position)
+				for a in actor_updates:
+					# Since this is our first time joining
+					# Create all actors except ones marked for deletion
+					if a["State"] != ActorState.ActorState.DELETED:
+						var id = a["Id"]
+						var type = a["Type"]
+						var position_x = a["Position"]["X"]
+						var position_y = a["Position"]["Y"]
 
-				# set client id for use in future messages
-				set_client_id(actor_id)
+						var pos = Vector2(position_x, position_y)
+						actor_manager.create_actor(id, type, pos)
 
-			MessageType.ServerMessageTypes.PLAYER_CONNECTED:
-				for body in msg_body:
-					var actor_id = body["clientId"]
+			MessageType.ServerMessageTypes.GAME_STATE_UPDATED:
+				var actor_updates = msg_body["ActorUpdates"]
 
-					if actor_id == client_id:
-						DebugLog.debug("received PLAYER_CONNECTED for self. pass")
-						return
+				for a in actor_updates:
+					# must conver to int
+					# otherwise will be considered a float
+					# and will fail to match!
+					var state = a["State"] as int
 
-					var actor_type = body["actorType"] as int # TODO error handling around type cast
-					var x = body["x"] as int # TODO error handling around type cast
-					var y = body["y"] as int # TODO error handling around type cast
+					match state:
+						ActorState.ActorState.CREATED:
+							var id = a["Id"]
 
-					# spawn friendly player
-					var position = Vector2(x, y)
-					actor_manager.create_actor(actor_id, actor_type, position)
+							# prevent spawning self multiple times by accident
+							if id == client_id:
+								pass
+							else:
+								var type = a["Type"]
+								var position_x = a["Position"]["X"]
+								var position_y = a["Position"]["Y"]
 
-			MessageType.ServerMessageTypes.PLAYER_DISCONNECTED:
-				for body in msg_body:
-					var actor_id = body["clientId"]
-					actor_manager.delete_actor(actor_id)
+								var pos = Vector2(position_x, position_y)
+								actor_manager.create_actor(id, type, pos)
 
-			MessageType.ServerMessageTypes.ACTOR_MOVED:
-				for body in msg_body:
-					var actor_id = body["clientId"]
-					var position_x = body["positionX"] as int
-					var position_y = body["positionY"] as int
-					var direction_x = body["directionX"] as int
-					var direction_y = body["directionY"] as int
+						ActorState.ActorState.DELETED:
+							var id = a["Id"]
+							actor_manager.delete_actor(id)
 
-					var position = Vector2(position_x, position_y)
-					var direction = Vector2(direction_x, direction_y)
-					actor_manager.move_actor(actor_id, position, direction)
+						ActorState.ActorState.UPDATED:
+							var id = a["Id"]
+							var type = a["Type"]
+							var position_x = a["Position"]["X"]
+							var position_y = a["Position"]["Y"]
+							var direction_x = a["Direction"]["X"]
+							var direction_y = a["Direction"]["Y"]
 
-			MessageType.ServerMessageTypes.ENEMY_SPAWNED:
-				for body in msg_body:
-					var actor_id = body["clientId"]
-					var actor_type = body["actorType"] as int # TODO error handling around type cast
-					var x = body["positionX"] as int # TODO error handling around type cast
-					var y = body["positionY"] as int # TODO error handling around type cast
+							var pos = Vector2(position_x, position_y)
+							var dir = Vector2(direction_x, direction_y)
 
-					# spawn friendly player
-					var position = Vector2(x, y)
-					actor_manager.create_actor(actor_id, actor_type, position)
-
-			MessageType.ServerMessageTypes.PROJECTILE_SPAWNED:
-				for body in msg_body:
-					var actor_id = body["clientId"]
-					var actor_type = body["actorType"] as int
-					var x = body["positionX"] as int
-					var y = body["positionY"] as int
-
-					# spawn projectile
-					var position = Vector2(x, y)
-					actor_manager.create_actor(actor_id, actor_type, position)
-
+							actor_manager.update_actor(id, pos, dir)
+						_:
+							DebugLog.warn("unable to match actor state: %d" % state)
 
 	DebugLog.debug("handle message end")
 

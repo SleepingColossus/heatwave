@@ -1,6 +1,9 @@
 package main
 
-import "github.com/gorilla/websocket"
+import (
+	"github.com/SleepingColossus/heatwave/game"
+	"github.com/gorilla/websocket"
+)
 
 // client message types
 const (
@@ -12,13 +15,8 @@ const (
 
 // server message types
 const (
-	Notification    int = iota
-	SelfConnected       // you have joined the game
-	PlayerConnected     // friendly player has joined the game
-	PlayerDisconnected
-	ActorsMoved
-	EnemySpawned
-	ProjectileSpawned
+	InitNewPlayer int = iota
+	GameStateUpdated
 )
 
 // message type received from game via websocket
@@ -29,11 +27,11 @@ type ClientMessage struct {
 
 // message type sent to game via websocket
 type ServerMessage struct {
-	MessageType int                 `json:"messageType"`
-	MessageBody []map[string]string `json:"messageBody"`
+	MessageType int                   `json:"messageType"`
+	MessageBody game.GameStateUpdate  `json:"messageBody"`
 }
 
-func newServerMessage(msgType int, msgBody []map[string]string) ServerMessage {
+func newServerMessage(msgType int, msgBody game.GameStateUpdate) ServerMessage {
 	return ServerMessage{
 		MessageType: msgType,
 		MessageBody: msgBody,
@@ -41,13 +39,13 @@ func newServerMessage(msgType int, msgBody []map[string]string) ServerMessage {
 }
 
 // message type sent to send and broadcast channels
-type ServerChannelMessage struct {
+type ChannelMessage struct {
 	Message     ServerMessage
 	Connection  *websocket.Conn
 }
 
-func newChannelMessage(msg ServerMessage, conn *websocket.Conn) *ServerChannelMessage {
-	return &ServerChannelMessage{
+func newChannelMessage(msg ServerMessage, conn *websocket.Conn) *ChannelMessage {
+	return &ChannelMessage{
 		Message:     msg,
 		Connection:  conn,
 	}

@@ -28,7 +28,7 @@ func delete_actor(actor_id: String):
 	else:
 		DebugLog.error("unknown actor id: %s" % actor_id)
 
-func move_actor(actor_id: String, new_position: Vector2, new_direction: Vector2):
+func update_actor(actor_id: String, new_position: Vector2, new_direction: Vector2):
 	DebugLog.debug("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
 
 	if actors.has(actor_id):

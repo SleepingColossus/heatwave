@@ -2,10 +2,10 @@ package game
 
 type Wave struct {
 	State int
-	Enemies []*Enemy
+	Enemies map[string]*Enemy
 }
 
-func newWave(enemies []*Enemy) *Wave {
+func newWave(enemies map[string]*Enemy) *Wave {
 	return &Wave{
 		State: ready,
 		Enemies: enemies,

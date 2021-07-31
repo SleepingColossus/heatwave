@@ -10,21 +10,27 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "ActorState",
+"language": "GDScript",
+"path": "res://scripts/enums/actor_state.gd"
+}, {
+"base": "Reference",
 "class": "ActorType",
 "language": "GDScript",
-"path": "res://enums/actor_type.gd"
+"path": "res://scripts/enums/actor_type.gd"
 }, {
 "base": "Reference",
 "class": "DebugLog",
 "language": "GDScript",
 "path": "res://scripts/dlog.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "MessageType",
 "language": "GDScript",
-"path": "res://enums/message_type.gd"
+"path": "res://scripts/enums/message_type.gd"
 } ]
 _global_script_class_icons={
+"ActorState": "",
 "ActorType": "",
 "DebugLog": "",
 "MessageType": ""

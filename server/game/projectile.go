@@ -13,6 +13,7 @@ func newFriendlyProjectile(parent Body2D) *Projectile {
 		Actor: Actor{
 			Id:   uuid.New().String(),
 			Type: projectilePlayerBullet,
+			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
 				Direction: parent.Direction,
@@ -28,6 +29,7 @@ func newHostileProjectile(parent Body2D) *Projectile {
 		Actor: Actor{
 			Id:   uuid.New().String(),
 			Type: projectileEnemyBullet,
+			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
 				Direction: parent.Direction,

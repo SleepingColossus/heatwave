@@ -22,8 +22,8 @@ var (
 	// active players
 	clients = make(map[string]*websocket.Conn)
 
-	sendCh      = make(chan *ServerChannelMessage)
-	broadcastCh = make(chan *ServerChannelMessage)
+	sendCh      = make(chan *ChannelMessage)
+	broadcastCh = make(chan *ChannelMessage)
 )
 
 // server constants
@@ -73,28 +73,22 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 		case JoinGame:
 			clientId := uuid.New().String()
 
-			player := game.NewPlayer(clientId)
-
 			// add new active player
 			clients[clientId] = conn
-			gameState.AddPlayer(player)
 
-			// create reply with coords of player
-			msgBody := []map[string]string{ player.ToMap() }
+			// create game state snapshot
+			gameStateUpdate := gameState.AddPlayer(clientId)
+			gameStateUpdate.SetClientId(clientId)
 
-			// send join response to currently connecting player
-			response = newServerMessage(SelfConnected, msgBody)
+			// send snapshot to current connecting player
+			response = newServerMessage(InitNewPlayer, gameStateUpdate)
 			sendCh <- newChannelMessage(response, conn)
 
+			// TODO discard?
 			// change message type before broadcasting to all other players
-			response.MessageType = PlayerConnected
+			gameStateUpdate.ClearClientId()
+			response.MessageType = GameStateUpdated
 			broadcastCh <- newChannelMessage(response, nil)
-
-			// start the game if this is the first player joining
-			if len(gameState.Players) > 0 && gameState.IsPending() {
-				wave := gameState.StartGame()
-				broadcastWaveSpawn(wave)
-			}
 
 		case LeaveGame:
 			clientId, ok := message.MessageBody["clientId"]
@@ -105,41 +99,27 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 			}
 
 			delete(clients, clientId)
-			gameState.DeletePlayer(clientId)
-
-			msgBody := []map[string]string{{
-				"clientId": clientId,
-			}}
-
-			response = newServerMessage(PlayerDisconnected, msgBody)
-			broadcastCh <- newChannelMessage(response, nil)
+			gameState.MarkPlayerForDeletion(clientId)
 
 		case Move:
-			actorId := message.MessageBody["clientId"]
+			playerId := message.MessageBody["clientId"]
 			directionX, _ := strconv.Atoi(message.MessageBody["x"])
 			directionY, _ := strconv.Atoi(message.MessageBody["y"])
 
-			actor, ok := gameState.Players[actorId]
+			err := gameState.PlayerMove(playerId, directionX, directionY)
 
-			if !ok {
-				log.Println("unknown actor", actorId)
-				return
+			if err != nil {
+				log.Println(err)
 			}
-
-			actor.SetDirection(directionX, directionY)
 
 		case Shoot:
 			actorId := message.MessageBody["clientId"]
-			projectile, err := gameState.PlayerShoot(actorId)
+			err := gameState.PlayerShoot(actorId)
 
 			if err != nil {
 				log.Println(err)
 				return
 			}
-
-			msgBody := []map[string]string { projectile.ToMap() }
-			response = newServerMessage(ProjectileSpawned, msgBody)
-			broadcastCh <- newChannelMessage(response, nil)
 		}
 	}
 }
@@ -148,18 +128,15 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 func startMoveActorsTask() {
 	lastTime := time.Now()
 	for {
-		if len(gameState.Players) > 0 {
+		if gameState.IsActive() {
 			t := time.Now()
 			dt := t.Sub(lastTime)
 
 			// is it time for the next frame?
 			if dt >= tickRate {
-
-				gameState.Update()
-				messageBody := gameState.ToActorMap()
-
 				// create payload
-				response := newServerMessage(ActorsMoved, messageBody)
+				update := gameState.Update()
+				response := newServerMessage(GameStateUpdated, update)
 
 				// broadcast event
 				broadcastCh <- newChannelMessage(response, nil)
@@ -169,12 +146,6 @@ func startMoveActorsTask() {
 			}
 		}
 	}
-}
-
-func broadcastWaveSpawn(wave []map[string]string) {
-	msg := newServerMessage(EnemySpawned, wave)
-	chanMsg := newChannelMessage(msg, nil)
-	broadcastCh <- chanMsg
 }
 
 func startSendListener() {
@@ -199,7 +170,8 @@ func startSendListener() {
 func startBroadcastListener() {
 	for {
 		msg := <-broadcastCh
-		for _, conn := range clients {
+		for id, conn := range clients {
+			msg.Message.MessageBody.SetClientId(id)
 			msg.Connection = conn
 			sendCh <- msg
 		}

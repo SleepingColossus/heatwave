@@ -11,6 +11,7 @@ func newEnemy(t int) *Enemy {
 	return &Enemy{
 		Actor: Actor{
 			Id:        uuid.New().String(),
+			State:     actorCreated,
 			Type:      t,
 			Body2D: Body2D{
 				Position:  randomPosition(),
@@ -50,11 +51,11 @@ func (e *Enemy) setChaseDirection() {
 			movev = 0
 		}
 
-		e.SetDirection(moveh, movev)
+		e.setDirection(moveh, movev)
 	}
 }
 
-func newEnemyMeleeBasic() * Enemy {
+func newEnemyMeleeBasic() *Enemy {
 	return newEnemy(enemyMeleeBasic)
 }
 
