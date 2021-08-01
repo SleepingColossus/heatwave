@@ -13,7 +13,7 @@ var enemy_melee_basic = load("res://prefabs/enemy_melee_basic.tscn")
 
 var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
 
-func create_actor(actor_id: String, actor_type: int, position: Vector2):
+func create_actor(actor_id: String, actor_type: int, position: Vector2, is_self = false):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
 
 	var new_actor = create_resource_instance(actor_type)
@@ -21,6 +21,12 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2):
 
 	actor_container_node.add_child(new_actor)
 	actors[actor_id] = new_actor
+
+	if actor_type == ActorType.ActorType.PLAYER:
+		if is_self:
+			new_actor.set_self_indicator_visible()
+		else:
+			new_actor.set_ally_indicator_visible()
 
 func delete_actor(actor_id: String):
 	if actors.has(actor_id):

@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
+class_name Actor
+
 var direction: Vector2
-onready var sprite = get_node("AnimatedSprite")
+onready var sprite = $AnimatedSprite
 
 func _ready():
 	direction = Vector2()

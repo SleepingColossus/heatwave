@@ -183,7 +183,7 @@ func handle_message(msg: Dictionary):
 						var position_y = a["position"]["y"]
 
 						var pos = Vector2(position_x, position_y)
-						actor_manager.create_actor(id, type, pos)
+						actor_manager.create_actor(id, type, pos, true)
 
 			MessageType.ServerMessageTypes.GAME_STATE_UPDATED:
 				var actor_updates = msg_body["actorUpdates"]
