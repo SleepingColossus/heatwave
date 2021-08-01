@@ -1,6 +1,9 @@
 package game
 
-import "math/rand"
+import (
+	"math"
+	"math/rand"
+)
 
 // screen edges
 const (
@@ -46,12 +49,27 @@ func zeroVector() Vector2 {
 }
 
 func center() Vector2 {
-	return newVector2(boundary.X/ 2, boundary.Y/ 2)
+	return newVector2(boundary.X / 2, boundary.Y / 2)
 }
 
-// TODO implement
-func (from *Vector2) distanceTo(to *Vector2) float64 {
-	return 0.0
+func (from *Vector2) distanceTo(to Vector2) int {
+	distanceX := float64(absDiff(from.X, to.X))
+	distanceY := float64(absDiff(from.Y, to.Y))
+
+	distance := math.Sqrt(math.Pow(distanceX, 2) + math.Pow(distanceY, 2))
+
+	return int(distance)
+}
+
+// get absolute difference between two ints
+func absDiff(a, b int) int {
+	diff := a - b
+
+	if diff >= 0 {
+		return diff
+	} else {
+		return -diff
+	}
 }
 
 func randomPosition() Vector2 {

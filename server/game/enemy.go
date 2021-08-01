@@ -5,9 +5,10 @@ import "github.com/google/uuid"
 type Enemy struct {
 	Actor
 	target *Player // target player to chase
+	attackRange int // minimal range to perform attack
 }
 
-func newEnemy(t, maxHp, vel int) *Enemy {
+func newEnemy(t, maxHp, vel, atkRange int) *Enemy {
 	return &Enemy{
 		Actor: Actor{
 			Id:    uuid.New().String(),
@@ -23,12 +24,23 @@ func newEnemy(t, maxHp, vel int) *Enemy {
 			},
 		},
 		target: nil,
+		attackRange: atkRange,
 	}
 }
 
 func (e *Enemy) update() {
 	e.setChaseDirection()
-	e.move()
+	e.moveWithinRange()
+}
+
+func (e *Enemy) moveWithinRange() {
+	if e.target != nil {
+		dist := e.Position.distanceTo(e.target.Position)
+
+		if dist > e.attackRange {
+			e.move()
+		}
+	}
 }
 
 func (e *Enemy) setChaseDirection() {
