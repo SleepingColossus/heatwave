@@ -17,7 +17,7 @@ var enemy_tank = load("res://prefabs/enemy_tank.tscn")
 
 var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
 
-func create_actor(actor_id: String, actor_type: int, position: Vector2, is_self = false):
+func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: int, current_hp: int, is_self = false):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
 
 	var new_actor = create_resource_instance(actor_type)
@@ -25,6 +25,12 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2, is_self 
 
 	actor_container_node.add_child(new_actor)
 	actors[actor_id] = new_actor
+
+	if new_actor.has_method("set_max_health"):
+		new_actor.set_max_health(max_hp)
+
+	if new_actor.has_method("set_current_health"):
+		new_actor.set_current_health(current_hp)
 
 	if actor_type == ActorType.ActorType.PLAYER:
 		if is_self:
@@ -38,6 +44,9 @@ func delete_actor(actor_id: String):
 		var actor_to_delete = actors[actor_id]
 		actor_to_delete.delete()
 
+		if actor_to_delete.has_method("set_current_health"):
+			actor_to_delete.set_current_health(0)
+
 		# delete from dictionary
 		actors.erase(actor_id)
 
@@ -45,12 +54,15 @@ func delete_actor(actor_id: String):
 	else:
 		DebugLog.error("unknown actor id: %s" % actor_id)
 
-func update_actor(actor_id: String, new_position: Vector2, new_direction: Vector2):
+func update_actor(actor_id: String, new_position: Vector2, new_direction: Vector2, current_hp: int):
 	DebugLog.debug("moving actor %s to new position: %d, %d" % [actor_id, new_position.x, new_position.y])
 
 	if actors.has(actor_id):
 		var actor = actors[actor_id]
 		actor.position = new_position
+
+		if actor.has_method("set_current_health"):
+			actor.set_current_health(current_hp)
 
 		if actor.has_method("set_direction"):
 			actor.set_direction(new_direction)

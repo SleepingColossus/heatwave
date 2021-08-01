@@ -26,7 +26,7 @@ type Actor struct {
 	State         int    `json:"state"`
 	Type          int    `json:"type"`
 	CurrentHealth int    `json:"currentHealth"`
-	maxHealth     int
+	MaxHealth     int    `json:"maxHealth"`
 	Body2D
 }
 

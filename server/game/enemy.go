@@ -14,7 +14,7 @@ func newEnemy(t, maxHp, vel, atkRange int) *Enemy {
 			Id:    uuid.New().String(),
 			State: actorCreated,
 			Type:  t,
-			maxHealth: maxHp,
+			MaxHealth: maxHp,
 			CurrentHealth: maxHp,
 			Body2D: Body2D{
 				Position:  randomPosition(),

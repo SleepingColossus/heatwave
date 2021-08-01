@@ -181,9 +181,11 @@ func handle_message(msg: Dictionary):
 						var type = a["type"]
 						var position_x = a["position"]["x"]
 						var position_y = a["position"]["y"]
+						var current_hp = a["currentHealth"]
+						var max_hp = a["maxHealth"]
 
 						var pos = Vector2(position_x, position_y)
-						actor_manager.create_actor(id, type, pos, true)
+						actor_manager.create_actor(id, type, pos, max_hp, current_hp, true)
 
 			MessageType.ServerMessageTypes.GAME_STATE_UPDATED:
 				var actor_updates = msg_body["actorUpdates"]
@@ -205,9 +207,11 @@ func handle_message(msg: Dictionary):
 								var type = a["type"]
 								var position_x = a["position"]["x"]
 								var position_y = a["position"]["y"]
+								var current_hp = a["currentHealth"]
+								var max_hp = a["maxHealth"]
 
 								var pos = Vector2(position_x, position_y)
-								actor_manager.create_actor(id, type, pos)
+								actor_manager.create_actor(id, type, pos, max_hp, current_hp)
 
 						ActorState.ActorState.DELETED:
 							var id = a["id"]
@@ -220,11 +224,12 @@ func handle_message(msg: Dictionary):
 							var position_y = a["position"]["y"]
 							var direction_x = a["direction"]["x"]
 							var direction_y = a["direction"]["y"]
+							var current_hp = a["currentHealth"]
 
 							var pos = Vector2(position_x, position_y)
 							var dir = Vector2(direction_x, direction_y)
 
-							actor_manager.update_actor(id, pos, dir)
+							actor_manager.update_actor(id, pos, dir, current_hp)
 						_:
 							DebugLog.warn("unable to match actor state: %d" % state)
 

@@ -3,6 +3,9 @@ extends KinematicBody2D
 class_name Actor
 
 var direction: Vector2
+var max_health: int
+var current_health: int
+
 onready var sprite = $AnimatedSprite
 
 func _ready():
@@ -26,6 +29,12 @@ func set_animation(animation_name):
 
 func set_direction(d: Vector2):
 	direction = d
+
+func set_current_health(hp):
+	current_health = hp
+
+func set_max_health(hp):
+	max_health = hp
 
 func delete():
 	queue_free()
