@@ -17,5 +17,5 @@ func newEnemyRangedAdvanced() *Enemy {
 }
 
 func newEnemyTank() *Enemy {
-	return newEnemy(enemyTank, 10, 1, 32)
+	return newEnemy(enemyTank, 10, 1, 256)
 }

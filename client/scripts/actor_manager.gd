@@ -10,6 +10,10 @@ var actors : Dictionary = {}
 # preload all actor resources
 var player_resource = load("res://prefabs/player.tscn")
 var enemy_melee_basic = load("res://prefabs/enemy_melee_basic.tscn")
+var enemy_melee_fast = load("res://prefabs/enemy_melee_fast.tscn")
+var enemy_ranged_basic = load("res://prefabs/enemy_ranged_basic.tscn")
+var enemy_ranged_advanced = load("res://prefabs/enemy_ranged_advanced.tscn")
+var enemy_tank = load("res://prefabs/enemy_tank.tscn")
 
 var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
 
@@ -59,6 +63,14 @@ func create_resource_instance(resource_type: int):
 			return player_resource.instance()
 		ActorType.ActorType.ENEMY_MELEE_BASIC:
 			return enemy_melee_basic.instance()
+		ActorType.ActorType.ENEMY_MELEE_FAST:
+			return enemy_melee_fast.instance()
+		ActorType.ActorType.ENEMY_RANGED_BASIC:
+			return enemy_ranged_basic.instance()
+		ActorType.ActorType.ENEMY_RANGED_ADVANCED:
+			return enemy_ranged_advanced.instance()
+		ActorType.ActorType.ENEMY_TANK:
+			return enemy_tank.instance()
 		ActorType.ActorType.PROJECTILE_PLAYER_BULLET:
 			return projectile_player_bullet.instance()
 		_:
