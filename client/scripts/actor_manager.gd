@@ -23,7 +23,14 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2):
 	actors[actor_id] = new_actor
 
 func delete_actor(actor_id: String):
-	if actors.erase(actor_id):
+	if actors.has(actor_id):
+		# delete game object
+		var actor_to_delete = actors[actor_id]
+		actor_to_delete.delete()
+
+		# delete from dictionary
+		actors.erase(actor_id)
+
 		DebugLog.debug("deleted actor %s" % actor_id)
 	else:
 		DebugLog.error("unknown actor id: %s" % actor_id)

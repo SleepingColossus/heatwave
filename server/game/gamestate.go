@@ -99,6 +99,8 @@ func (gs *GameState) processActorStates() {
 
 		for _, enemyId := range deletedEnemies {
 			delete(gs.Wave.Enemies, enemyId)
+
+			log.Printf("enemy deleted: %s\n", enemyId)
 		}
 	}
 }
@@ -125,7 +127,15 @@ func (gs *GameState) Update() GameStateUpdate {
 	}
 
 	for _, pr := range gs.Projectiles {
-		pr.update()
+		var enemies map[string]*Enemy
+
+		if gs.Wave != nil {
+			enemies = gs.Wave.Enemies
+		} else {
+			enemies = make(map[string]*Enemy)
+		}
+
+		pr.update(enemies)
 	}
 
 	update := newGameStateUpdate(gs)

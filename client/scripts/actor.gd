@@ -24,3 +24,6 @@ func set_animation(animation_name):
 
 func set_direction(d: Vector2):
 	direction = d
+
+func delete():
+	queue_free()

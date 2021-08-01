@@ -7,17 +7,19 @@ type Enemy struct {
 	target *Player // target player to chase
 }
 
-func newEnemy(t int) *Enemy {
+func newEnemy(t, maxHp, vel int) *Enemy {
 	return &Enemy{
 		Actor: Actor{
 			Id:    uuid.New().String(),
 			State: actorCreated,
 			Type:  t,
+			maxHealth: maxHp,
+			CurrentHealth: maxHp,
 			Body2D: Body2D{
 				Position:  randomPosition(),
 				Direction: zeroVector(),
 				hitbox:    smallHitbox(),
-				velocity:  1,
+				velocity:  vel,
 			},
 		},
 		target: nil,
@@ -53,10 +55,6 @@ func (e *Enemy) setChaseDirection() {
 
 		e.setDirection(moveh, movev)
 	}
-}
-
-func newEnemyMeleeBasic() *Enemy {
-	return newEnemy(enemyMeleeBasic)
 }
 
 func (e *Enemy) setTarget(players []*Player) {
