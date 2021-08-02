@@ -7,6 +7,7 @@ var max_health: int
 var current_health: int
 
 onready var sprite = $AnimatedSprite
+onready var health_bar : ProgressBar = $HealthBar
 
 func _ready():
 	direction = Vector2()
@@ -32,9 +33,21 @@ func set_direction(d: Vector2):
 
 func set_current_health(hp):
 	current_health = hp
+	health_bar.value = hp
+
+	# full health
+	if hp == max_health:
+		health_bar.modulate = Color(0, 1, 0, 1)
+	# injured
+	elif hp < max_health && hp > (max_health / 2):
+		health_bar.modulate = Color(1, 1, 0, 1)
+	# critical
+	else:
+		health_bar.modulate = Color(1, 0, 0, 1)
 
 func set_max_health(hp):
 	max_health = hp
+	health_bar.max_value = hp
 
 func delete():
 	queue_free()

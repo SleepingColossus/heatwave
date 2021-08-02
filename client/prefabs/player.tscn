@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Sprites/Player/PlayerTop2.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Player/PlayerRight2.png" type="Texture" id=2]
@@ -21,15 +21,20 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "MoveRight",
-"speed": 10.0
+"name": "IdleRight",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ) ],
 "loop": true,
-"name": "MoveLeft",
-"speed": 10.0
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
 "loop": true,
@@ -41,35 +46,33 @@ animations = [ {
 "name": "IdleLeft",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
 "loop": true,
-"name": "Dying",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "IdleRight",
-"speed": 5.0
+"name": "MoveTop",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "IdleTop",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "IdleBottom",
-"speed": 5.0
+"name": "MoveRight",
+"speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
 "loop": true,
-"name": "MoveTop",
+"name": "MoveLeft",
 "speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 12.3277
 height = 0.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 16 )
@@ -87,10 +90,22 @@ shape = SubResource( 2 )
 
 [node name="ArrowIndicatorAlly" type="Sprite" parent="Indicator"]
 visible = false
-position = Vector2( 0, -35 )
+position = Vector2( 0, -48 )
 texture = ExtResource( 18 )
 
 [node name="ArrowIndicatorPlayer" type="Sprite" parent="Indicator"]
 visible = false
-position = Vector2( 0, -35 )
+position = Vector2( 0, -48 )
 texture = ExtResource( 17 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = -18.0
+custom_styles/fg = SubResource( 3 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
