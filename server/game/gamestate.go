@@ -6,18 +6,20 @@ import (
 )
 
 type GameState struct {
-	Phase   int
-	Players map[string]*Player
-	Wave    *Wave
+	Phase       int
+	Players     map[string]*Player
+	Wave        *Wave
 	Projectiles map[string]*Projectile
+	Tick        int
 }
 
 func NewGameState() *GameState {
 	return &GameState{
-		Phase:   pending,
-		Players: make(map[string]*Player),
-		Wave:    nil,
+		Phase:       pending,
+		Players:     make(map[string]*Player),
+		Wave:        nil,
 		Projectiles: make(map[string]*Projectile),
+		Tick:        0,
 	}
 }
 
@@ -144,6 +146,7 @@ func (gs *GameState) Update() GameStateUpdate {
 
 	update := newGameStateUpdate(gs)
 	gs.processActorStates()
+	gs.Tick++
 	return update
 }
 

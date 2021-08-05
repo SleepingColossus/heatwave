@@ -4,17 +4,19 @@ import "github.com/google/uuid"
 
 type Enemy struct {
 	Actor
-	target *Player // target player to chase
-	attackRange int // minimal range to perform attack
+	target             *Player // target player to chase
+	attackRange        int     // minimal range to perform attack
+	fireRate           int     // number of ticks between shots
+	ticksSinceLastShot int
 }
 
-func newEnemy(t, maxHp, atkRange int, vel Vector2) *Enemy {
+func newEnemy(t, maxHp, atkRange int, vel Vector2, fireRate int) *Enemy {
 	return &Enemy{
 		Actor: Actor{
-			Id:    uuid.New().String(),
-			State: actorCreated,
-			Type:  t,
-			MaxHealth: maxHp,
+			Id:            uuid.New().String(),
+			State:         actorCreated,
+			Type:          t,
+			MaxHealth:     maxHp,
 			CurrentHealth: maxHp,
 			Body2D: Body2D{
 				Position:  randomPosition(),
@@ -23,8 +25,10 @@ func newEnemy(t, maxHp, atkRange int, vel Vector2) *Enemy {
 				velocity:  vel,
 			},
 		},
-		target: nil,
-		attackRange: atkRange,
+		target:             nil,
+		attackRange:        atkRange,
+		fireRate:           fireRate,
+		ticksSinceLastShot: 0,
 	}
 }
 
@@ -71,15 +75,17 @@ func (e *Enemy) setChaseDirection() {
 }
 
 func (e *Enemy) shoot() *Projectile {
-	if e.target != nil {
+	if e.target != nil && e.ticksSinceLastShot >= e.fireRate {
 		dist := e.Position.distanceTo(e.target.Position)
 
 		// am I within range?
 		if dist <= e.attackRange {
+			e.ticksSinceLastShot = 0
 			return newHostileProjectile(e.Body2D, e.target)
 		}
 	}
 
+	e.ticksSinceLastShot++
 	return nil
 }
 
