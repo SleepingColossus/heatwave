@@ -10,6 +10,8 @@ func newPlayer(id string) *Player {
 			Id:    id,
 			Type:  player,
 			State: actorCreated,
+			CurrentHealth: 5,
+			MaxHealth: 5,
 			Body2D: Body2D{
 				Position:  center(),
 				Direction: zeroVector(),
