@@ -26,7 +26,7 @@ func newFriendlyProjectile(parent Body2D) *Projectile {
 				Position:  parent.Position,
 				Direction: parent.Direction,
 				hitbox:    zeroVector(),
-				velocity:  newVector2(2, 2), // TODO get from resource file
+				velocity:  newVector2(10, 10), // TODO get from resource file
 			},
 		},
 		alignment: friendly,
@@ -41,7 +41,7 @@ func newHostileProjectile(parent Body2D, target *Player) *Projectile {
 			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
-				Direction: parent.Direction,
+				Direction: newVector2(1, 1),
 				hitbox:    zeroVector(),
 				velocity:  setVelocity(parent.Position, target.Position),
 			},
@@ -96,8 +96,8 @@ func (p *Projectile) dmgAmount() int {
 }
 
 func setVelocity(projectile Vector2, target Vector2) Vector2 {
-	diffX := projectile.X - target.X
-	diffY := projectile.Y - target.Y
+	diffX := target.X - projectile.X
+	diffY := target.Y - projectile.Y
 
 	velX := diffX / 20
 	velY := diffY / 20
