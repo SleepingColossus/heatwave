@@ -16,6 +16,7 @@ var enemy_ranged_advanced = load("res://prefabs/enemy_ranged_advanced.tscn")
 var enemy_tank = load("res://prefabs/enemy_tank.tscn")
 
 var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
+var projectile_enemy_bullet = load("res://prefabs/projectile_enemy_bullet.tscn")
 
 func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: int, current_hp: int, is_self = false):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
@@ -85,6 +86,8 @@ func create_resource_instance(resource_type: int):
 			return enemy_tank.instance()
 		ActorType.ActorType.PROJECTILE_PLAYER_BULLET:
 			return projectile_player_bullet.instance()
+		ActorType.ActorType.PROJECTILE_ENEMY_BULLET:
+			return projectile_enemy_bullet.instance()
 		_:
 			DebugLog.error("unknown resource type: %d" % resource_type)
 

@@ -4,7 +4,7 @@ type Body2D struct {
 	Position  Vector2 `json:"position"`
 	Direction Vector2 `json:"direction"`
 	hitbox    Hitbox
-	velocity  int
+	velocity  Vector2
 }
 
 func (body *Body2D) setDirection(newX, newY int) {
@@ -14,8 +14,8 @@ func (body *Body2D) setDirection(newX, newY int) {
 
 func (body *Body2D) move() {
 	// move in current direction
-	body.Position.X += body.Direction.X * body.velocity
-	body.Position.Y += body.Direction.Y * body.velocity
+	body.Position.X += body.Direction.X * body.velocity.X
+	body.Position.Y += body.Direction.Y * body.velocity.Y
 }
 
 func (b *Body2D) isColliding(point Vector2) bool {

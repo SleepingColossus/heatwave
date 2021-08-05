@@ -8,7 +8,7 @@ type Enemy struct {
 	attackRange int // minimal range to perform attack
 }
 
-func newEnemy(t, maxHp, vel, atkRange int) *Enemy {
+func newEnemy(t, maxHp, atkRange int, vel Vector2) *Enemy {
 	return &Enemy{
 		Actor: Actor{
 			Id:    uuid.New().String(),
@@ -28,9 +28,10 @@ func newEnemy(t, maxHp, vel, atkRange int) *Enemy {
 	}
 }
 
-func (e *Enemy) update() {
+func (e *Enemy) update() *Projectile {
 	e.setChaseDirection()
 	e.moveWithinRange()
+	return e.shoot()
 }
 
 func (e *Enemy) moveWithinRange() {
@@ -67,6 +68,19 @@ func (e *Enemy) setChaseDirection() {
 
 		e.setDirection(moveh, movev)
 	}
+}
+
+func (e *Enemy) shoot() *Projectile {
+	if e.target != nil {
+		dist := e.Position.distanceTo(e.target.Position)
+
+		// am I within range?
+		if dist <= e.attackRange {
+			return newHostileProjectile(e.Body2D, e.target)
+		}
+	}
+
+	return nil
 }
 
 func (e *Enemy) setTarget(players []*Player) {

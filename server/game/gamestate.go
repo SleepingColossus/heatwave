@@ -122,7 +122,11 @@ func (gs *GameState) Update() GameStateUpdate {
 
 	if gs.Wave != nil {
 		for _, e := range gs.Wave.Enemies {
-			e.update()
+			newProjectile := e.update()
+
+			if newProjectile != nil {
+				gs.Projectiles[newProjectile.Id] = newProjectile
+			}
 		}
 	}
 

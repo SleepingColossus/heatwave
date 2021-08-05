@@ -5,8 +5,15 @@ import (
 	"log"
 )
 
+// projectile alignment
+const (
+	friendly int = iota
+	hostile
+)
+
 type Projectile struct {
 	Actor
+	alignment int
 }
 
 func newFriendlyProjectile(parent Body2D) *Projectile {
@@ -19,13 +26,14 @@ func newFriendlyProjectile(parent Body2D) *Projectile {
 				Position:  parent.Position,
 				Direction: parent.Direction,
 				hitbox:    zeroVector(),
-				velocity:  10, // TODO get from resource file
+				velocity:  newVector2(2, 2), // TODO get from resource file
 			},
 		},
+		alignment: friendly,
 	}
 }
 
-func newHostileProjectile(parent Body2D) *Projectile {
+func newHostileProjectile(parent Body2D, target *Player) *Projectile {
 	return &Projectile{
 		Actor: Actor{
 			Id:    uuid.New().String(),
@@ -35,9 +43,10 @@ func newHostileProjectile(parent Body2D) *Projectile {
 				Position:  parent.Position,
 				Direction: parent.Direction,
 				hitbox:    zeroVector(),
-				velocity:  5, // TODO get from resource file
+				velocity:  setVelocity(parent.Position, target.Position),
 			},
 		},
+		alignment: hostile,
 	}
 }
 
@@ -57,7 +66,7 @@ func (p *Projectile) deleteIfOffScreen() {
 }
 
 func (p *Projectile) checkCollision(enemies map[string]*Enemy) {
-	if p.State != actorDeleted {
+	if p.State != actorDeleted && p.alignment == friendly {
 		for _, e := range enemies {
 			if e.State != actorDeleted && e.Body2D.isColliding(p.Position) {
 				dmg := p.dmgAmount()
@@ -84,4 +93,14 @@ func (p *Projectile) dmgAmount() int {
 		log.Println("unknown projectile type", p.Type)
 		return 0
 	}
+}
+
+func setVelocity(projectile Vector2, target Vector2) Vector2 {
+	diffX := projectile.X - target.X
+	diffY := projectile.Y - target.Y
+
+	velX := diffX / 20
+	velY := diffY / 20
+
+	return newVector2(velX, velY)
 }
