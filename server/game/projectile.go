@@ -50,10 +50,10 @@ func newHostileProjectile(parent Body2D, target *Player) *Projectile {
 	}
 }
 
-func (p *Projectile) update(enemies map[string]*Enemy) {
+func (p *Projectile) update(players map[string]*Player, enemies map[string]*Enemy) {
 	p.move()
 	p.deleteIfOffScreen()
-	p.checkCollision(enemies)
+	p.checkCollision(players, enemies)
 }
 
 func (p *Projectile) deleteIfOffScreen() {
@@ -65,15 +65,27 @@ func (p *Projectile) deleteIfOffScreen() {
 	}
 }
 
-func (p *Projectile) checkCollision(enemies map[string]*Enemy) {
-	if p.State != actorDeleted && p.alignment == friendly {
-		for _, e := range enemies {
-			if e.State != actorDeleted && e.Body2D.isColliding(p.Position) {
-				dmg := p.dmgAmount()
-				e.takeDamage(dmg)
+func (p *Projectile) checkCollision(players map[string]*Player ,enemies map[string]*Enemy) {
+	if p.State != actorDeleted {
+		if p.alignment == friendly {
+			for _, e := range enemies {
+				if e.State != actorDeleted && e.Body2D.isColliding(p.Position) {
+					dmg := p.dmgAmount()
+					e.takeDamage(dmg)
 
-				// mark for deletion
-				p.State = actorDeleted
+					// mark for deletion
+					p.State = actorDeleted
+				}
+			}
+		} else { // hostile projectile
+			for _, pl := range players {
+				if pl.State != actorDeleted && pl.Body2D.isColliding(p.Position) {
+					dmg := p.dmgAmount()
+					pl.takeDamage(dmg)
+
+					// mark for deletion
+					p.State = actorDeleted
+				}
 			}
 		}
 	}

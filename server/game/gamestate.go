@@ -141,7 +141,7 @@ func (gs *GameState) Update() GameStateUpdate {
 			enemies = make(map[string]*Enemy)
 		}
 
-		pr.update(enemies)
+		pr.update(gs.Players, enemies)
 	}
 
 	update := newGameStateUpdate(gs)
