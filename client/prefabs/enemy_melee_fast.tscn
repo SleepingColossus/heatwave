@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/BeachBall/BeachBallHorizontal2.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/BeachBall/BeachBallDying1.png" type="Texture" id=2]
@@ -10,25 +10,35 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "IdleRight",
-"speed": 5.0
+"name": "MoveLeft",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Dying",
-"speed": 5.0
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "IdleBottom",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "MoveBottom",
-"speed": 7.0
+"name": "IdleTop",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
@@ -40,46 +50,23 @@ animations = [ {
 "name": "MoveTop",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "MoveLeft",
+"name": "IdleRight",
 "speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 15.9419
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 1, 1, 1, 1 )
-
 [node name="FastMeleeEnemy" type="KinematicBody2D"]
 script = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "MoveBottom"
+animation = "MoveLeft"
+frame = 1
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = -18.0
-custom_styles/fg = SubResource( 3 )
-value = 50.0
-percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
