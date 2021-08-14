@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HealthPickUp.png-2de04c0a254d13e82b5bb30b64ca6df5.stex"
+path="res://.import/HealthPickUp.png-5a4129f28a701189768efdd0f9dee455.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Weapons/HealthPickUp.png"
-dest_files=[ "res://.import/HealthPickUp.png-2de04c0a254d13e82b5bb30b64ca6df5.stex" ]
+source_file="res://sprites/Weapons/HealthPickUp.png"
+dest_files=[ "res://.import/HealthPickUp.png-5a4129f28a701189768efdd0f9dee455.stex" ]
 
 [params]
 

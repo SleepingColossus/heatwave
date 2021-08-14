@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerWeaponHarpoonGunUI.png-d83f1a3ef1396c524b15263c784c0210.stex"
+path="res://.import/PlayerWeaponHarpoonGunUI.png-382fb562149a4cec2c0a8178596fcb27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/Weapon/PlayerWeaponHarpoonGunUI.png"
-dest_files=[ "res://.import/PlayerWeaponHarpoonGunUI.png-d83f1a3ef1396c524b15263c784c0210.stex" ]
+source_file="res://sprites/UI/Weapon/PlayerWeaponHarpoonGunUI.png"
+dest_files=[ "res://.import/PlayerWeaponHarpoonGunUI.png-382fb562149a4cec2c0a8178596fcb27.stex" ]
 
 [params]
 

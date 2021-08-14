@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerWeaponPistolUI.png-1741f96d0639ec1a150541befbbe8f38.stex"
+path="res://.import/PlayerWeaponPistolUI.png-2e8da18a4cffbfa2ba8b7305b1fa710b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/Weapon/PlayerWeaponPistolUI.png"
-dest_files=[ "res://.import/PlayerWeaponPistolUI.png-1741f96d0639ec1a150541befbbe8f38.stex" ]
+source_file="res://sprites/UI/Weapon/PlayerWeaponPistolUI.png"
+dest_files=[ "res://.import/PlayerWeaponPistolUI.png-2e8da18a4cffbfa2ba8b7305b1fa710b.stex" ]
 
 [params]
 

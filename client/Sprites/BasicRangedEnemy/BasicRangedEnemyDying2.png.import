@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BasicRangedEnemyDying2.png-d8620380ce105fb6ab57201b1cee79dd.stex"
+path="res://.import/BasicRangedEnemyDying2.png-2c13710b8ecfe953c3df571486cc2dfd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BasicRangedEnemy/BasicRangedEnemyDying2.png"
-dest_files=[ "res://.import/BasicRangedEnemyDying2.png-d8620380ce105fb6ab57201b1cee79dd.stex" ]
+source_file="res://sprites/BasicRangedEnemy/BasicRangedEnemyDying2.png"
+dest_files=[ "res://.import/BasicRangedEnemyDying2.png-2c13710b8ecfe953c3df571486cc2dfd.stex" ]
 
 [params]
 

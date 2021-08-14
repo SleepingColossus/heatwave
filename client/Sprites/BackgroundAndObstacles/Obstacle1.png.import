@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Obstacle1.png-f52f9e75252392392b02d977b0f43573.stex"
+path="res://.import/Obstacle1.png-21960c2aabd267f2af9f6c48ac4cc2a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BackgroundAndObstacles/Obstacle1.png"
-dest_files=[ "res://.import/Obstacle1.png-f52f9e75252392392b02d977b0f43573.stex" ]
+source_file="res://sprites/BackgroundAndObstacles/Obstacle1.png"
+dest_files=[ "res://.import/Obstacle1.png-21960c2aabd267f2af9f6c48ac4cc2a5.stex" ]
 
 [params]
 

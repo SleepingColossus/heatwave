@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BasicMeleeEnemyRight3.png-ed9134c8c9b81a59e6431c13fadb45a4.stex"
+path="res://.import/BasicMeleeEnemyRight3.png-9debd07d49df5ccfafd9bdc3267ae269.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BasicMeleeEnemy/BasicMeleeEnemyRight3.png"
-dest_files=[ "res://.import/BasicMeleeEnemyRight3.png-ed9134c8c9b81a59e6431c13fadb45a4.stex" ]
+source_file="res://sprites/BasicMeleeEnemy/BasicMeleeEnemyRight3.png"
+dest_files=[ "res://.import/BasicMeleeEnemyRight3.png-9debd07d49df5ccfafd9bdc3267ae269.stex" ]
 
 [params]
 

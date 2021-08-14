@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AdvancedRangedEnemyRight2.png-ca60e3ba6dbb1db352736694594bb7f3.stex"
+path="res://.import/AdvancedRangedEnemyRight2.png-c03ee4a028b5885f653fc20534d550ce.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/AdvancedRangedEnemy/AdvancedRangedEnemyRight2.png"
-dest_files=[ "res://.import/AdvancedRangedEnemyRight2.png-ca60e3ba6dbb1db352736694594bb7f3.stex" ]
+source_file="res://sprites/AdvancedRangedEnemy/AdvancedRangedEnemyRight2.png"
+dest_files=[ "res://.import/AdvancedRangedEnemyRight2.png-c03ee4a028b5885f653fc20534d550ce.stex" ]
 
 [params]
 

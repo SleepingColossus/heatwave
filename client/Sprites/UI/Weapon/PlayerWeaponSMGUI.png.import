@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerWeaponSMGUI.png-e31acd198c93ebff31f888220c99826e.stex"
+path="res://.import/PlayerWeaponSMGUI.png-0aeb9ef434cabbccc843883075001404.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/Weapon/PlayerWeaponSMGUI.png"
-dest_files=[ "res://.import/PlayerWeaponSMGUI.png-e31acd198c93ebff31f888220c99826e.stex" ]
+source_file="res://sprites/UI/Weapon/PlayerWeaponSMGUI.png"
+dest_files=[ "res://.import/PlayerWeaponSMGUI.png-0aeb9ef434cabbccc843883075001404.stex" ]
 
 [params]
 

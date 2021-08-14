@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ArrowIndicatorPlayer.png-bb71c854c63b2d4f3443456ff9d49adc.stex"
+path="res://.import/ArrowIndicatorPlayer.png-ac1c679dc8d735302c56f5468e53cc88.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/UI/ArrowIndicators/ArrowIndicatorPlayer.png"
-dest_files=[ "res://.import/ArrowIndicatorPlayer.png-bb71c854c63b2d4f3443456ff9d49adc.stex" ]
+source_file="res://sprites/UI/ArrowIndicators/ArrowIndicatorPlayer.png"
+dest_files=[ "res://.import/ArrowIndicatorPlayer.png-ac1c679dc8d735302c56f5468e53cc88.stex" ]
 
 [params]
 

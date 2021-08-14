@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayerDying1.png-339807ac4cfa359b448f3acd7d2445a4.stex"
+path="res://.import/PlayerDying1.png-f49a69f36dbf999e023d35ad806968ec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Player/PlayerDying1.png"
-dest_files=[ "res://.import/PlayerDying1.png-339807ac4cfa359b448f3acd7d2445a4.stex" ]
+source_file="res://sprites/Player/PlayerDying1.png"
+dest_files=[ "res://.import/PlayerDying1.png-f49a69f36dbf999e023d35ad806968ec.stex" ]
 
 [params]
 

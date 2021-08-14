@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AdvancedRangedEnemyProjectileSWNE.png-941f7122c5e82f3661e5a59329f66138.stex"
+path="res://.import/AdvancedRangedEnemyProjectileSWNE.png-e6781fbbf203ee7769ef3533f655ee76.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/AdvancedRangedEnemy/AdvancedRangedEnemyProjectileSWNE.png"
-dest_files=[ "res://.import/AdvancedRangedEnemyProjectileSWNE.png-941f7122c5e82f3661e5a59329f66138.stex" ]
+source_file="res://sprites/AdvancedRangedEnemy/AdvancedRangedEnemyProjectileSWNE.png"
+dest_files=[ "res://.import/AdvancedRangedEnemyProjectileSWNE.png-e6781fbbf203ee7769ef3533f655ee76.stex" ]
 
 [params]
 

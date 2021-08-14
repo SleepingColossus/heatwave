@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TankEnemyBottom1.png-6a7cd57b81d4450a2c4272b48c455430.stex"
+path="res://.import/TankEnemyBottom1.png-3dd605cebd50a80627232127d4ca446d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TankEnemy/TankEnemyBottom1.png"
-dest_files=[ "res://.import/TankEnemyBottom1.png-6a7cd57b81d4450a2c4272b48c455430.stex" ]
+source_file="res://sprites/TankEnemy/TankEnemyBottom1.png"
+dest_files=[ "res://.import/TankEnemyBottom1.png-3dd605cebd50a80627232127d4ca446d.stex" ]
 
 [params]
 

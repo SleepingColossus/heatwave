@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BeachBallVertical2.png-3fdb17511933026f60daf7ed51c6bdc0.stex"
+path="res://.import/BeachBallVertical2.png-33fee71e2250f0a3b84703f1cdcb1cb1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BeachBall/BeachBallVertical2.png"
-dest_files=[ "res://.import/BeachBallVertical2.png-3fdb17511933026f60daf7ed51c6bdc0.stex" ]
+source_file="res://sprites/BeachBall/BeachBallVertical2.png"
+dest_files=[ "res://.import/BeachBallVertical2.png-33fee71e2250f0a3b84703f1cdcb1cb1.stex" ]
 
 [params]
 
