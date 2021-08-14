@@ -126,13 +126,20 @@ func (gs *GameState) startNextWave() {
 	// is this the last wave?
 	if gs.CurrentWave == len(waveData) {
 		// yes - end the game
-		gs.Phase = over
+		gs.endGame("victory")
 	} else {
 		// no - start next wave
 		gs.CurrentWave++
 		gs.Wave = waveData[gs.CurrentWave - 1]
 		gs.Wave.start(gs.getPlayers())
 	}
+}
+
+func (gs *GameState) endGame(reason string) {
+	log.Println("game over:", reason)
+
+	gs.Phase = over
+	gs.Wave.State = over
 }
 
 func (gs *GameState) Update() GameStateUpdate {
@@ -165,6 +172,11 @@ func (gs *GameState) Update() GameStateUpdate {
 	// is the wave over?
 	if (gs.Phase != over) && (gs.Wave != nil) && (len(gs.Wave.Enemies) == 0) {
 		gs.startNextWave()
+	}
+
+	// are all players dead?
+	if len(gs.Players) == 0 {
+		gs.endGame("defeat")
 	}
 
 	update := newGameStateUpdate(gs)
