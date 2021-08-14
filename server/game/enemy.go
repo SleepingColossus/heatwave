@@ -32,6 +32,10 @@ func newEnemy(t, maxHp, atkRange int, vel Vector2, fireRate int) *Enemy {
 	}
 }
 
+func newEnemyFromTemplate(t EnemyTemplate) *Enemy {
+	return newEnemy(t.Type, t.MaxHP, t.Range, newVector2(t.Velocity, t.Velocity), t.FireRate)
+}
+
 func (e *Enemy) update() *Projectile {
 	e.setChaseDirection()
 	e.moveWithinRange()

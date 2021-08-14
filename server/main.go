@@ -34,7 +34,7 @@ const (
 
 // game state vars
 var (
-	gameSettings = game.NewGameSettings("./waves.xml")
+	gameSettings = game.NewGameSettings("./waves.xml", "./enemies.xml")
 	gameState = game.NewGameState(gameSettings)
 )
 

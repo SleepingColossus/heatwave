@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<enemies>
+    <!-- Melee Basic -->
+    <enemy>
+        <type>1</type>
+        <health>3</health>
+        <velocity>1</velocity>
+        <range>32</range>
+        <firerate>60</firerate>
+    </enemy>
+    <!-- Melee Fast -->
+    <enemy>
+        <type>2</type>
+        <health>3</health>
+        <velocity>3</velocity>
+        <range>32</range>
+        <firerate>60</firerate>
+    </enemy>
+    <!-- Ranged Basic -->
+    <enemy>
+        <type>3</type>
+        <health>2</health>
+        <velocity>2</velocity>
+        <range>256</range>
+        <firerate>60</firerate>
+    </enemy>
+    <!-- Ranged Advanced -->
+    <enemy>
+        <type>4</type>
+        <health>2</health>
+        <velocity>2</velocity>
+        <range>512</range>
+        <firerate>60</firerate>
+    </enemy>
+    <!-- Tank -->
+    <enemy>
+        <type>5</type>
+        <health>10</health>
+        <velocity>1</velocity>
+        <range>256</range>
+        <firerate>60</firerate>
+    </enemy>
+</enemies>
