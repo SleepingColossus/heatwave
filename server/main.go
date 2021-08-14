@@ -34,7 +34,8 @@ const (
 
 // game state vars
 var (
-	gameState = game.NewGameState()
+	gameSettings = game.NewGameSettings("./waves.xml")
+	gameState = game.NewGameState(gameSettings)
 )
 
 // game state constants

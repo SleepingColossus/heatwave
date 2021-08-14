@@ -6,6 +6,7 @@ import (
 )
 
 type GameState struct {
+	Settings    *GameSettings
 	Phase       int
 	Players     map[string]*Player
 	CurrentWave int
@@ -14,8 +15,9 @@ type GameState struct {
 	Tick        int
 }
 
-func NewGameState() *GameState {
+func NewGameState(gs *GameSettings) *GameState {
 	return &GameState{
+		Settings:    gs,
 		Phase:       pending,
 		Players:     make(map[string]*Player),
 		CurrentWave: 0,
@@ -115,7 +117,7 @@ func (gs *GameState) startGame() {
 	if gs.Phase == pending {
 		gs.Phase = started
 		gs.CurrentWave = 1
-		gs.Wave = waveData[gs.CurrentWave - 1]
+		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave - 1]
 		gs.Wave.start(gs.getPlayers())
 	}
 }
@@ -124,13 +126,13 @@ func (gs *GameState) startNextWave() {
 	log.Println("starting next wave")
 
 	// is this the last wave?
-	if gs.CurrentWave == len(waveData) {
+	if gs.CurrentWave == len(gs.Settings.WaveSettings) {
 		// yes - end the game
 		gs.endGame("victory")
 	} else {
 		// no - start next wave
 		gs.CurrentWave++
-		gs.Wave = waveData[gs.CurrentWave - 1]
+		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave - 1]
 		gs.Wave.start(gs.getPlayers())
 	}
 }
