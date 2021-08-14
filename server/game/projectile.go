@@ -16,7 +16,7 @@ type Projectile struct {
 	alignment int
 }
 
-func newFriendlyProjectile(parent Body2D) *Projectile {
+func newFriendlyProjectile(parent Body2D, targetPosition Vector2) *Projectile {
 	return &Projectile{
 		Actor: Actor{
 			Id:    uuid.New().String(),
@@ -26,7 +26,7 @@ func newFriendlyProjectile(parent Body2D) *Projectile {
 				Position:  parent.Position,
 				Direction: parent.Direction,
 				hitbox:    zeroVector(),
-				velocity:  newVector2(10, 10), // TODO get from resource file
+				velocity:  setVelocity(parent.Position, targetPosition),
 			},
 		},
 		alignment: friendly,
@@ -54,6 +54,11 @@ func (p *Projectile) update(players map[string]*Player, enemies map[string]*Enem
 	p.move()
 	p.deleteIfOffScreen()
 	p.checkCollision(players, enemies)
+}
+
+func (p *Projectile) move() {
+	p.Position.X += p.velocity.X
+	p.Position.Y += p.velocity.Y
 }
 
 func (p *Projectile) deleteIfOffScreen() {

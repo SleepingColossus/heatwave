@@ -115,7 +115,10 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 
 		case Shoot:
 			actorId := message.MessageBody["clientId"]
-			err := gameState.PlayerShoot(actorId)
+			targetX, _ := strconv.Atoi(message.MessageBody["x"])
+			targetY, _ := strconv.Atoi(message.MessageBody["y"])
+
+			err := gameState.PlayerShoot(actorId, targetX, targetY)
 
 			if err != nil {
 				log.Println(err)

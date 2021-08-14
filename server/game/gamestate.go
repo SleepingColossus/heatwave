@@ -199,14 +199,15 @@ func (gs *GameState) PlayerMove(id string, dirX, dirY int) error {
 	return nil
 }
 
-func (gs *GameState) PlayerShoot(playerId string) error {
+func (gs *GameState) PlayerShoot(playerId string, toX, toY int) error {
 	player, ok := gs.Players[playerId]
 
 	if !ok {
 		return fmt.Errorf("player %s not found", playerId)
 	}
 
-	projectile := newFriendlyProjectile(player.Body2D)
+	targetPosition := newVector2(toX, toY)
+	projectile := newFriendlyProjectile(player.Body2D, targetPosition)
 	gs.Projectiles[projectile.Id] = projectile
 
 	return nil

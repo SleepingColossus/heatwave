@@ -58,11 +58,13 @@ func _process(_delta):
 		# update last know direction
 		direction = new_direction
 
-	var should_shoot = poll_action_inputs()
+	var shoot_target = poll_action_inputs()
 
-	if should_shoot:
+	if shoot_target != null:
 		var shoot_body = {
 			"clientId": client_id,
+			"x": shoot_target.x as String,
+			"y": shoot_target.y as String,
 		}
 
 		var shoot_message = create_message(MessageType.ClientMessageType.SHOOT, shoot_body)
@@ -92,8 +94,11 @@ func poll_movement_inputs() -> Vector2:
 
 	return new_direction
 
-func poll_action_inputs() -> bool:
-	return Input.is_action_just_pressed("shoot")
+func poll_action_inputs():
+	if Input.is_action_just_pressed("shoot"):
+		return get_viewport().get_mouse_position()
+	else:
+		return null
 
 func _on_connected(_protocol: String):
 	var msg_body = Dictionary()
