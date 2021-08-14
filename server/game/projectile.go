@@ -3,6 +3,7 @@ package game
 import (
 	"github.com/google/uuid"
 	"log"
+	"math"
 )
 
 // projectile alignment
@@ -41,7 +42,7 @@ func newHostileProjectile(parent Body2D, target *Player) *Projectile {
 			State: actorCreated,
 			Body2D: Body2D{
 				Position:  parent.Position,
-				Direction: newVector2(1, 1),
+				Direction: zeroVector(),
 				hitbox:    zeroVector(),
 				velocity:  setVelocity(parent.Position, target.Position),
 			},
@@ -113,11 +114,15 @@ func (p *Projectile) dmgAmount() int {
 }
 
 func setVelocity(projectile Vector2, target Vector2) Vector2 {
-	diffX := target.X - projectile.X
-	diffY := target.Y - projectile.Y
+	baseVelocity := 5.0
 
-	velX := diffX / 20
-	velY := diffY / 20
+	diffX := float64(target.X - projectile.X)
+	diffY := float64(target.Y - projectile.Y)
+
+	angle := math.Atan2(diffY, diffX)
+
+	velX := int(math.Cos(angle) * baseVelocity)
+	velY := int(math.Sin(angle) * baseVelocity)
 
 	return newVector2(velX, velY)
 }
