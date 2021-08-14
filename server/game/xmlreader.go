@@ -24,7 +24,7 @@ func ReadEnemyData(path string) map[int]EnemyTemplate {
 }
 
 func ReadWaveData(path string, enemyTemplates map[int]EnemyTemplate) []*Wave {
-	data, err :=ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
 	var wt WavesTemplate
@@ -33,6 +33,24 @@ func ReadWaveData(path string, enemyTemplates map[int]EnemyTemplate) []*Wave {
 	}
 
 	return wt.toGameWave(enemyTemplates)
+}
+
+func ReadProjectileData(path string) map[int]ProjectileTemplate {
+	data, err := ioutil.ReadFile(path)
+	checkErr(err)
+
+	var pt ProjectilesTemplate
+	if err := xml.Unmarshal(data, &pt); err != nil {
+		checkErr(err)
+	}
+
+	ptMap := make(map[int]ProjectileTemplate)
+
+	for _, projectileTemplate := range pt.Projectiles {
+		ptMap[projectileTemplate.Type] = projectileTemplate
+	}
+
+	return ptMap
 }
 
 func checkErr(e error) {
