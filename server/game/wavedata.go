@@ -4,12 +4,36 @@ package game
 // TODO replace with an external resource such as XML or SQLite file
 var (
 	waveData = []*Wave{
+		// 1
 		newWave(toMap([]*Enemy{
 			newEnemyMeleeBasic(),
+			newEnemyMeleeBasic(),
+			newEnemyMeleeBasic(),
+		})),
+		// 2
+		newWave(toMap([]*Enemy{
+			newEnemyMeleeBasic(),
+			newEnemyMeleeBasic(),
+			newEnemyMeleeBasic(),
 			newEnemyMeleeFast(),
+			newEnemyMeleeFast(),
+		})),
+		// 3
+		newWave(toMap([]*Enemy{
+			newEnemyRangedBasic(),
+			newEnemyRangedBasic(),
 			newEnemyRangedBasic(),
 			newEnemyRangedAdvanced(),
+			newEnemyRangedAdvanced(),
+		})),
+		// 4
+		newWave(toMap([]*Enemy{
 			newEnemyTank(),
+			newEnemyTank(),
+			newEnemyRangedAdvanced(),
+			newEnemyRangedAdvanced(),
+			newEnemyRangedAdvanced(),
+			newEnemyRangedAdvanced(),
 		})),
 	}
 )
