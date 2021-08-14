@@ -8,6 +8,7 @@ import (
 type GameState struct {
 	Phase       int
 	Players     map[string]*Player
+	CurrentWave int
 	Wave        *Wave
 	Projectiles map[string]*Projectile
 	Tick        int
@@ -17,6 +18,7 @@ func NewGameState() *GameState {
 	return &GameState{
 		Phase:       pending,
 		Players:     make(map[string]*Player),
+		CurrentWave: 0,
 		Wave:        nil,
 		Projectiles: make(map[string]*Projectile),
 		Tick:        0,
@@ -112,8 +114,24 @@ func (gs *GameState) startGame() {
 
 	if gs.Phase == pending {
 		gs.Phase = started
-		gs.Wave = waveData[0]
-		gs.Wave.start(gs.players())
+		gs.CurrentWave = 1
+		gs.Wave = waveData[gs.CurrentWave - 1]
+		gs.Wave.start(gs.getPlayers())
+	}
+}
+
+func (gs *GameState) startNextWave() {
+	log.Println("starting next wave")
+
+	// is this the last wave?
+	if gs.CurrentWave == len(waveData) {
+		// yes - end the game
+		gs.Phase = over
+	} else {
+		// no - start next wave
+		gs.CurrentWave++
+		gs.Wave = waveData[gs.CurrentWave - 1]
+		gs.Wave.start(gs.getPlayers())
 	}
 }
 
@@ -142,6 +160,11 @@ func (gs *GameState) Update() GameStateUpdate {
 		}
 
 		pr.update(gs.Players, enemies)
+	}
+
+	// is the wave over?
+	if (gs.Phase != over) && (gs.Wave != nil) && (len(gs.Wave.Enemies) == 0) {
+		gs.startNextWave()
 	}
 
 	update := newGameStateUpdate(gs)
@@ -175,7 +198,7 @@ func (gs *GameState) PlayerShoot(playerId string) error {
 	return nil
 }
 
-func (gs *GameState) players() []*Player {
+func (gs *GameState) getPlayers() []*Player {
 	var p []*Player
 
 	for _, player := range gs.Players {
