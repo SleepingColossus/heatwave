@@ -5,9 +5,10 @@ type EnemiesTemplate struct {
 }
 
 type EnemyTemplate struct {
-	Type     int `xml:"type"`
-	MaxHP    int `xml:"health"`
-	Velocity int `xml:"velocity"`
-	Range    int `xml:"range"`
-	FireRate int `xml:"firerate"`
+	Type           int `xml:"type"`
+	MaxHP          int `xml:"health"`
+	Velocity       int `xml:"velocity"`
+	Range          int `xml:"range"`
+	FireRate       int `xml:"firerate"`
+	ProjectileType int `xml:"projectiletype"`
 }

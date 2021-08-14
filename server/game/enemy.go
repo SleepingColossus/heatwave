@@ -8,9 +8,10 @@ type Enemy struct {
 	attackRange        int     // minimal range to perform attack
 	fireRate           int     // number of ticks between shots
 	ticksSinceLastShot int
+	projectileTemplate ProjectileTemplate
 }
 
-func newEnemy(t, maxHp, atkRange int, vel Vector2, fireRate int) *Enemy {
+func newEnemy(t, maxHp, atkRange int, vel Vector2, fireRate int, pt ProjectileTemplate) *Enemy {
 	return &Enemy{
 		Actor: Actor{
 			Id:            uuid.New().String(),
@@ -29,11 +30,12 @@ func newEnemy(t, maxHp, atkRange int, vel Vector2, fireRate int) *Enemy {
 		attackRange:        atkRange,
 		fireRate:           fireRate,
 		ticksSinceLastShot: 0,
+		projectileTemplate: pt,
 	}
 }
 
-func newEnemyFromTemplate(t EnemyTemplate) *Enemy {
-	return newEnemy(t.Type, t.MaxHP, t.Range, newVector2(t.Velocity, t.Velocity), t.FireRate)
+func newEnemyFromTemplate(t EnemyTemplate, p ProjectileTemplate) *Enemy {
+	return newEnemy(t.Type, t.MaxHP, t.Range, newVector2(t.Velocity, t.Velocity), t.FireRate, p)
 }
 
 func (e *Enemy) update() *Projectile {
@@ -85,7 +87,7 @@ func (e *Enemy) shoot() *Projectile {
 		// am I within range?
 		if dist <= e.attackRange {
 			e.ticksSinceLastShot = 0
-			return newHostileProjectile(e.Body2D, e.target)
+			return newProjectileFromTemplate(e.Actor, e.target.Position, e.projectileTemplate)
 		}
 	}
 

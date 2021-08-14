@@ -7,6 +7,7 @@
         <velocity>1</velocity>
         <range>32</range>
         <firerate>60</firerate>
+        <projectiletype>8</projectiletype>
     </enemy>
     <!-- Melee Fast -->
     <enemy>
@@ -15,6 +16,7 @@
         <velocity>3</velocity>
         <range>32</range>
         <firerate>60</firerate>
+        <projectiletype>8</projectiletype>
     </enemy>
     <!-- Ranged Basic -->
     <enemy>
@@ -23,6 +25,7 @@
         <velocity>2</velocity>
         <range>256</range>
         <firerate>60</firerate>
+        <projectiletype>8</projectiletype>
     </enemy>
     <!-- Ranged Advanced -->
     <enemy>
@@ -31,6 +34,7 @@
         <velocity>2</velocity>
         <range>512</range>
         <firerate>60</firerate>
+        <projectiletype>8</projectiletype>
     </enemy>
     <!-- Tank -->
     <enemy>
@@ -39,5 +43,6 @@
         <velocity>1</velocity>
         <range>256</range>
         <firerate>60</firerate>
+        <projectiletype>8</projectiletype>
     </enemy>
 </enemies>

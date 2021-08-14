@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <projectiles>
+    <!-- Player Bullet -->
     <projectile>
         <type>6</type>
         <damage>1</damage>
         <velocity>10.0</velocity>
         <maxdistance>512.0</maxdistance>
     </projectile>
+    <!-- Player Harpoon -->
     <projectile>
         <type>7</type>
         <damage>3</damage>
         <velocity>10.0</velocity>
         <maxdistance>2048.0</maxdistance>
     </projectile>
+    <!-- Enemy Bullet -->
     <projectile>
         <type>8</type>
         <damage>1</damage>
         <velocity>10.0</velocity>
         <maxdistance>512.0</maxdistance>
     </projectile>
+    <!-- Enemy Harpoon -->
     <projectile>
         <type>9</type>
         <damage>3</damage>

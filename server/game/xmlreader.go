@@ -23,7 +23,7 @@ func ReadEnemyData(path string) map[int]EnemyTemplate {
 	return etMap
 }
 
-func ReadWaveData(path string, enemyTemplates map[int]EnemyTemplate) []*Wave {
+func ReadWaveData(path string, enemyTemplates map[int]EnemyTemplate, projectileTemplates map[int]ProjectileTemplate) []*Wave {
 	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
@@ -32,7 +32,7 @@ func ReadWaveData(path string, enemyTemplates map[int]EnemyTemplate) []*Wave {
 		checkErr(err)
 	}
 
-	return wt.toGameWave(enemyTemplates)
+	return wt.toGameWave(enemyTemplates, projectileTemplates)
 }
 
 func ReadProjectileData(path string) map[int]ProjectileTemplate {

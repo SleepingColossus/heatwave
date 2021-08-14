@@ -12,25 +12,30 @@ type EnemyWaveTemplate struct {
 	Type int `xml:"type,attr"`
 }
 
-func (wt WavesTemplate) toGameWave(et map[int]EnemyTemplate) []*Wave {
+func (wt WavesTemplate) toGameWave(et map[int]EnemyTemplate, pt map[int]ProjectileTemplate) []*Wave {
 	var waves []*Wave
 
 	for _, waveTemplate := range wt.Waves {
 		enemies := make([]*Enemy, 0)
 
-		for _, enemyTemplate := range waveTemplate.Enemies {
-			switch enemyTemplate.Type {
+		for _, e := range waveTemplate.Enemies {
+			var enemyTemplate EnemyTemplate
+
+			switch e.Type {
 			case enemyMeleeBasic:
-				enemies = append(enemies, newEnemyFromTemplate(et[enemyMeleeBasic]))
+				enemyTemplate = et[enemyMeleeBasic]
 			case enemyMeleeFast:
-				enemies = append(enemies, newEnemyFromTemplate(et[enemyMeleeFast]))
+				enemyTemplate = et[enemyMeleeFast]
 			case enemyRangedBasic:
-				enemies = append(enemies, newEnemyFromTemplate(et[enemyRangedBasic]))
+				enemyTemplate = et[enemyRangedBasic]
 			case enemyRangedAdvanced:
-				enemies = append(enemies, newEnemyFromTemplate(et[enemyRangedAdvanced]))
+				enemyTemplate = et[enemyRangedAdvanced]
 			case enemyTank:
-				enemies = append(enemies, newEnemyFromTemplate(et[enemyTank]))
+				enemyTemplate = et[enemyTank]
 			}
+
+			projectileTemplate := pt[enemyTemplate.ProjectileType]
+			enemies = append(enemies, newEnemyFromTemplate(enemyTemplate, projectileTemplate))
 		}
 
 		wave := newWave(waveToMap(enemies))

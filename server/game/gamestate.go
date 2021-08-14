@@ -207,7 +207,7 @@ func (gs *GameState) PlayerShoot(playerId string, toX, toY int) error {
 	}
 
 	targetPosition := newVector2(toX, toY)
-	projectile := newFriendlyProjectile(player.Body2D, targetPosition)
+	projectile := newProjectileFromTemplate(player.Actor, targetPosition, gs.Settings.ProjectileSettings[projectilePlayerBullet])
 	gs.Projectiles[projectile.Id] = projectile
 
 	return nil

@@ -8,8 +8,8 @@ type GameSettings struct {
 
 func NewGameSettings(wavesPath, enemyPath, projectilePath string) *GameSettings {
 	enemies := ReadEnemyData(enemyPath)
-	waves := ReadWaveData(wavesPath, enemies)
 	projectiles := ReadProjectileData(projectilePath)
+	waves := ReadWaveData(wavesPath, enemies, projectiles)
 
 	return &GameSettings{
 		enemies,
