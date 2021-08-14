@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/take_damage.ogg-130091e2512a687e653837cfd9c7793a.oggstr"
+
+[deps]
+
+source_file="res://audio/sound/take_damage.ogg"
+dest_files=[ "res://.import/take_damage.ogg-130091e2512a687e653837cfd9c7793a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
