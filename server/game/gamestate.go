@@ -6,24 +6,26 @@ import (
 )
 
 type GameState struct {
-	Settings    *GameSettings
-	Phase       int
-	Players     map[string]*Player
-	CurrentWave int
-	Wave        *Wave
-	Projectiles map[string]*Projectile
-	Tick        int
+	Settings      *GameSettings
+	Phase         int
+	Players       map[string]*Player
+	CurrentWave   int
+	Wave          *Wave
+	Projectiles   map[string]*Projectile
+	Tick          int
+	Notifications []string
 }
 
 func NewGameState(gs *GameSettings) *GameState {
 	return &GameState{
-		Settings:    gs,
-		Phase:       pending,
-		Players:     make(map[string]*Player),
-		CurrentWave: 0,
-		Wave:        nil,
-		Projectiles: make(map[string]*Projectile),
-		Tick:        0,
+		Settings:      gs,
+		Phase:         pending,
+		Players:       make(map[string]*Player),
+		CurrentWave:   0,
+		Wave:          nil,
+		Projectiles:   make(map[string]*Projectile),
+		Tick:          0,
+		Notifications: make([]string, 0),
 	}
 }
 
@@ -117,7 +119,7 @@ func (gs *GameState) startGame() {
 	if gs.Phase == pending {
 		gs.Phase = started
 		gs.CurrentWave = 1
-		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave - 1]
+		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave-1]
 		gs.Wave.start(gs.getPlayers())
 	}
 }
@@ -132,7 +134,7 @@ func (gs *GameState) startNextWave() {
 	} else {
 		// no - start next wave
 		gs.CurrentWave++
-		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave - 1]
+		gs.Wave = gs.Settings.WaveSettings[gs.CurrentWave-1]
 		gs.Wave.start(gs.getPlayers())
 	}
 }
@@ -184,6 +186,7 @@ func (gs *GameState) Update() GameStateUpdate {
 	update := newGameStateUpdate(gs)
 	gs.processActorStates()
 	gs.Tick++
+	gs.clearNotifications()
 	return update
 }
 
@@ -221,4 +224,8 @@ func (gs *GameState) getPlayers() []*Player {
 	}
 
 	return p
+}
+
+func (gs *GameState) clearNotifications() {
+	gs.Notifications = make([]string, 0)
 }
