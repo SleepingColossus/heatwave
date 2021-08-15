@@ -40,12 +40,16 @@ func newProjectileFromTemplate(parent Actor, targetPosition Vector2, template Pr
 func (p *Projectile) update(players map[string]*Player, enemies map[string]*Enemy) {
 	p.move()
 	p.deleteIfOffScreen()
+	p.deleteIfTraveledTooFar()
 	p.checkCollision(players, enemies)
 }
 
 func (p *Projectile) move() {
 	p.Position.X += p.velocity.X
 	p.Position.Y += p.velocity.Y
+
+	p.distanceTravelled += math.Abs(float64(p.velocity.X))
+	p.distanceTravelled += math.Abs(float64(p.velocity.Y))
 }
 
 func (p *Projectile) deleteIfOffScreen() {
@@ -53,6 +57,12 @@ func (p *Projectile) deleteIfOffScreen() {
 	p.Position.X > screenWidth + offset ||
 	p.Position.Y < 0 - offset ||
 	p.Position.Y > screenHeight + offset {
+		p.State = actorDeleted
+	}
+}
+
+func (p *Projectile) deleteIfTraveledTooFar() {
+	if p.distanceTravelled > p.maxDistance {
 		p.State = actorDeleted
 	}
 }
