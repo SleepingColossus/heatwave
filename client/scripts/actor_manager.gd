@@ -18,6 +18,8 @@ var enemy_tank = load("res://prefabs/enemy_tank.tscn")
 var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
 var projectile_enemy_bullet = load("res://prefabs/projectile_enemy_bullet.tscn")
 
+onready var sound_manager = get_node("/root/main/AudioStreamPlayer")
+
 func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: int, current_hp: int, is_self = false):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
 
@@ -38,6 +40,13 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: 
 			new_actor.set_self_indicator_visible()
 		else:
 			new_actor.set_ally_indicator_visible()
+
+	if (actor_type == ActorType.ActorType.PROJECTILE_PLAYER_BULLET
+		|| actor_type == ActorType.ActorType.PROJECTILE_PLAYER_HARPOON
+		|| actor_type == ActorType.ActorType.PROJECTILE_ENEMY_BULLET
+		|| actor_type == ActorType.ActorType.PROJECTILE_ENEMY_HARPOON):
+
+		sound_manager.play_shoot()
 
 func delete_actor(actor_id: String):
 	if actors.has(actor_id):
