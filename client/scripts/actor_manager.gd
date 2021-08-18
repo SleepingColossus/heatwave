@@ -19,6 +19,7 @@ var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn
 var projectile_enemy_bullet = load("res://prefabs/projectile_enemy_bullet.tscn")
 
 onready var sound_manager = get_node("/root/main/AudioStreamPlayer")
+onready var ui_manager = get_node("/root/main/CanvasLayer/UI")
 
 func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: int, current_hp: int, is_self = false):
 	DebugLog.debug("creating actor type: %d with id: %s" % [actor_type, actor_id])
@@ -37,6 +38,7 @@ func create_actor(actor_id: String, actor_type: int, position: Vector2, max_hp: 
 
 	if actor_type == ActorType.ActorType.PLAYER:
 		if is_self:
+			new_actor.is_self = true
 			new_actor.set_self_indicator_visible()
 		else:
 			new_actor.set_ally_indicator_visible()
@@ -76,6 +78,11 @@ func update_actor(actor_id: String, new_position: Vector2, new_direction: Vector
 
 		if actor.has_method("set_direction"):
 			actor.set_direction(new_direction)
+
+		if actor is Player:
+			if actor.is_self:
+				ui_manager.set_player_health(current_hp)
+
 	else:
 		DebugLog.error("unknown actor: %s" % actor_id)
 

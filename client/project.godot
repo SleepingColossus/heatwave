@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "MessageType",
 "language": "GDScript",
 "path": "res://scripts/enums/message_type.gd"
+}, {
+"base": "Actor",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/player.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "ActorState": "",
 "ActorType": "",
 "DebugLog": "",
-"MessageType": ""
+"MessageType": "",
+"Player": ""
 }
 
 [application]

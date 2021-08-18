@@ -55,7 +55,7 @@ visible = false
 position = Vector2( 32, 32 )
 texture = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="."]
+[node name="PlayerHealthText" type="Label" parent="Health"]
 margin_left = 68.0
 margin_right = 182.0
 margin_bottom = 64.0
