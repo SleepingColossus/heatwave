@@ -26,7 +26,7 @@ func newGameStateUpdate(gs *GameState) GameStateUpdate {
 
 	return GameStateUpdate{
 		ClientId: "",
-		Notifications: make([]string, 0),
+		Notifications: gs.Notifications,
 		ActorUpdates: actors,
 	}
 }

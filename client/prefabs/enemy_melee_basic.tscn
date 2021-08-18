@@ -17,27 +17,16 @@
 [ext_resource path="res://sprites/BasicMeleeEnemy/BasicMeleeEnemyBottom1.png" type="Texture" id=15]
 [ext_resource path="res://scripts/actor.gd" type="Script" id=16]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "MoveTop",
+"name": "MoveRight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "IdleLeft",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "IdleRight",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "IdleBottom",
+"name": "MoveLeft",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -50,19 +39,29 @@ animations = [ {
 "name": "MoveBottom",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ), ExtResource( 11 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "MoveLeft",
+"name": "IdleLeft",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ],
 "loop": true,
-"name": "MoveRight",
+"name": "MoveTop",
 "speed": 5.0
 } ]
 

@@ -1,5 +1,8 @@
 extends Actor
 
+class_name Player
+
+var is_self: bool
 onready var self_indicator = $Indicator/ArrowIndicatorPlayer
 onready var ally_indicator = $Indicator/ArrowIndicatorAlly
 

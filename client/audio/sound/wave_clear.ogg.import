@@ -11,5 +11,5 @@ dest_files=[ "res://.import/wave_clear.ogg-70e11db5abcd0079bb9821adecdee2d8.oggs
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
