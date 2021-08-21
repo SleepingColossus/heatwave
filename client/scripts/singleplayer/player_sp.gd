@@ -16,6 +16,7 @@ func _process(delta):
 	poll_movement()
 
 	var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
+	velocity.normalized()
 
 	move_and_slide(velocity)
 
