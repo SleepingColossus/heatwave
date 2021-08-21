@@ -8,15 +8,15 @@ var actor_container_node
 var actors : Dictionary = {}
 
 # preload all actor resources
-var player_resource = load("res://prefabs/player.tscn")
-var enemy_melee_basic = load("res://prefabs/enemy_melee_basic.tscn")
-var enemy_melee_fast = load("res://prefabs/enemy_melee_fast.tscn")
-var enemy_ranged_basic = load("res://prefabs/enemy_ranged_basic.tscn")
-var enemy_ranged_advanced = load("res://prefabs/enemy_ranged_advanced.tscn")
-var enemy_tank = load("res://prefabs/enemy_tank.tscn")
+var player_resource =       load("res://prefabs/player.tscn")
+var enemy_melee_basic =     load("res://prefabs/enemies/enemy_melee_basic.tscn")
+var enemy_melee_fast =      load("res://prefabs/enemies/enemy_melee_fast.tscn")
+var enemy_ranged_basic =    load("res://prefabs/enemies/enemy_ranged_basic.tscn")
+var enemy_ranged_advanced = load("res://prefabs/enemies/enemy_ranged_advanced.tscn")
+var enemy_tank =            load("res://prefabs/enemies/enemy_tank.tscn")
 
-var projectile_player_bullet = load("res://prefabs/projectile_player_bullet.tscn")
-var projectile_enemy_bullet = load("res://prefabs/projectile_enemy_bullet.tscn")
+var projectile_player_bullet = load("res://prefabs/projectiles/projectile_player_bullet.tscn")
+var projectile_enemy_bullet =  load("res://prefabs/projectiles/projectile_enemy_bullet.tscn")
 
 onready var sound_manager = get_node("/root/main/AudioStreamPlayer")
 onready var ui_manager = get_node("/root/main/CanvasLayer/UI")
