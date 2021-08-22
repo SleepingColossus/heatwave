@@ -2,14 +2,16 @@ class_name Enemy
 extends KinematicBody2D
 
 onready var player = $"../../Player"
-onready var sprite = $AnimatedSprite
+onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
 
-export var max_health : int = 5
-var current_health : int
+export var max_health: int = 5
+var current_health: int
 
-export var speed : int = 50
-export var attack_range : int = 200
+export var speed: int = 50
+export var attack_range: int = 200
+
+var is_alive: bool = true
 
 func _ready():
 	current_health = max_health
@@ -22,14 +24,15 @@ func _process(delta):
 	move()
 
 func move() -> void:
-	var distance_from_player = get_distance_between(position, player.position)
+	if is_alive:
+		var distance_from_player = get_distance_between(position, player.position)
 
-	if distance_from_player > attack_range:
-		var direction = set_direction()
-		var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
+		if distance_from_player > attack_range:
+			var direction = set_direction()
+			var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
 
-		move_and_slide(velocity)
-		set_animation(direction)
+			move_and_slide(velocity)
+			set_animation(direction)
 
 func set_direction() -> Vector2:
 	var chase_direction = Vector2()
@@ -82,3 +85,11 @@ func take_damage(amount: int) -> void:
 	# critical
 	else:
 		health_bar.modulate = Color(1, 0, 0, 1)
+
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	is_alive = false
+	set_animation_by_name("Dying")
+	sprite.anination.loop = false
