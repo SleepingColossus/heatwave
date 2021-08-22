@@ -6,25 +6,24 @@
 [ext_resource path="res://art/BeachBall/BeachBallDying2.png" type="Texture" id=4]
 [ext_resource path="res://art/BeachBall/BeachBallHorizontal1.png" type="Texture" id=5]
 [ext_resource path="res://art/BeachBall/BeachBallVertical1.png" type="Texture" id=6]
-[ext_resource path="res://scripts/multiplayer/actor.gd" type="Script" id=7]
-
+[ext_resource path="res://scripts/singleplayer/enemy.gd" type="Script" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "MoveTop",
-"speed": 7.0
+"name": "IdleRight",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "IdleLeft",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "IdleRight",
-"speed": 5.0
+"name": "MoveTop",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
@@ -36,24 +35,24 @@ animations = [ {
 "name": "IdleTop",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "MoveBottom",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Dying",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "MoveLeft",
+"name": "MoveBottom",
 "speed": 7.0
 }, {
 "frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "MoveRight",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "MoveLeft",
 "speed": 7.0
 } ]
 
