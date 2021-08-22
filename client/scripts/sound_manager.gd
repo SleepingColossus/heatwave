@@ -1,6 +1,6 @@
-extends AudioStreamPlayer
+extends AudioStreamPlayer2D
 
-onready var audio_steam_player : AudioStreamPlayer = get_node("/root/main/AudioStreamPlayer")
+onready var audio_steam_player = $"../AudioStreamPlayer2D"
 
 var sound_game_over =   load("res://audio/sound/game_over.ogg")
 var sound_pick_up =     load("res://audio/sound/pick_up.ogg")

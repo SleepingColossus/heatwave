@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
+signal shot_fired(from, to, type)
+
 export var max_health : int = 5
 var current_health : int
 
 export var speed : int = 100
 
+export var weapon_type: int = 0
+
 onready var sprite = $AnimatedSprite
-onready var weapon = $Weapon
 
 func _ready():
 	current_health = max_health
@@ -45,7 +48,7 @@ func poll_movement() -> Vector2:
 func poll_action() -> void:
 	if Input.is_action_just_pressed("shoot"):
 		var mouse_position = get_viewport().get_mouse_position()
-		weapon.shoot(position, mouse_position)
+		emit_signal("shot_fired", position, mouse_position, weapon_type)
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:
