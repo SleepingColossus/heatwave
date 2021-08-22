@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var player = $"../../Player"
+onready var sprite = $AnimatedSprite
 
 export var speed : int = 50
 export var attack_range : int = 200
@@ -21,6 +22,7 @@ func move() -> void:
 		var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
 
 		move_and_slide(velocity)
+		set_animation(direction)
 
 func set_direction() -> Vector2:
 	var chase_direction = Vector2()
@@ -43,3 +45,19 @@ func get_distance_between(from: Vector2, to: Vector2):
 	var distance = sqrt(diff_x * diff_x + diff_y * diff_y)
 
 	return distance
+
+func set_animation(direction: Vector2) -> void:
+	if direction.x > 0:
+		set_animation_by_name("MoveRight")
+	elif direction.x < 0:
+		set_animation_by_name("MoveLeft")
+	elif direction.y > 0:
+		set_animation_by_name("MoveBottom")
+	elif direction.y < 0:
+		set_animation_by_name("MoveTop")
+	else:
+		set_animation_by_name("IdleBottom")
+
+func set_animation_by_name(animation_name) -> void:
+	if sprite.animation != animation_name:
+		sprite.play(animation_name)
