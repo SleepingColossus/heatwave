@@ -92,4 +92,4 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	is_alive = false
 	set_animation_by_name("Dying")
-	sprite.anination.loop = false
+	health_bar.visible = false
