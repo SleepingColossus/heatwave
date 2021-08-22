@@ -2,14 +2,19 @@ extends KinematicBody2D
 
 onready var player = $"../../Player"
 onready var sprite = $AnimatedSprite
+onready var health_bar: ProgressBar = $HealthBar
+
+export var max_health : int = 5
+var current_health : int
 
 export var speed : int = 50
 export var attack_range : int = 200
 
 func _ready():
-	print_debug("Hi, I have spawned at: %d, %d" % [position.x, position.y])
-	pass # Replace with function body.
+	current_health = max_health
 
+	health_bar.max_value = max_health
+	health_bar.value = current_health
 
 func _process(delta):
 	move()
@@ -38,7 +43,7 @@ func set_direction() -> Vector2:
 
 	return chase_direction
 
-func get_distance_between(from: Vector2, to: Vector2):
+func get_distance_between(from: Vector2, to: Vector2) -> float:
 	var diff_x = abs(from.x - to.x)
 	var diff_y = abs(from.y - to.y)
 
@@ -61,3 +66,17 @@ func set_animation(direction: Vector2) -> void:
 func set_animation_by_name(animation_name) -> void:
 	if sprite.animation != animation_name:
 		sprite.play(animation_name)
+
+func take_damage(amount: int) -> void:
+	current_health -= amount
+	health_bar.value = current_health
+
+	# full health
+	if current_health == max_health:
+		health_bar.modulate = Color(0, 1, 0, 1)
+	# injured
+	elif current_health < max_health && current_health > (max_health / 2):
+		health_bar.modulate = Color(1, 1, 0, 1)
+	# critical
+	else:
+		health_bar.modulate = Color(1, 0, 0, 1)
