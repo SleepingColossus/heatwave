@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/multiplayer/dlog.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://scripts/singleplayer/enemy.gd"
+}, {
 "base": "Reference",
 "class": "EnemyType",
 "language": "GDScript",
@@ -39,8 +44,13 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enums/message_type.gd"
 }, {
-"base": "Actor",
+"base": "KinematicBody2D",
 "class": "Player",
+"language": "GDScript",
+"path": "res://scripts/singleplayer/player_sp.gd"
+}, {
+"base": "Actor",
+"class": "PlayerMP",
 "language": "GDScript",
 "path": "res://scripts/multiplayer/player_mp.gd"
 }, {
@@ -59,9 +69,11 @@ _global_script_class_icons={
 "ActorState": "",
 "ActorType": "",
 "DebugLog": "",
+"Enemy": "",
 "EnemyType": "",
 "MessageType": "",
 "Player": "",
+"PlayerMP": "",
 "ScreenEdge": "",
 "Waves": ""
 }

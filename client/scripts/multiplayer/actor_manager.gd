@@ -79,7 +79,7 @@ func update_actor(actor_id: String, new_position: Vector2, new_direction: Vector
 		if actor.has_method("set_direction"):
 			actor.set_direction(new_direction)
 
-		if actor is Player:
+		if actor is PlayerMP:
 			if actor.is_self:
 				ui_manager.set_player_health(current_hp)
 

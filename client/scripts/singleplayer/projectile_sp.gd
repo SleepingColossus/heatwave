@@ -3,6 +3,9 @@ extends KinematicBody2D
 # base speed
 export var speed = 20
 
+export var is_friendly: bool
+export var damage: int
+
 # calculated x, y velocity
 var velocity : Vector2
 
@@ -21,3 +24,13 @@ func set_velocity(to: Vector2) -> void:
 	var velocity_y = sin(angle) * speed
 
 	velocity = Vector2(velocity_x * speed, velocity_y * speed)
+
+
+func _on_Area2D_body_entered(body):
+	if body is Enemy and is_friendly:
+		body.take_damage(damage)
+		queue_free()
+
+	elif body is Player and not is_friendly:
+		print_debug("hit player")
+		queue_free()

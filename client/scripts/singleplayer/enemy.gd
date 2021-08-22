@@ -1,3 +1,4 @@
+class_name Enemy
 extends KinematicBody2D
 
 onready var player = $"../../Player"
@@ -15,6 +16,7 @@ func _ready():
 
 	health_bar.max_value = max_health
 	health_bar.value = current_health
+	health_bar.modulate = Color(0, 1, 0, 1)
 
 func _process(delta):
 	move()

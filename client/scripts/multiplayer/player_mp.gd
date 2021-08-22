@@ -1,6 +1,6 @@
 extends Actor
 
-class_name Player
+class_name PlayerMP
 
 var is_self: bool
 onready var self_indicator = $Indicator/ArrowIndicatorPlayer
