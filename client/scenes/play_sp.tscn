@@ -3,7 +3,7 @@
 [ext_resource path="res://prefabs/ui/UI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="PlaySinglePlayer" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -11,3 +11,5 @@
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 972.6, 462.779 )
+
+[node name="ProjectileContainer" type="Node2D" parent="."]

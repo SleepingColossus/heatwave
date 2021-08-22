@@ -6,11 +6,14 @@ var current_health : int
 export var speed : int = 100
 
 onready var sprite = $AnimatedSprite
+onready var weapon = $Weapon
 
 func _ready():
 	current_health = max_health
 
 func _process(delta):
+	poll_action()
+
 	var direction: Vector2 = poll_movement()
 	var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
 	velocity.normalized()
@@ -38,6 +41,11 @@ func poll_movement() -> Vector2:
 		direction.y = 0
 
 	return direction
+
+func poll_action() -> void:
+	if Input.is_action_just_pressed("shoot"):
+		var mouse_position = get_viewport().get_mouse_position()
+		weapon.shoot(position, mouse_position)
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:

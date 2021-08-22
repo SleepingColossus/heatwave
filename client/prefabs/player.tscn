@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://art/Player/PlayerTop2.png" type="Texture" id=1]
 [ext_resource path="res://art/Player/PlayerRight2.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://art/Player/PlayerTop3.png" type="Texture" id=13]
 [ext_resource path="res://art/Player/PlayerLeft3.png" type="Texture" id=14]
 [ext_resource path="res://art/Player/PlayerDying3.png" type="Texture" id=15]
+[ext_resource path="res://scripts/singleplayer/weapon.gd" type="Script" id=16]
 [ext_resource path="res://art/UI/ArrowIndicators/ArrowIndicatorPlayer.png" type="Texture" id=17]
 [ext_resource path="res://art/UI/ArrowIndicators/ArrowIndicatorAlly.png" type="Texture" id=18]
 [ext_resource path="res://scripts/singleplayer/player_sp.gd" type="Script" id=19]
@@ -76,6 +77,9 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 19 )
+
+[node name="Weapon" type="Node2D" parent="."]
+script = ExtResource( 16 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
