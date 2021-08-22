@@ -40,11 +40,18 @@ func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 func start_wave(wave_number: int) -> void:
 	var wave_data : Dictionary = Waves.get_wave(wave_number)
 
-	if wave_data.has(EnemyType.EnemyType.MELEE_BASIC):
-		var amount = wave_data[EnemyType.EnemyType.MELEE_BASIC]
+	spawn_instance_batch(wave_data, EnemyType.EnemyType.MELEE_BASIC,     enemy_melee_basic)
+	spawn_instance_batch(wave_data, EnemyType.EnemyType.MELEE_FAST,      enemy_melee_fast)
+	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_BASIC,    enemy_ranged_basic)
+	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_ADVANCED, enemy_ranged_advanced)
+	spawn_instance_batch(wave_data, EnemyType.EnemyType.TANK,            enemy_tank)
 
-		for n in range(amount + 1):
-			spawn_instance(enemy_melee_basic)
+func spawn_instance_batch(wave_dict: Dictionary, key: int, resource) -> void:
+	if wave_dict.has(key):
+		var amount = wave_dict[key]
+
+		for n in range(amount):
+			spawn_instance(resource)
 
 func spawn_instance(resource) -> void:
 	var instance = resource.instance()
