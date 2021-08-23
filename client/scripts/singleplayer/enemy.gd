@@ -31,7 +31,7 @@ func move() -> void:
 
 		if distance_from_player > attack_range:
 			var direction = set_direction()
-			var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
+			var velocity = get_velocity_towards(player.position)
 
 			move_and_slide(velocity)
 			set_animation(direction)
@@ -52,6 +52,19 @@ func set_direction() -> Vector2:
 		chase_direction.y = 1
 
 	return chase_direction
+
+func get_velocity_towards(to: Vector2) -> Vector2:
+	var from = position
+
+	var diff_x = to.x - from.x
+	var diff_y = to.y - from.y
+
+	var angle = atan2(diff_y, diff_x)
+
+	var velocity_x = cos(angle) * speed
+	var velocity_y = sin(angle) * speed
+
+	return Vector2(velocity_x, velocity_y)
 
 func get_distance_between(from: Vector2, to: Vector2) -> float:
 	var diff_x = abs(from.x - to.x)
