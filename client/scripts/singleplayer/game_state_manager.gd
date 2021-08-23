@@ -44,8 +44,6 @@ func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 
 	add_child(projectile)
 
-	sound_manager.play_shoot()
-
 func _on_enemy_died() -> void:
 	enemy_count -= 1
 

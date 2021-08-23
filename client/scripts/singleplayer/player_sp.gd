@@ -50,6 +50,7 @@ func poll_action() -> void:
 	if Input.is_action_just_pressed("shoot"):
 		var mouse_position = get_viewport().get_mouse_position()
 		emit_signal("shot_fired", position, mouse_position, weapon_type)
+		$ShootSound.play()
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:
