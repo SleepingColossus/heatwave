@@ -11,6 +11,7 @@ var velocity : Vector2
 
 func _process(delta):
 	move_and_slide(velocity)
+	destroy_off_screen()
 
 func set_velocity(to: Vector2) -> void:
 	var from = position
@@ -25,6 +26,14 @@ func set_velocity(to: Vector2) -> void:
 
 	velocity = Vector2(velocity_x * speed, velocity_y * speed)
 
+func destroy_off_screen() -> void:
+	var window_size = OS.get_real_window_size()
+
+	if (position.x < 0
+		or position.y < 0
+		or position.x > window_size.x
+		or position.y > window_size.y):
+			queue_free()
 
 func _on_Area2D_body_entered(body):
 	if body is Enemy and body.is_alive and is_friendly:
