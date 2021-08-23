@@ -15,6 +15,7 @@ onready var sprite = $AnimatedSprite
 
 func _ready():
 	current_health = max_health
+	$HealthBar.visible = false
 
 func _process(delta):
 	poll_action()
