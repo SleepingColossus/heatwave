@@ -1,6 +1,8 @@
 class_name Enemy
 extends KinematicBody2D
 
+signal died
+
 onready var player = $"../../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
@@ -96,3 +98,4 @@ func die() -> void:
 	is_alive = false
 	set_animation_by_name("Dying")
 	health_bar.visible = false
+	emit_signal("died")

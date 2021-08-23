@@ -15,6 +15,7 @@ onready var sound_manager = $"../AudioStreamPlayer2D"
 
 var current_wave: int
 var number_of_waves: int
+var enemy_count: int
 
 func _ready():
 	current_wave = 1
@@ -25,7 +26,15 @@ func _ready():
 	start_wave(current_wave)
 
 func _process(delta):
-	pass
+	# all enemies cleared in wave?
+	if enemy_count == 0:
+		# not final wave?
+		if current_wave != number_of_waves:
+			current_wave += 1
+			start_wave(current_wave)
+		# final wave
+		else:
+			print("You win!")
 
 func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 	var projectile = bullet_resource.instance()
@@ -36,6 +45,9 @@ func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 	add_child(projectile)
 
 	sound_manager.play_shoot()
+
+func _on_enemy_died() -> void:
+	enemy_count -= 1
 
 func start_wave(wave_number: int) -> void:
 	var wave_data : Dictionary = Waves.get_wave(wave_number)
@@ -56,7 +68,10 @@ func spawn_instance_batch(wave_dict: Dictionary, key: int, resource) -> void:
 func spawn_instance(resource) -> void:
 	var instance = resource.instance()
 	instance.position = generate_random_position()
+	instance.connect("died", self, "_on_enemy_died")
+
 	add_child(instance)
+	enemy_count += 1
 
 func generate_random_position() -> Vector2:
 	var window_size = OS.get_real_window_size()
