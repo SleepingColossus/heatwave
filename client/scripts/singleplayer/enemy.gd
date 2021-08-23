@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 signal died
 
-onready var player = $"../../Player"
+onready var player = $"../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
 

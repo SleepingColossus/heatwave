@@ -10,8 +10,8 @@ var enemy_tank =            load("res://prefabs/enemies/enemy_tank.tscn")
 var bullet_resource = load("res://prefabs/projectiles/projectile_player_bullet.tscn")
 # -----------------------------------------------------------------------------------
 
-onready var player = $"../Player"
-onready var sound_manager = $"../AudioStreamPlayer2D"
+onready var player = $Player
+onready var sound_manager = $AudioStreamPlayer2D
 
 var current_wave: int
 var number_of_waves: int
