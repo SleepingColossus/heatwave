@@ -33,6 +33,9 @@ func move() -> void:
 
 			move_and_slide(velocity)
 			set_animation(direction)
+			sprite.play()
+		else:
+			sprite.stop()
 
 func set_direction() -> Vector2:
 	var chase_direction = Vector2()
