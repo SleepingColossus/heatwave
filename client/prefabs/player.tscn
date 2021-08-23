@@ -115,3 +115,4 @@ __meta__ = {
 stream = ExtResource( 16 )
 
 [node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true

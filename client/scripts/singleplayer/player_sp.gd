@@ -9,6 +9,7 @@ var current_health : int
 export var speed : int = 100
 
 export var weapon_type: int = 0
+onready var reload_timer: Timer = $ReloadTimer
 
 onready var sprite = $AnimatedSprite
 
@@ -47,10 +48,11 @@ func poll_movement() -> Vector2:
 	return direction
 
 func poll_action() -> void:
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and reload_timer.is_stopped():
 		var mouse_position = get_viewport().get_mouse_position()
 		emit_signal("shot_fired", position, mouse_position, weapon_type)
 		$ShootSound.play()
+		reload_timer.start()
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:
