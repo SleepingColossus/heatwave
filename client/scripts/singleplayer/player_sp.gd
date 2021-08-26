@@ -3,10 +3,11 @@ extends KinematicBody2D
 
 signal shot_fired(from, to, type)
 
-export var max_health : int = 5
-var current_health : int
+export var max_health: int = 5
+var current_health: int
+var is_alive: bool = true
 
-export var speed : int = 100
+export var speed: int = 100
 
 export var weapon_type: int = 0
 onready var reload_timer: Timer = $ReloadTimer

@@ -6,12 +6,13 @@ signal died
 onready var player = $"../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
+onready var weapon = $Weapon
+onready var line_of_sight: Area2D = $Weapon/AttackRange
 
 export var max_health: int = 5
 var current_health: int
 
 export var speed: int = 50
-export var attack_range: int = 200
 
 var is_alive: bool = true
 
@@ -24,12 +25,14 @@ func _ready():
 
 func _process(delta):
 	move()
+	# move detection radius along with enemy
+	line_of_sight.position = position
 
 func move() -> void:
 	if is_alive:
 		var distance_from_player = get_distance_between(position, player.position)
 
-		if distance_from_player > attack_range:
+		if distance_from_player > weapon.attack_range:
 			var direction = set_direction()
 			var velocity = get_velocity_towards(player.position)
 
@@ -67,12 +70,7 @@ func get_velocity_towards(to: Vector2) -> Vector2:
 	return Vector2(velocity_x, velocity_y)
 
 func get_distance_between(from: Vector2, to: Vector2) -> float:
-	var diff_x = abs(from.x - to.x)
-	var diff_y = abs(from.y - to.y)
-
-	var distance = sqrt(diff_x * diff_x + diff_y * diff_y)
-
-	return distance
+	return from.distance_to(to)
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:

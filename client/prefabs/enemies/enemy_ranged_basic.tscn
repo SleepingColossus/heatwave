@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://art/BasicRangedEnemy/BasicRangedEnemyLeft3.png" type="Texture" id=1]
 [ext_resource path="res://art/BasicRangedEnemy/BasicRangedEnemyTop1.png" type="Texture" id=2]
@@ -16,9 +16,21 @@
 [ext_resource path="res://art/BasicRangedEnemy/BasicRangedEnemyBottom1.png" type="Texture" id=14]
 [ext_resource path="res://art/BasicRangedEnemy/BasicRangedEnemyBottom3.png" type="Texture" id=15]
 [ext_resource path="res://scripts/singleplayer/enemy.gd" type="Script" id=16]
+[ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "IdleRight",
@@ -34,19 +46,9 @@ animations = [ {
 "name": "MoveBottom",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "IdleLeft",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "Dying",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -54,14 +56,14 @@ animations = [ {
 "name": "IdleBottom",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "MoveRight",
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 11 ) ],
 "loop": true,
-"name": "MoveLeft",
+"name": "IdleLeft",
 "speed": 5.0
 } ]
 
@@ -93,3 +95,8 @@ percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Weapon" parent="." instance=ExtResource( 17 )]
+attack_range = 500
+attack_rate = 2
+projectile_scene = ExtResource( 18 )

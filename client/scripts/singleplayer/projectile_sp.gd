@@ -36,7 +36,7 @@ func destroy_off_screen() -> void:
 			queue_free()
 
 func _on_Area2D_body_entered(body):
-	if body is Enemy and body.is_alive and is_friendly:
+	if body.is_alive and ((body is Enemy and is_friendly) or (body is Player and not is_friendly)):
 		body.take_damage(damage)
 		queue_free()
 
