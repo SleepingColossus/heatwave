@@ -25,8 +25,6 @@ func _ready():
 
 func _process(delta):
 	move()
-	# move detection radius along with enemy
-	line_of_sight.position = position
 
 func move() -> void:
 	if is_alive:

@@ -71,3 +71,7 @@ func set_animation(direction: Vector2) -> void:
 func set_animation_by_name(animation_name) -> void:
 	if sprite.animation != animation_name:
 		sprite.play(animation_name)
+
+func take_damage(amount: int) -> void:
+	current_health -= amount
+

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 export var attack_range: int
 export var attack_rate: int
@@ -22,10 +22,19 @@ func _process(delta):
 	if can_shoot and target != null:
 		shoot()
 
-func shoot():
+func shoot() -> void:
+	spawn_projectile()
 	shoot_sound.play()
 	can_shoot = false
 	reload_time.start()
+
+func spawn_projectile() -> void:
+	var projectile = projectile_scene.instance()
+	projectile.position = get_global_position()
+	projectile.set_velocity(target.global_position)
+
+	# add child to game scene
+	get_parent().get_parent().add_child(projectile)
 
 func _on_AttackRange_body_entered(body):
 	if body is Player:
