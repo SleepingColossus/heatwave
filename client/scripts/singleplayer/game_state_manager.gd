@@ -20,24 +20,38 @@ var bullet_resource = load("res://prefabs/projectiles/projectile_player_bullet.t
 onready var player = $Player
 onready var sound_manager = $AudioStreamPlayer2D
 onready var ui_manager = $CanvasLayer/UI
+onready var wave_start_timer = $WaveStartTimer
 
 var game_state: int
 var current_wave: int
 var number_of_waves: int
 var enemy_count: int
+var wave_timer_max_duration: int = 5
+var wave_timer_current_tick: int = 5
 
 func _ready():
 	game_state = GameState.PENDING
-	current_wave = 1
+	current_wave = 0
 	number_of_waves = Waves.wave_data.size()
 
 	player.connect("shot_fired", self, "_on_shot_fired")
 	player.connect("health_changed", self, "_on_player_health_changed")
 
-	start_wave(current_wave)
+	#start_wave(current_wave)
 
 func _process(delta):
-	if game_state != GameState.VICTORY and game_state != GameState.DEFEAT:
+	if game_state == GameState.PENDING:
+
+		if wave_start_timer.is_stopped():
+			wave_timer_current_tick -= 1
+			wave_start_timer.start()
+			display_wave_countdown(wave_timer_current_tick)
+
+		if wave_timer_current_tick == 0:
+			current_wave += 1
+			start_wave(current_wave)
+
+	elif game_state == GameState.PLAYING:
 
 		if not player.is_alive():
 			lose()
@@ -46,8 +60,7 @@ func _process(delta):
 		if enemy_count == 0:
 			# not final wave?
 			if current_wave != number_of_waves:
-				current_wave += 1
-				start_wave(current_wave)
+				wait_for_next_wave()
 			# final wave
 			else:
 				win()
@@ -67,6 +80,8 @@ func _on_enemy_died() -> void:
 	enemy_count -= 1
 
 func start_wave(wave_number: int) -> void:
+	game_state = GameState.PLAYING
+
 	var wave_data : Dictionary = Waves.get_wave(wave_number)
 
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.MELEE_BASIC,     enemy_melee_basic)
@@ -74,6 +89,8 @@ func start_wave(wave_number: int) -> void:
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_BASIC,    enemy_ranged_basic)
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_ADVANCED, enemy_ranged_advanced)
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.TANK,            enemy_tank)
+
+	ui_manager.hide_game_state_text()
 
 func spawn_instance_batch(wave_dict: Dictionary, key: int, resource) -> void:
 	if wave_dict.has(key):
@@ -125,3 +142,10 @@ func win() -> void:
 func lose() -> void:
 	game_state = GameState.DEFEAT
 	ui_manager.show_game_state_update("You lose!")
+
+func display_wave_countdown(seconds_remaining) -> void:
+	ui_manager.show_game_state_update(seconds_remaining as String)
+
+func wait_for_next_wave() -> void:
+	game_state = GameState.PENDING
+	wave_timer_current_tick = wave_timer_max_duration
