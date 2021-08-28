@@ -26,8 +26,8 @@ var game_state: int
 var current_wave: int
 var number_of_waves: int
 var enemy_count: int
-var wave_timer_max_duration: int = 5
-var wave_timer_current_tick: int = 5
+const wave_timer_max_duration: int = 6
+var wave_timer_remaining_duration: int = 6
 
 func _ready():
 	game_state = GameState.PENDING
@@ -37,17 +37,15 @@ func _ready():
 	player.connect("shot_fired", self, "_on_shot_fired")
 	player.connect("health_changed", self, "_on_player_health_changed")
 
-	#start_wave(current_wave)
-
 func _process(delta):
 	if game_state == GameState.PENDING:
 
 		if wave_start_timer.is_stopped():
-			wave_timer_current_tick -= 1
+			wave_timer_remaining_duration -= 1
 			wave_start_timer.start()
-			display_wave_countdown(wave_timer_current_tick)
+			display_wave_countdown(wave_timer_remaining_duration)
 
-		if wave_timer_current_tick == 0:
+		if wave_timer_remaining_duration == 0:
 			current_wave += 1
 			start_wave(current_wave)
 
@@ -148,4 +146,4 @@ func display_wave_countdown(seconds_remaining) -> void:
 
 func wait_for_next_wave() -> void:
 	game_state = GameState.PENDING
-	wave_timer_current_tick = wave_timer_max_duration
+	wave_timer_remaining_duration = wave_timer_max_duration
