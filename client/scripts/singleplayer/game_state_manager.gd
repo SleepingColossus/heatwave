@@ -1,5 +1,12 @@
 extends Node
 
+enum GameState {
+	PENDING,
+	PLAYING,
+	VICTORY,
+	DEFEAT
+}
+
 # preload resources prior to spawning -----------------------------------------------
 var enemy_melee_basic =     load("res://prefabs/enemies/enemy_melee_basic.tscn")
 var enemy_melee_fast =      load("res://prefabs/enemies/enemy_melee_fast.tscn")
@@ -14,11 +21,13 @@ onready var player = $Player
 onready var sound_manager = $AudioStreamPlayer2D
 onready var ui_manager = $CanvasLayer/UI
 
+var game_state: int
 var current_wave: int
 var number_of_waves: int
 var enemy_count: int
 
 func _ready():
+	game_state = GameState.PENDING
 	current_wave = 1
 	number_of_waves = Waves.wave_data.size()
 
@@ -28,15 +37,20 @@ func _ready():
 	start_wave(current_wave)
 
 func _process(delta):
-	# all enemies cleared in wave?
-	if enemy_count == 0:
-		# not final wave?
-		if current_wave != number_of_waves:
-			current_wave += 1
-			start_wave(current_wave)
-		# final wave
-		else:
-			print("You win!")
+	if game_state != GameState.VICTORY and game_state != GameState.DEFEAT:
+
+		if not player.is_alive():
+			lose()
+
+		# all enemies cleared in wave?
+		if enemy_count == 0:
+			# not final wave?
+			if current_wave != number_of_waves:
+				current_wave += 1
+				start_wave(current_wave)
+			# final wave
+			else:
+				win()
 
 func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 	var projectile = bullet_resource.instance()
@@ -103,3 +117,11 @@ func generate_random_position() -> Vector2:
 		spawn_position.y = rng.randi_range(min_y, max_y)
 
 	return spawn_position
+
+func win() -> void:
+	game_state = GameState.VICTORY
+	ui_manager.add_notification("You win!")
+
+func lose() -> void:
+	game_state = GameState.DEFEAT
+	ui_manager.add_notification("You lose!")
