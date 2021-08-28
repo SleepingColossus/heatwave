@@ -12,6 +12,7 @@ var bullet_resource = load("res://prefabs/projectiles/projectile_player_bullet.t
 
 onready var player = $Player
 onready var sound_manager = $AudioStreamPlayer2D
+onready var ui_manager = $CanvasLayer/UI
 
 var current_wave: int
 var number_of_waves: int
@@ -22,6 +23,7 @@ func _ready():
 	number_of_waves = Waves.wave_data.size()
 
 	player.connect("shot_fired", self, "_on_shot_fired")
+	player.connect("health_changed", self, "_on_player_health_changed")
 
 	start_wave(current_wave)
 
@@ -43,6 +45,9 @@ func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 	projectile.set_velocity(to)
 
 	add_child(projectile)
+
+func _on_player_health_changed(current_hp: int, max_hp: int) -> void:
+	ui_manager.set_player_health(current_hp)
 
 func _on_enemy_died() -> void:
 	enemy_count -= 1

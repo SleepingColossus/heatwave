@@ -2,6 +2,7 @@ class_name Player
 extends KinematicBody2D
 
 signal shot_fired(from, to, type)
+signal health_changed(current_hp, max_hp)
 
 export var max_health: int = 5
 var current_health: int
@@ -75,3 +76,10 @@ func set_animation_by_name(animation_name) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 
+	if current_health < 0:
+		current_health = 0
+
+	emit_signal("health_changed", current_health, max_health)
+
+func is_alive() -> bool:
+	return current_health > 0

@@ -1,3 +1,4 @@
+class_name UIManager
 extends Node
 
 onready var notification_container: GridContainer = $Notifications
