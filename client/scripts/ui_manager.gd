@@ -2,6 +2,7 @@ class_name UIManager
 extends Node
 
 onready var notification_container: GridContainer = $Notifications
+onready var game_state_text: Label = $GameStateText
 
 onready var sprite_player_hp_5: Sprite = $Health/PlayerHealth5HP
 onready var sprite_player_hp_4: Sprite = $Health/PlayerHealth4HP
@@ -27,13 +28,20 @@ func _process(delta):
 		else:
 			label.queue_free()
 
-func add_notification(notification):
+func add_notification(notification) -> void:
 	var n : Label = Label.new()
 	n.text = notification
 	n.modulate = Color(0, 0, 0, 1)
 	notification_container.add_child(n)
 
-func set_player_health(amount: int):
+func show_game_state_update(text) -> void:
+	game_state_text.visible = true
+	game_state_text.text = text
+
+func hide_game_state_text() -> void:
+	game_state_text.visible = false
+
+func set_player_health(amount: int) -> void:
 	label_player_hp.text = amount as String
 
 	hide_all_health_sprites()
@@ -51,7 +59,7 @@ func set_player_health(amount: int):
 	else: # dead
 		sprite_player_hp_0.visible = true
 
-func hide_all_health_sprites():
+func hide_all_health_sprites() -> void:
 	sprite_player_hp_5.visible = false
 	sprite_player_hp_4.visible = false
 	sprite_player_hp_3.visible = false

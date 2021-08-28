@@ -3,10 +3,10 @@ class_name Waves
 const wave_data : Dictionary = {
 		1: {
 			EnemyType.EnemyType.MELEE_BASIC: 1,
-			EnemyType.EnemyType.MELEE_FAST: 1,
-			EnemyType.EnemyType.RANGED_BASIC: 1,
-			EnemyType.EnemyType.RANGED_ADVANCED: 1,
-			EnemyType.EnemyType.TANK: 1,
+			#EnemyType.EnemyType.MELEE_FAST: 1,
+			#EnemyType.EnemyType.RANGED_BASIC: 1,
+			#EnemyType.EnemyType.RANGED_ADVANCED: 1,
+			#EnemyType.EnemyType.TANK: 1,
 		},
 		2: {
 			EnemyType.EnemyType.MELEE_BASIC: 2,

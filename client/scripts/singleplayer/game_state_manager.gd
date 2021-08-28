@@ -120,8 +120,8 @@ func generate_random_position() -> Vector2:
 
 func win() -> void:
 	game_state = GameState.VICTORY
-	ui_manager.add_notification("You win!")
+	ui_manager.show_game_state_update("You win!")
 
 func lose() -> void:
 	game_state = GameState.DEFEAT
-	ui_manager.add_notification("You lose!")
+	ui_manager.show_game_state_update("You lose!")
