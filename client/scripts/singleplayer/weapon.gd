@@ -1,3 +1,4 @@
+class_name Weapon
 extends Node2D
 
 export var attack_range: int
@@ -17,10 +18,6 @@ func _ready():
 	line_of_sight.shape = visibility_radius
 
 	reload_time.wait_time = attack_rate
-
-func _process(delta):
-	if can_shoot and target != null:
-		shoot()
 
 func shoot() -> void:
 	spawn_projectile()

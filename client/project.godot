@@ -68,6 +68,11 @@ _global_script_classes=[ {
 "class": "Waves",
 "language": "GDScript",
 "path": "res://scripts/singleplayer/waves.gd"
+}, {
+"base": "Node2D",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://scripts/singleplayer/weapon.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -81,7 +86,8 @@ _global_script_class_icons={
 "PlayerMP": "",
 "ScreenEdge": "",
 "UIManager": "",
-"Waves": ""
+"Waves": "",
+"Weapon": ""
 }
 
 [application]

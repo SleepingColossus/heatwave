@@ -6,7 +6,7 @@ signal died
 onready var player = $"../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
-onready var weapon = $Weapon
+onready var weapon : Weapon = $Weapon
 onready var line_of_sight: Area2D = $Weapon/AttackRange
 
 export var max_health: int = 5
@@ -24,9 +24,6 @@ func _ready():
 	health_bar.modulate = Color(0, 1, 0, 1)
 
 func _process(delta):
-	move()
-
-func move() -> void:
 	if is_alive:
 		var distance_from_player = get_distance_between(position, player.position)
 
@@ -38,6 +35,8 @@ func move() -> void:
 			set_animation(direction)
 			sprite.play()
 		else:
+			if weapon.can_shoot and weapon.target != null:
+				weapon.shoot()
 			sprite.stop()
 
 func set_direction() -> Vector2:
