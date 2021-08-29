@@ -1,0 +1,103 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight1.png" type="Texture" id=1]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop3.png" type="Texture" id=2]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying2.png" type="Texture" id=3]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft2.png" type="Texture" id=4]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom1.png" type="Texture" id=5]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom3.png" type="Texture" id=6]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop1.png" type="Texture" id=7]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft3.png" type="Texture" id=8]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight3.png" type="Texture" id=9]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying3.png" type="Texture" id=10]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight2.png" type="Texture" id=11]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom2.png" type="Texture" id=12]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying1.png" type="Texture" id=13]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft1.png" type="Texture" id=14]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop2.png" type="Texture" id=15]
+[ext_resource path="res://scripts/singleplayer/enemy.gd" type="Script" id=16]
+[ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=17]
+[ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=18]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyGib.png" type="Texture" id=19]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 13 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 11 ), ExtResource( 1 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 12 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 12.1353
+height = 2.04372
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="AdvancedRangedEnemy" type="KinematicBody2D"]
+script = ExtResource( 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "IdleLeft"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = -18.0
+custom_styles/fg = SubResource( 3 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" parent="." instance=ExtResource( 17 )]
+attack_range = 500
+attack_rate = 2
+projectile_scene = ExtResource( 18 )

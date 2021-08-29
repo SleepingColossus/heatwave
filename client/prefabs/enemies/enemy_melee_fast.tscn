@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://art/BeachBall/BeachBallHorizontal2.png" type="Texture" id=1]
+[ext_resource path="res://art/BeachBall/BeachBallDying1.png" type="Texture" id=2]
+[ext_resource path="res://art/BeachBall/BeachBallVertical2.png" type="Texture" id=3]
+[ext_resource path="res://art/BeachBall/BeachBallDying2.png" type="Texture" id=4]
+[ext_resource path="res://art/BeachBall/BeachBallHorizontal1.png" type="Texture" id=5]
+[ext_resource path="res://art/BeachBall/BeachBallVertical1.png" type="Texture" id=6]
+[ext_resource path="res://scripts/singleplayer/enemy.gd" type="Script" id=7]
+[ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=9]
+[ext_resource path="res://art/BeachBall/BeachBallGib.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 7.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 15.9419
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="FastMeleeEnemy" type="KinematicBody2D"]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "MoveLeft"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = -18.0
+custom_styles/fg = SubResource( 3 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" parent="." instance=ExtResource( 8 )]
+attack_range = 500
+attack_rate = 1
+projectile_scene = ExtResource( 9 )
