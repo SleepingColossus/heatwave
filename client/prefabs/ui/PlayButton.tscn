@@ -6,4 +6,4 @@
 scene_to_load = "res://scenes/play_sp.tscn"
 
 [node name="Label" parent="." index="0"]
-text = "SINGLE PLAYER"
+text = "PLAY"

@@ -18,8 +18,9 @@
 [ext_resource path="res://audio/sound/shoot.ogg" type="AudioStream" id=16]
 [ext_resource path="res://art/UI/ArrowIndicators/ArrowIndicatorPlayer.png" type="Texture" id=17]
 [ext_resource path="res://art/UI/ArrowIndicators/ArrowIndicatorAlly.png" type="Texture" id=18]
-[ext_resource path="res://scripts/singleplayer/player_sp.gd" type="Script" id=19]
+[ext_resource path="res://scripts/gameplay/player_sp.gd" type="Script" id=19]
 [ext_resource path="res://art/Player/PlayerGib.png" type="Texture" id=20]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

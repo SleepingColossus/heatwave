@@ -16,10 +16,11 @@
 [ext_resource path="res://art/TankEnemy/TankEnemyBottom3.png" type="Texture" id=14]
 [ext_resource path="res://art/TankEnemy/TankEnemyLeft3.png" type="Texture" id=15]
 [ext_resource path="res://art/TankEnemy/TankEnemyDying4.png" type="Texture" id=16]
-[ext_resource path="res://scripts/singleplayer/enemy.gd" type="Script" id=17]
+[ext_resource path="res://scripts/gameplay/enemy.gd" type="Script" id=17]
 [ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=19]
 [ext_resource path="res://art/TankEnemy/TankEnemyGib.png" type="Texture" id=20]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

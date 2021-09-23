@@ -3,7 +3,7 @@
 [ext_resource path="res://prefabs/ui/HudUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/sound_manager.gd" type="Script" id=3]
-[ext_resource path="res://scripts/singleplayer/game_state_manager.gd" type="Script" id=4]
+[ext_resource path="res://scripts/gameplay/game_state_manager.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ui_manager.gd" type="Script" id=5]
 
 [node name="PlaySinglePlayer" type="Node2D"]
