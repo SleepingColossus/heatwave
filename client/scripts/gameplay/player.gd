@@ -81,5 +81,13 @@ func take_damage(amount: int) -> void:
 
 	emit_signal("health_changed", current_health, max_health)
 
+func heal(amount: int) -> void:
+	current_health += amount
+
+	if current_health > max_health:
+		current_health = max_health
+
+	emit_signal("health_changed", current_health, max_health)
+
 func is_alive() -> bool:
 	return current_health > 0
