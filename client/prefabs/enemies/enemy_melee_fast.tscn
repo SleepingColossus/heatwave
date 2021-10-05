@@ -11,7 +11,6 @@
 [ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=9]
 [ext_resource path="res://art/BeachBall/BeachBallGib.png" type="Texture" id=10]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 10 ) ],
@@ -19,19 +18,24 @@ animations = [ {
 "name": "Dying",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "MoveLeft",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "IdleRight",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
@@ -44,19 +48,14 @@ animations = [ {
 "name": "IdleLeft",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "IdleRight",
-"speed": 5.0
+"name": "MoveLeft",
+"speed": 7.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "IdleBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "MoveTop",
+"name": "MoveRight",
 "speed": 7.0
 } ]
 
@@ -68,11 +67,11 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [node name="FastMeleeEnemy" type="KinematicBody2D"]
 script = ExtResource( 7 )
+self_destruct = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "MoveLeft"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

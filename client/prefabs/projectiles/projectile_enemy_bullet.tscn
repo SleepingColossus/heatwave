@@ -22,9 +22,13 @@
 [ext_resource path="res://art/Weapons/Projectiles/ProjectileSE2.png" type="Texture" id=20]
 [ext_resource path="res://art/Weapons/Projectiles/ProjectileNE1.png" type="Texture" id=21]
 
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "Idle",
@@ -60,19 +64,14 @@ animations = [ {
 "name": "NE",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "SW",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 14 ) ],
-"loop": false,
-"name": "Dying",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 18 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "NW",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "SW",
 "speed": 10.0
 } ]
 

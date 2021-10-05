@@ -13,6 +13,7 @@ export var max_health: int = 5
 var current_health: int
 
 export var speed: int = 50
+export var self_destruct : bool = false
 
 var is_alive: bool = true
 
@@ -37,6 +38,9 @@ func _process(delta):
 		else:
 			if weapon.can_shoot and weapon.target != null:
 				weapon.shoot()
+
+				if self_destruct:
+					die()
 			sprite.stop()
 
 func set_direction() -> Vector2:
