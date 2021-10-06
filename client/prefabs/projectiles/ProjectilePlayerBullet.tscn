@@ -1,10 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/projectiles/_ProjectileBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art/Weapons/Projectiles/ProjectileN1.png" type="Texture" id=2]
+[ext_resource path="res://art/Weapons/Projectiles/ProjectileN2.png" type="Texture" id=3]
+[ext_resource path="res://art/Weapons/Projectiles/ProjectileDying2.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "dying",
+"speed": 5.0
+} ]
 
 [node name="ProjectilePlayerBullet" instance=ExtResource( 1 )]
 is_friendly = true
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource( 2 )
+frames = SubResource( 1 )
