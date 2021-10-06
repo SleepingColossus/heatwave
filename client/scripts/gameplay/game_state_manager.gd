@@ -14,7 +14,7 @@ var enemy_ranged_basic =    load("res://prefabs/enemies/enemy_ranged_basic.tscn"
 var enemy_ranged_advanced = load("res://prefabs/enemies/enemy_ranged_advanced.tscn")
 var enemy_tank =            load("res://prefabs/enemies/enemy_tank.tscn")
 
-var bullet_resource = load("res://prefabs/projectiles/projectile_player_bullet.tscn")
+var bullet_resource = load("res://prefabs/projectiles/ProjectilePlayerBullet.tscn")
 # -----------------------------------------------------------------------------------
 
 onready var player = $Player
