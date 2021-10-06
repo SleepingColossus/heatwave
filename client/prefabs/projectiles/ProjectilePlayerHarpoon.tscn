@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://prefabs/projectiles/_ProjectileBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art/Weapons/Projectiles/Harpoon1.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.53788
+height = 28.6609
+
+[node name="ProjectilePlayerHarpoon" instance=ExtResource( 1 )]
+is_friendly = true
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource( 1 )

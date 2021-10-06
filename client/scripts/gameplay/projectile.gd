@@ -39,7 +39,3 @@ func _on_Area2D_body_entered(body):
 	if body.is_alive and ((body is Enemy and is_friendly) or (body is Player and not is_friendly)):
 		body.take_damage(damage)
 		queue_free()
-
-	elif body is Player and not is_friendly:
-		print_debug("hit player")
-		queue_free()
