@@ -66,8 +66,9 @@ func _process(delta):
 func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
 	var projectile = bullet_resource.instance()
 
+	var spread_angle: float = 0
 	projectile.position = from
-	projectile.set_velocity(to)
+	projectile.set_velocity(to, spread_angle)
 
 	add_child(projectile)
 

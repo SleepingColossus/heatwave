@@ -24,29 +24,9 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 16 ), ExtResource( 14 ) ],
-"loop": false,
-"name": "Dying",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 19 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "SE",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "SW",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "N",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 10 ) ],
@@ -59,9 +39,24 @@ animations = [ {
 "name": "W",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 21 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
-"name": "NE",
+"name": "Idle",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "N",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "E",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "SW",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 15 ) ],
@@ -69,9 +64,14 @@ animations = [ {
 "name": "NW",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 21 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "E",
+"name": "NE",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "Dying",
 "speed": 10.0
 } ]
 

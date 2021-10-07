@@ -13,13 +13,13 @@ func _process(delta):
 	move_and_slide(velocity)
 	destroy_off_screen()
 
-func set_velocity(to: Vector2) -> void:
+func set_velocity(to: Vector2, offset: float) -> void:
 	var from = position
 
 	var diff_x = to.x - from.x
 	var diff_y = to.y - from.y
 
-	var angle = atan2(diff_y, diff_x)
+	var angle = atan2(diff_y, diff_x) + offset
 
 	var velocity_x = cos(angle) * speed
 	var velocity_y = sin(angle) * speed
