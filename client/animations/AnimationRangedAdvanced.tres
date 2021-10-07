@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=2]
+
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop2.png" type="Texture" id=1]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom3.png" type="Texture" id=2]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft2.png" type="Texture" id=3]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying3.png" type="Texture" id=4]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight3.png" type="Texture" id=5]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight2.png" type="Texture" id=6]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying1.png" type="Texture" id=7]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop3.png" type="Texture" id=8]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyDying2.png" type="Texture" id=9]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyRight1.png" type="Texture" id=10]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft3.png" type="Texture" id=11]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyTop1.png" type="Texture" id=12]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyGib.png" type="Texture" id=13]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom2.png" type="Texture" id=14]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyBottom1.png" type="Texture" id=15]
+[ext_resource path="res://art/AdvancedRangedEnemy/AdvancedRangedEnemyLeft1.png" type="Texture" id=16]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 1 ), ExtResource( 12 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 3 ), ExtResource( 16 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 5.0
+} ]

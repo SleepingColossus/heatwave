@@ -1,0 +1,57 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=2]
+
+[ext_resource path="res://art/BeachBall/BeachBallDying1.png" type="Texture" id=1]
+[ext_resource path="res://art/BeachBall/BeachBallHorizontal1.png" type="Texture" id=2]
+[ext_resource path="res://art/BeachBall/BeachBallGib.png" type="Texture" id=3]
+[ext_resource path="res://art/BeachBall/BeachBallDying2.png" type="Texture" id=4]
+[ext_resource path="res://art/BeachBall/BeachBallVertical2.png" type="Texture" id=5]
+[ext_resource path="res://art/BeachBall/BeachBallHorizontal2.png" type="Texture" id=6]
+[ext_resource path="res://art/BeachBall/BeachBallVertical1.png" type="Texture" id=7]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 7.0
+} ]

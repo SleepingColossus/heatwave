@@ -8,11 +8,11 @@ enum GameState {
 }
 
 # preload resources prior to spawning -----------------------------------------------
-var enemy_melee_basic =     load("res://prefabs/enemies/enemy_melee_basic.tscn")
-var enemy_melee_fast =      load("res://prefabs/enemies/enemy_melee_fast.tscn")
-var enemy_ranged_basic =    load("res://prefabs/enemies/enemy_ranged_basic.tscn")
-var enemy_ranged_advanced = load("res://prefabs/enemies/enemy_ranged_advanced.tscn")
-var enemy_tank =            load("res://prefabs/enemies/enemy_tank.tscn")
+var enemy_melee_basic =     load("res://prefabs/enemies/EnemyMeleeBasic.tscn")
+var enemy_melee_fast =      load("res://prefabs/enemies/EnemyMeleeFast.tscn")
+var enemy_ranged_basic =    load("res://prefabs/enemies/EnemyRangedBasic.tscn")
+var enemy_ranged_advanced = load("res://prefabs/enemies/EnemyRangedAdvanced.tscn")
+var enemy_tank =            load("res://prefabs/enemies/EnemyTank.tscn")
 
 var bullet_resource = load("res://prefabs/projectiles/ProjectilePlayerBullet.tscn")
 # -----------------------------------------------------------------------------------

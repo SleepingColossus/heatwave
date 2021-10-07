@@ -1,99 +1,33 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://art/TankEnemy/TankEnemyDying2.png" type="Texture" id=1]
-[ext_resource path="res://art/TankEnemy/TankEnemyBottom1.png" type="Texture" id=2]
-[ext_resource path="res://art/TankEnemy/TankEnemyTop2.png" type="Texture" id=3]
-[ext_resource path="res://art/TankEnemy/TankEnemyTop3.png" type="Texture" id=4]
-[ext_resource path="res://art/TankEnemy/TankEnemyLeft2.png" type="Texture" id=5]
-[ext_resource path="res://art/TankEnemy/TankEnemyLeft1.png" type="Texture" id=6]
-[ext_resource path="res://art/TankEnemy/TankEnemyRight1.png" type="Texture" id=7]
-[ext_resource path="res://art/TankEnemy/TankEnemyDying1.png" type="Texture" id=8]
-[ext_resource path="res://art/TankEnemy/TankEnemyDying3.png" type="Texture" id=9]
-[ext_resource path="res://art/TankEnemy/TankEnemyRight2.png" type="Texture" id=10]
-[ext_resource path="res://art/TankEnemy/TankEnemyRight3.png" type="Texture" id=11]
-[ext_resource path="res://art/TankEnemy/TankEnemyTop1.png" type="Texture" id=12]
-[ext_resource path="res://art/TankEnemy/TankEnemyBottom2.png" type="Texture" id=13]
-[ext_resource path="res://art/TankEnemy/TankEnemyBottom3.png" type="Texture" id=14]
-[ext_resource path="res://art/TankEnemy/TankEnemyLeft3.png" type="Texture" id=15]
-[ext_resource path="res://art/TankEnemy/TankEnemyDying4.png" type="Texture" id=16]
+[ext_resource path="res://animationsxxxx/EnemyTankAnimation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://animations/AnimationTank.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://scripts/gameplay/enemy.gd" type="Script" id=17]
-[ext_resource path="res://prefabs/weapons/weapon.tscn" type="PackedScene" id=18]
+[ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/projectiles/projectile_enemy_bullet.tscn" type="PackedScene" id=19]
-[ext_resource path="res://art/TankEnemy/TankEnemyGib.png" type="Texture" id=20]
 
-
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 1 ), ExtResource( 9 ), ExtResource( 16 ), ExtResource( 20 ) ],
-"loop": false,
-"name": "Dying",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "MoveLeft",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IdleRight",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 3 ), ExtResource( 12 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "MoveTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 13 ), ExtResource( 2 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "MoveBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "IdleBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "IdleLeft",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 21.7758
 height = 10.6982
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
 [node name="TankEnemy" type="KinematicBody2D"]
 script = ExtResource( 17 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
-animation = "IdleLeft"
+[node name="AnimatedSprite" parent="." instance=ExtResource( 1 )]
+frames = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 margin_left = -32.0
 margin_top = -48.0
 margin_right = 32.0
 margin_bottom = -34.0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 2 )
 value = 50.0
 percent_visible = false
 __meta__ = {

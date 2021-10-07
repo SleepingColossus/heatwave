@@ -1,0 +1,70 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyGib.png" type="Texture" id=1]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyLeft3.png" type="Texture" id=2]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyRight1.png" type="Texture" id=3]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyTop2.png" type="Texture" id=4]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyRight2.png" type="Texture" id=5]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyTop1.png" type="Texture" id=6]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyLeft2.png" type="Texture" id=7]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyBottom3.png" type="Texture" id=8]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying3.png" type="Texture" id=9]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyBottom2.png" type="Texture" id=10]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying1.png" type="Texture" id=11]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyRight3.png" type="Texture" id=12]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyLeft1.png" type="Texture" id=13]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyTop3.png" type="Texture" id=14]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying2.png" type="Texture" id=15]
+[ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyBottom1.png" type="Texture" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 15 ), ExtResource( 9 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 10 ), ExtResource( 16 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+} ]
+
+[node name="AnimatedSprite" type="AnimatedSprite"]
+frames = SubResource( 1 )
+animation = "IdleLeft"
