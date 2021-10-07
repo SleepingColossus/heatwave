@@ -11,5 +11,5 @@ dest_files=[ "res://.import/harpoon.ogg-b6f970b7527e18566e46799354ec8a32.oggstr"
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/melee_punch.ogg-aa5d46bd2e160f3836d0b82ed8f712cb.ogg
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

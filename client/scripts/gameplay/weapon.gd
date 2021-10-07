@@ -4,10 +4,12 @@ extends Node2D
 export var attack_range: int
 export var attack_rate: int
 export var projectile_scene: PackedScene
+export var shoot_sound: AudioStreamOGGVorbis
 
 onready var reload_time: Timer = $ReloadTimer
 onready var line_of_sight: CollisionShape2D = $AttackRange/CollisionShape2D
-onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
+onready var audio_stream: AudioStreamPlayer2D = $ShootSound
+
 
 var target: Player = null
 var can_shoot: bool = true
@@ -19,9 +21,11 @@ func _ready():
 
 	reload_time.wait_time = attack_rate
 
+	audio_stream.stream = shoot_sound
+
 func shoot() -> void:
 	spawn_projectile()
-	shoot_sound.play()
+	audio_stream.play()
 	can_shoot = false
 	reload_time.start()
 
