@@ -36,12 +36,14 @@ func _process(delta):
 			set_animation(direction)
 			sprite.play()
 		else:
+			sprite.stop()
+
 			if weapon.can_shoot and weapon.target != null:
 				weapon.shoot()
 
 				if self_destruct:
 					die()
-			sprite.stop()
+					sprite.play()
 
 func set_direction() -> Vector2:
 	var chase_direction = Vector2()
