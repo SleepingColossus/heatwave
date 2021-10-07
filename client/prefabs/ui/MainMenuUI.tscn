@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://art/UI/MainMenu/Logo.png" type="Texture" id=1]
+[ext_resource path="res://audio/music/mm.ogg" type="AudioStream" id=2]
 [ext_resource path="res://prefabs/ui/QuitButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/ui/PlayButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefabs/ui/HelpButton.tscn" type="PackedScene" id=5]
@@ -70,3 +71,7 @@ size_flags_vertical = 3
 [node name="LogoNew" type="Sprite" parent="."]
 position = Vector2( 960, 160 )
 texture = ExtResource( 7 )
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
