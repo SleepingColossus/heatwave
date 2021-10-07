@@ -9,6 +9,10 @@ export var damage: int
 # calculated x, y velocity
 var velocity : Vector2
 
+const rotation_adjustment: float = 1.57 # 45 degrees in radians
+
+onready var sprite: AnimatedSprite = $Sprite
+
 func _process(delta):
 	move_and_slide(velocity)
 	destroy_off_screen()
@@ -25,6 +29,8 @@ func set_velocity(to: Vector2, offset: float) -> void:
 	var velocity_y = sin(angle) * speed
 
 	velocity = Vector2(velocity_x * speed, velocity_y * speed)
+
+	self.rotation = angle + rotation_adjustment
 
 func destroy_off_screen() -> void:
 	var window_size = OS.get_real_window_size()
