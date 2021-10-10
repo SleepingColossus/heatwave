@@ -115,21 +115,21 @@ __meta__ = {
 }
 
 [node name="Pistol" parent="." instance=ExtResource( 22 )]
-attack_rate = 1
+attack_rate = 0.2
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )
 
 [node name="Uzi" parent="." instance=ExtResource( 22 )]
-attack_rate = 200
+attack_rate = 0.1
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )
 
 [node name="Shotgun" parent="." instance=ExtResource( 22 )]
-attack_rate = 200
+attack_rate = 1.0
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )
 
 [node name="Harpoon" parent="." instance=ExtResource( 22 )]
-attack_rate = 200
+attack_rate = 1.0
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )

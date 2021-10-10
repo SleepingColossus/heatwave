@@ -1,7 +1,7 @@
 class_name Weapon
 extends Node2D
 
-export var attack_rate: int
+export var attack_rate: float
 export var spread: bool
 export var projectile_scene: PackedScene
 export var shoot_sound: AudioStreamOGGVorbis
