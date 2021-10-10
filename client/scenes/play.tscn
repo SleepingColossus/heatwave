@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/ui/HudUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/sound_manager.gd" type="Script" id=3]
 [ext_resource path="res://scripts/gameplay/game_state_manager.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ui_manager.gd" type="Script" id=5]
 [ext_resource path="res://tileset/TileSet.tres" type="TileSet" id=6]
@@ -18,9 +17,6 @@ script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 972.6, 462.779 )
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-script = ExtResource( 3 )
 
 [node name="WaveStartTimer" type="Timer" parent="."]
 one_shot = true

@@ -13,12 +13,9 @@ var enemy_melee_fast =      load("res://prefabs/enemies/EnemyMeleeFast.tscn")
 var enemy_ranged_basic =    load("res://prefabs/enemies/EnemyRangedBasic.tscn")
 var enemy_ranged_advanced = load("res://prefabs/enemies/EnemyRangedAdvanced.tscn")
 var enemy_tank =            load("res://prefabs/enemies/EnemyTank.tscn")
-
-var bullet_resource = load("res://prefabs/projectiles/ProjectilePlayerBullet.tscn")
 # -----------------------------------------------------------------------------------
 
 onready var player = $Player
-onready var sound_manager = $AudioStreamPlayer2D
 onready var ui_manager = $CanvasLayer/UI
 onready var wave_start_timer = $WaveStartTimer
 
@@ -34,7 +31,6 @@ func _ready():
 	current_wave = 0
 	number_of_waves = Waves.wave_data.size()
 
-	player.connect("shot_fired", self, "_on_shot_fired")
 	player.connect("health_changed", self, "_on_player_health_changed")
 
 func _process(delta):
@@ -62,15 +58,6 @@ func _process(delta):
 			# final wave
 			else:
 				win()
-
-func _on_shot_fired(from: Vector2,to: Vector2, weapon_type: int) -> void:
-	var projectile = bullet_resource.instance()
-
-	var spread_angle: float = 0
-	projectile.position = from
-	projectile.set_velocity(to, spread_angle)
-
-	add_child(projectile)
 
 func _on_player_health_changed(current_hp: int, max_hp: int) -> void:
 	ui_manager.set_player_health(current_hp)

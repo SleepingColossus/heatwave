@@ -1,7 +1,13 @@
 class_name Player
 extends KinematicBody2D
 
-signal shot_fired(from, to, type)
+enum WeaponType {
+	PISTOL,
+	UZI,
+	SHOTGUN,
+	HARPOON
+}
+
 signal health_changed(current_hp, max_hp)
 
 export var max_health: int = 5
@@ -14,6 +20,13 @@ export var weapon_type: int = 0
 onready var reload_timer: Timer = $ReloadTimer
 
 onready var sprite = $AnimatedSprite
+
+onready var pistol:  Weapon = $Pistol
+onready var uzi:     Weapon = $Uzi
+onready var shotgun: Weapon = $Shotgun
+onready var harpoon: Weapon = $Harpoon
+var current_weapon_type = WeaponType.PISTOL
+var current_ammo = 0
 
 func _ready():
 	current_health = max_health
@@ -51,11 +64,31 @@ func poll_movement() -> Vector2:
 	return direction
 
 func poll_action() -> void:
-	if Input.is_action_just_pressed("shoot") and reload_timer.is_stopped():
-		var mouse_position = get_viewport().get_mouse_position()
-		emit_signal("shot_fired", position, mouse_position, weapon_type)
-		$ShootSound.play()
-		reload_timer.start()
+	if Input.is_action_just_pressed("shoot"):
+		var current_weapon = get_current_weapon()
+		if current_weapon.can_shoot:
+			var mouse_position = get_viewport().get_mouse_position()
+			current_weapon.shoot(mouse_position)
+
+			if current_weapon_type != WeaponType.PISTOL:
+				current_ammo -= 1
+
+			if current_ammo <= 0 and current_weapon_type != WeaponType.PISTOL:
+				change_weapon(WeaponType.PISTOL)
+
+func get_current_weapon() -> Weapon:
+	match current_weapon_type:
+		WeaponType.PISTOL:
+			return pistol
+		WeaponType.UZI:
+			return uzi
+		WeaponType.SHOTGUN:
+			return shotgun
+		WeaponType.HARPOON:
+			return harpoon
+
+	# default case
+	return null
 
 func set_animation(direction: Vector2) -> void:
 	if direction.x > 0:
@@ -88,6 +121,21 @@ func heal(amount: int) -> void:
 		current_health = max_health
 
 	emit_signal("health_changed", current_health, max_health)
+
+func change_weapon(w) -> void:
+	match w:
+		WeaponType.PISTOL:
+			current_weapon_type = WeaponType.PISTOL
+			current_ammo = 0
+		WeaponType.UZI:
+			current_weapon_type = WeaponType.UZI
+			current_ammo = 20
+		WeaponType.SHOTGUN:
+			current_weapon_type = WeaponType.SHOTGUN
+			current_ammo = 5
+		WeaponType.HARPOON:
+			current_weapon_type = WeaponType.HARPOON
+			current_ammo = 3
 
 func is_alive() -> bool:
 	return current_health > 0
