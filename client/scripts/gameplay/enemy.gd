@@ -7,7 +7,7 @@ onready var player = $"../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
 onready var weapon : Weapon = $Weapon
-onready var line_of_sight: Area2D = $Weapon/AttackRange
+onready var line_of_sight: Area2D = $LineOfSight
 
 export var max_health: int = 5
 var current_health: int
@@ -16,6 +16,7 @@ export var speed: int = 50
 export var self_destruct : bool = false
 
 var is_alive: bool = true
+var target: Player = null
 
 func _ready():
 	current_health = max_health
@@ -28,7 +29,7 @@ func _process(delta):
 	if is_alive:
 		var distance_from_player = get_distance_between(position, player.position)
 
-		if distance_from_player > weapon.attack_range:
+		if target == null: # player not in shooting range
 			var direction = set_direction()
 			var velocity = get_velocity_towards(player.position)
 
@@ -38,8 +39,8 @@ func _process(delta):
 		else:
 			sprite.stop()
 
-			if weapon.can_shoot and weapon.target != null:
-				weapon.shoot()
+			if weapon.can_shoot:
+				weapon.shoot(target.global_position)
 
 				if self_destruct:
 					die()
@@ -113,3 +114,12 @@ func die() -> void:
 	set_animation_by_name("Dying")
 	health_bar.visible = false
 	emit_signal("died")
+
+
+func _on_LineOfSight_body_entered(body) -> void:
+	if body is Player:
+		target = body
+
+func _on_LineOfSight_body_exited(body) -> void:
+	if body is Player:
+		target = null
