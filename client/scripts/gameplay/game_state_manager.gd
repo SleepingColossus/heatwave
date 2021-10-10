@@ -32,6 +32,8 @@ func _ready():
 	number_of_waves = Waves.wave_data.size()
 
 	player.connect("health_changed", self, "_on_player_health_changed")
+	player.connect("weapon_changed", self, "_on_player_weapon_changed")
+	player.connect("ammo_changed", self, "_on_player_ammo_changed")
 
 func _process(delta):
 	if game_state == GameState.PENDING:
@@ -61,6 +63,12 @@ func _process(delta):
 
 func _on_player_health_changed(current_hp: int, max_hp: int) -> void:
 	ui_manager.set_player_health(current_hp)
+
+func _on_player_weapon_changed(new_weapon: int) -> void:
+	ui_manager.change_player_weapon(new_weapon)
+
+func _on_player_ammo_changed(amount: String) -> void:
+	ui_manager.set_player_ammo(amount)
 
 func _on_enemy_died() -> void:
 	enemy_count -= 1

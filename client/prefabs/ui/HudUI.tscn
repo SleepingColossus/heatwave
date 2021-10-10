@@ -66,7 +66,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="Weapon" type="TextureRect" parent="."]
 margin_top = 79.0
 margin_right = 64.0
 margin_bottom = 143.0
@@ -74,26 +74,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerWeaponPistolUI" type="Sprite" parent="TextureRect2"]
+[node name="WeaponIconPistol" type="Sprite" parent="Weapon"]
 position = Vector2( 32, 32 )
 texture = ExtResource( 5 )
 
-[node name="PlayerWeaponSMGUI" type="Sprite" parent="TextureRect2"]
+[node name="WeaponIconUzi" type="Sprite" parent="Weapon"]
 visible = false
 position = Vector2( 32, 32 )
 texture = ExtResource( 3 )
 
-[node name="PlayerWeaponShotgunUI" type="Sprite" parent="TextureRect2"]
+[node name="WeaponIconShotgun" type="Sprite" parent="Weapon"]
 visible = false
 position = Vector2( 32, 32 )
 texture = ExtResource( 7 )
 
-[node name="PlayerWeaponHarpoonGunUI" type="Sprite" parent="TextureRect2"]
+[node name="WeaponIconHarpoon" type="Sprite" parent="Weapon"]
 visible = false
 position = Vector2( 32, 32 )
 texture = ExtResource( 6 )
 
-[node name="AmmoText" type="Label" parent="TextureRect2"]
+[node name="AmmoText" type="Label" parent="Weapon"]
 margin_left = 66.8108
 margin_top = 1.8661
 margin_right = 180.811

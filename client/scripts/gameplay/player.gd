@@ -9,6 +9,8 @@ enum WeaponType {
 }
 
 signal health_changed(current_hp, max_hp)
+signal weapon_changed(new_weapon)
+signal ammo_changed(amount)
 
 export var max_health: int = 5
 var current_health: int
@@ -72,6 +74,7 @@ func poll_action() -> void:
 
 			if current_weapon_type != WeaponType.PISTOL:
 				current_ammo -= 1
+				emit_signal("ammo_changed", current_ammo as String)
 
 			if current_ammo <= 0 and current_weapon_type != WeaponType.PISTOL:
 				change_weapon(WeaponType.PISTOL)
@@ -136,6 +139,13 @@ func change_weapon(w) -> void:
 		WeaponType.HARPOON:
 			current_weapon_type = WeaponType.HARPOON
 			current_ammo = 3
+
+	emit_signal("weapon_changed", w)
+
+	if w == WeaponType.PISTOL:
+		emit_signal("ammo_changed", "Inf")
+	else:
+		emit_signal("ammo_changed", current_ammo as String)
 
 func is_alive() -> bool:
 	return current_health > 0
