@@ -2,10 +2,10 @@ class_name Player
 extends KinematicBody2D
 
 enum WeaponType {
-	PISTOL,
-	UZI,
-	SHOTGUN,
-	HARPOON
+	PISTOL  = 0,
+	UZI     = 1,
+	SHOTGUN = 2,
+	HARPOON = 3,
 }
 
 signal health_changed(current_hp, max_hp)
