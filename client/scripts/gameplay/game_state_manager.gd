@@ -84,6 +84,7 @@ func start_wave(wave_number: int) -> void:
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_ADVANCED, enemy_ranged_advanced)
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.TANK,            enemy_tank)
 
+	ui_manager.update_wave_number(wave_number)
 	ui_manager.hide_game_state_text()
 
 func spawn_instance_batch(wave_dict: Dictionary, key: int, resource) -> void:
