@@ -18,9 +18,6 @@ var is_alive: bool = true
 
 export var speed: int = 100
 
-export var weapon_type: int = 0
-onready var reload_timer: Timer = $ReloadTimer
-
 onready var sprite = $AnimatedSprite
 
 onready var pistol:  Weapon = $Pistol
