@@ -10,8 +10,10 @@ onready var weapon : Weapon = $Weapon
 onready var line_of_sight: Area2D = $LineOfSight
 onready var collider: CollisionShape2D = $CollisionShape2D
 
+export var medkit_drop: PackedScene
+export var medkit_drop_rate: int
 export var weapon_drop: PackedScene
-export var drop_rate: int
+export var weapon_drop_rate: int
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 export var max_health: int = 5
@@ -116,12 +118,23 @@ func take_damage(amount: int) -> void:
 	if current_health <= 0:
 		die()
 
+func roll_medkit_drop() -> void:
+	var drop_roll = rng.randi_range(1, 100)
+	var should_drop = drop_roll <= medkit_drop_rate
+
+	if should_drop:
+		var instance = medkit_drop.instance()
+		instance.position = get_global_position()
+
+		# add child to game scene
+		get_parent().add_child(instance)
+
 func roll_weapon_drop() -> void:
 	if weapon_drop == null:
 		return
 	else:
 		var drop_roll = rng.randi_range(1, 100)
-		var should_drop = drop_roll <= drop_rate
+		var should_drop = drop_roll <= weapon_drop_rate
 
 		if should_drop:
 			var instance = weapon_drop.instance()

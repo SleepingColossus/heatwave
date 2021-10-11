@@ -11,7 +11,7 @@ radius = 288.187
 
 [node name="EnemyTank" instance=ExtResource( 1 )]
 weapon_drop = ExtResource( 5 )
-drop_rate = 15
+weapon_drop_rate = 15
 max_health = 10
 speed = 40
 

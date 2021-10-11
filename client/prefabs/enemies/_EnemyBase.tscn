@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying1.png" type="Texture" id=1]
 [ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying2.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://prefabs/weapon.tscn" type="PackedScene" id=17]
 [ext_resource path="res://prefabs/projectiles/ProjectileEnemyMelee.tscn" type="PackedScene" id=18]
 [ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyGib.png" type="Texture" id=19]
+[ext_resource path="res://prefabs/collectables/pickup_medkit.tscn" type="PackedScene" id=20]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -77,6 +78,8 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [node name="_EnemyBase" type="KinematicBody2D"]
 script = ExtResource( 16 )
+medkit_drop = ExtResource( 20 )
+medkit_drop_rate = 5
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

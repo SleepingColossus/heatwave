@@ -11,7 +11,7 @@ radius = 494.065
 
 [node name="EnemyRangedAdvanced" instance=ExtResource( 1 )]
 weapon_drop = ExtResource( 5 )
-drop_rate = 25
+weapon_drop_rate = 25
 max_health = 7
 
 [node name="AnimatedSprite" parent="." index="0"]
