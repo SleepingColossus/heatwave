@@ -2,6 +2,7 @@ class_name UIManager
 extends Node
 
 # notifications
+onready var label_wave_number: Label = $WaveNumber
 onready var notification_container: GridContainer = $Notifications
 onready var game_state_text: Label = $GameStateText
 
@@ -97,3 +98,6 @@ func hide_all_weapon_sprites() -> void:
 	uzi_icon.visible = false
 	shotgun_icon.visible = false
 	harpoon_icon.visible = false
+
+func update_wave_number(wave: int) -> void:
+	label_wave_number.text = "WAVE: %s" % wave as String
