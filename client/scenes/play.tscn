@@ -1,18 +1,26 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://prefabs/ui/HudUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://prefabs/collectables/WeaponShotgun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/enemies/EnemyRangedAdvanced.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/gameplay/game_state_manager.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ui_manager.gd" type="Script" id=5]
 [ext_resource path="res://tileset/TileSet.tres" type="TileSet" id=6]
 [ext_resource path="res://audio/music/bgm.ogg" type="AudioStream" id=7]
-[ext_resource path="res://prefabs/collectables/WeaponUzi.tscn" type="PackedScene" id=8]
-[ext_resource path="res://prefabs/collectables/WeaponHarpoon.tscn" type="PackedScene" id=9]
+[ext_resource path="res://prefabs/enemies/EnemyTank.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/enemies/EnemyMeleeBasic.tscn" type="PackedScene" id=9]
 [ext_resource path="res://prefabs/collectables/pickup_medkit.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/enemies/EnemyMeleeFast.tscn" type="PackedScene" id=11]
+[ext_resource path="res://prefabs/enemies/EnemyRangedBasic.tscn" type="PackedScene" id=12]
 
 [node name="PlaySinglePlayer" type="Node2D"]
 script = ExtResource( 4 )
+enemy_melee_basic = ExtResource( 9 )
+enemy_melee_fast = ExtResource( 11 )
+enemy_ranged_basic = ExtResource( 12 )
+enemy_ranged_advanced = ExtResource( 3 )
+enemy_tank = ExtResource( 8 )
+medkit = ExtResource( 10 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -35,15 +43,3 @@ tile_data = PoolIntArray( 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 3, 0, 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
-
-[node name="WeaponHarpoon" parent="." instance=ExtResource( 9 )]
-position = Vector2( 865.675, 585.929 )
-
-[node name="WeaponShotgun" parent="." instance=ExtResource( 3 )]
-position = Vector2( 970.024, 584.967 )
-
-[node name="WeaponUzi" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1058.15, 583.907 )
-
-[node name="HealthPickUp" parent="." instance=ExtResource( 10 )]
-position = Vector2( 791.064, 585.291 )

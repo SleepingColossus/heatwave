@@ -7,13 +7,13 @@ enum GameState {
 	DEFEAT
 }
 
-# preload resources prior to spawning -----------------------------------------------
-var enemy_melee_basic =     load("res://prefabs/enemies/EnemyMeleeBasic.tscn")
-var enemy_melee_fast =      load("res://prefabs/enemies/EnemyMeleeFast.tscn")
-var enemy_ranged_basic =    load("res://prefabs/enemies/EnemyRangedBasic.tscn")
-var enemy_ranged_advanced = load("res://prefabs/enemies/EnemyRangedAdvanced.tscn")
-var enemy_tank =            load("res://prefabs/enemies/EnemyTank.tscn")
-# -----------------------------------------------------------------------------------
+# prefabs
+export var enemy_melee_basic: PackedScene
+export var enemy_melee_fast: PackedScene
+export var enemy_ranged_basic: PackedScene
+export var enemy_ranged_advanced: PackedScene
+export var enemy_tank: PackedScene
+export var medkit: PackedScene
 
 onready var player = $Player
 onready var ui_manager = $CanvasLayer/UI
@@ -84,6 +84,9 @@ func start_wave(wave_number: int) -> void:
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.RANGED_ADVANCED, enemy_ranged_advanced)
 	spawn_instance_batch(wave_data, EnemyType.EnemyType.TANK,            enemy_tank)
 
+	if wave_number % 5 == 0:
+		spawn_medkit()
+
 	ui_manager.update_wave_number(wave_number)
 	ui_manager.hide_game_state_text()
 
@@ -101,6 +104,15 @@ func spawn_instance(resource) -> void:
 
 	add_child(instance)
 	enemy_count += 1
+
+func spawn_medkit() -> void:
+	var instance = medkit.instance()
+	instance.position = generate_center_position()
+	add_child(instance)
+
+func generate_center_position() -> Vector2:
+	var window_size = OS.get_real_window_size()
+	return Vector2(window_size.x / 2, window_size.y / 2)
 
 func generate_random_position() -> Vector2:
 	var window_size = OS.get_real_window_size()
