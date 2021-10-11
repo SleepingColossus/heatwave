@@ -8,6 +8,7 @@ onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
 onready var weapon : Weapon = $Weapon
 onready var line_of_sight: Area2D = $LineOfSight
+onready var collider: CollisionShape2D = $CollisionShape2D
 
 export var max_health: int = 5
 var current_health: int
@@ -112,6 +113,7 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	is_alive = false
 	set_animation_by_name("Dying")
+	collider.set_deferred("disabled", true)
 	health_bar.visible = false
 	emit_signal("died")
 
