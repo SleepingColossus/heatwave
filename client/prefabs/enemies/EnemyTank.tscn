@@ -9,6 +9,8 @@
 radius = 288.187
 
 [node name="EnemyTank" instance=ExtResource( 1 )]
+max_health = 10
+speed = 40
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = ExtResource( 2 )

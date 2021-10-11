@@ -23,6 +23,7 @@ height = 28.6609
 
 [node name="ProjectilePlayerHarpoon" instance=ExtResource( 1 )]
 is_friendly = true
+damage = 4
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 1 )

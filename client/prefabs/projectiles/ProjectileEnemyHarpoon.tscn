@@ -22,6 +22,7 @@ radius = 2.7481
 height = 27.0842
 
 [node name="ProjectileEnemyHarpoon" instance=ExtResource( 2 )]
+damage = 2
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 1 )

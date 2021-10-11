@@ -9,7 +9,7 @@
 radius = 494.065
 
 [node name="EnemyRangedAdvanced" instance=ExtResource( 1 )]
-max_health = 3
+max_health = 7
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = ExtResource( 2 )
