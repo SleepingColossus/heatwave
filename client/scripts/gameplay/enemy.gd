@@ -45,7 +45,9 @@ func _process(delta):
 			var velocity = get_velocity_towards(player.position)
 
 			move_and_slide(velocity)
-			set_animation(direction)
+
+			var distance_from_player_vector = Vector2(position.x - player.position.x, position.y - player.position.y)
+			set_animation(distance_from_player_vector)
 			sprite.play()
 		else:
 			sprite.stop()
@@ -87,17 +89,21 @@ func get_velocity_towards(to: Vector2) -> Vector2:
 func get_distance_between(from: Vector2, to: Vector2) -> float:
 	return from.distance_to(to)
 
-func set_animation(direction: Vector2) -> void:
-	if direction.x > 0:
-		set_animation_by_name("MoveRight")
-	elif direction.x < 0:
-		set_animation_by_name("MoveLeft")
-	elif direction.y > 0:
-		set_animation_by_name("MoveBottom")
-	elif direction.y < 0:
-		set_animation_by_name("MoveTop")
-	else:
-		set_animation_by_name("IdleBottom")
+func set_animation(distance_from_player: Vector2) -> void:
+
+	# is the horizontal distance greater than the vertical distance?
+	var farther_on_x = abs(distance_from_player.x) > abs(distance_from_player.y)
+
+	if farther_on_x: # yes, use horizontal sprite
+		if distance_from_player.x > 0: # player is left
+			set_animation_by_name("MoveLeft")
+		else: # player is right
+			set_animation_by_name("MoveRight")
+	else: # no, farther on vertical axis, use vertical sprite
+		if distance_from_player.y > 0: # player is above
+			set_animation_by_name("MoveTop")
+		else: # player is below
+			set_animation_by_name("MoveBottom")
 
 func set_animation_by_name(animation_name) -> void:
 	if sprite.animation != animation_name:
