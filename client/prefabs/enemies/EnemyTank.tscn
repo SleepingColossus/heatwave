@@ -24,6 +24,7 @@ margin_top = -49.0
 margin_bottom = -35.0
 
 [node name="Weapon" parent="." index="3"]
+attack_rate = 0.0
 spread_amount = 4
 spread_angle = 15.0
 projectile_scene = ExtResource( 3 )
