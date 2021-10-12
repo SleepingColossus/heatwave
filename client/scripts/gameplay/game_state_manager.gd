@@ -72,6 +72,7 @@ func _on_player_ammo_changed(amount: String) -> void:
 
 func _on_enemy_died() -> void:
 	enemy_count -= 1
+	print_debug("Enemies remaining: %d" % enemy_count)
 
 func start_wave(wave_number: int) -> void:
 	game_state = GameState.PLAYING
