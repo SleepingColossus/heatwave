@@ -39,6 +39,7 @@ func _ready():
 func _process(delta):
 	if is_alive:
 		var distance_from_player = get_distance_between(position, player.position)
+		var distance_from_player_vector = Vector2(position.x - player.position.x, position.y - player.position.y)
 
 		if target == null: # player not in shooting range
 			var direction = set_direction()
@@ -46,10 +47,10 @@ func _process(delta):
 
 			move_and_slide(velocity)
 
-			var distance_from_player_vector = Vector2(position.x - player.position.x, position.y - player.position.y)
 			set_animation(distance_from_player_vector)
 			sprite.play()
 		else:
+			set_animation(distance_from_player_vector)
 			sprite.stop()
 
 			if weapon.can_shoot:
