@@ -63,7 +63,7 @@ func poll_movement() -> Vector2:
 	return direction
 
 func poll_action() -> void:
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot"):
 		var current_weapon = get_current_weapon()
 		if current_weapon.can_shoot:
 			var mouse_position = get_viewport().get_mouse_position()
