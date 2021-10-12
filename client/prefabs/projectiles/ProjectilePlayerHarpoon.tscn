@@ -25,6 +25,7 @@ height = 28.6609
 is_friendly = true
 damage = 4
 piercing = true
+durability = 7
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 1 )
