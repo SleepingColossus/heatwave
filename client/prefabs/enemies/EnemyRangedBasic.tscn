@@ -13,6 +13,7 @@ radius = 259.25
 weapon_drop = ExtResource( 5 )
 weapon_drop_rate = 15
 max_health = 3
+piercing_resistance = 1
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = ExtResource( 2 )

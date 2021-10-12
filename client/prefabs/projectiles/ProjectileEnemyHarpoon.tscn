@@ -24,6 +24,7 @@ height = 27.0842
 [node name="ProjectileEnemyHarpoon" instance=ExtResource( 2 )]
 damage = 2
 piercing = true
+durability = 1
 
 [node name="Sprite" parent="." index="0"]
 frames = SubResource( 1 )

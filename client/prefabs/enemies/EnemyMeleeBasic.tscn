@@ -10,6 +10,7 @@ height = 0.0
 
 [node name="EnemyMeleeBasic" instance=ExtResource( 1 )]
 max_health = 3
+piercing_resistance = 1
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = ExtResource( 2 )
