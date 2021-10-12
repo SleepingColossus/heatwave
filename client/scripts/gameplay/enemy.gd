@@ -146,6 +146,7 @@ func roll_weapon_drop() -> void:
 func die() -> void:
 	is_alive = false
 	roll_weapon_drop()
+	roll_medkit_drop()
 	set_animation_by_name("Dying")
 	collider.set_deferred("disabled", true)
 	health_bar.visible = false
