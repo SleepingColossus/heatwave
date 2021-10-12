@@ -13,6 +13,7 @@ var velocity : Vector2
 const rotation_adjustment: float = 1.57 # 45 degrees in radians
 
 onready var sprite: AnimatedSprite = $Sprite
+onready var despawn_animation: AnimationPlayer = $DespawnAnimation
 
 func _process(delta):
 	move_and_slide(velocity)
@@ -50,4 +51,4 @@ func _on_Area2D_body_entered(body):
 			queue_free()
 
 func _on_DespawnTimer_timeout():
-	queue_free()
+	despawn_animation.play("Despawned")
