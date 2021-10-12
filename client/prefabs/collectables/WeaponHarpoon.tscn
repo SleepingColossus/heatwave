@@ -4,3 +4,6 @@
 
 [node name="WeaponHarpoon" instance=ExtResource( 1 )]
 weapon_type = 3
+
+[node name="DespawnTimer" parent="." index="5"]
+wait_time = 15.0
