@@ -22,6 +22,8 @@ var current_health: int
 export var speed: int = 50
 export var self_destruct : bool = false
 
+export var piercing_resistance: int
+
 var is_alive: bool = true
 var target: Player = null
 

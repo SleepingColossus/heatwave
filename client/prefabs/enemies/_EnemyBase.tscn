@@ -33,14 +33,9 @@ animations = [ {
 "name": "MoveRight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 19 ) ],
-"loop": false,
-"name": "Dying",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 14 ), ExtResource( 4 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "IdleLeft",
+"name": "MoveTop",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -48,24 +43,29 @@ animations = [ {
 "name": "IdleTop",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "IdleBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 14 ), ExtResource( 4 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "MoveTop",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "MoveBottom",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "Dying",
 "speed": 5.0
 } ]
 
@@ -80,6 +80,7 @@ bg_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 16 )
 medkit_drop = ExtResource( 20 )
 medkit_drop_rate = 5
+piercing_resistance = 1
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 z_index = -1

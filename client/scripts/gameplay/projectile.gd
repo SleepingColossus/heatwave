@@ -6,6 +6,7 @@ export var speed = 20
 export var is_friendly: bool
 export var damage: int
 export var piercing: bool
+export var durability: int
 
 # calculated x, y velocity
 var velocity : Vector2
@@ -49,6 +50,12 @@ func _on_Area2D_body_entered(body):
 
 		if !piercing:
 			queue_free()
+		else:
+			if body is Enemy:
+				durability -= body.piercing_resistance
+
+				if durability == 0:
+					queue_free()
 
 func _on_DespawnTimer_timeout():
 	despawn_animation.play("Despawned")
