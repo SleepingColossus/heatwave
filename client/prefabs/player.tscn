@@ -28,14 +28,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ), ExtResource( 20 ) ],
 "loop": true,
-"name": "IdleLeft",
+"name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "IdleBottom",
+"name": "IdleRight",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -43,25 +43,25 @@ animations = [ {
 "name": "IdleTop",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "Dying",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "MoveBottom",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "IdleRight",
+"name": "IdleLeft",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "MoveTop",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
 "loop": true,
@@ -129,7 +129,8 @@ shoot_sound = ExtResource( 16 )
 
 [node name="Shotgun" parent="." instance=ExtResource( 22 )]
 attack_rate = 1.0
-spread = true
+spread_amount = 3
+spread_angle = 15.0
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 25 )
 
