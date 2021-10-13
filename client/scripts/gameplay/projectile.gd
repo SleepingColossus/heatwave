@@ -54,7 +54,7 @@ func _on_Area2D_body_entered(body):
 			if body is Enemy:
 				durability -= body.piercing_resistance
 
-				if durability == 0:
+				if durability <= 0:
 					queue_free()
 
 func _on_DespawnTimer_timeout():
