@@ -175,4 +175,4 @@ func wait_for_next_wave() -> void:
 
 # show instructions after game over
 func _on_GameOverNotificationTimer_timeout():
-	ui_manager.show_game_state_update("Press R to restart  |  Press ESC for main menu")
+	ui_manager.show_game_state_update("Press R to restart  |  Press ESC to exit")
