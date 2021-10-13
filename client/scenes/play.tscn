@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://prefabs/ui/HudUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
@@ -13,9 +13,6 @@
 [ext_resource path="res://prefabs/enemies/EnemyMeleeFast.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/enemies/EnemyRangedBasic.tscn" type="PackedScene" id=12]
 [ext_resource path="res://prefabs/ui/MainMenuUI.tscn" type="PackedScene" id=13]
-[ext_resource path="res://prefabs/collectables/WeaponShotgun.tscn" type="PackedScene" id=14]
-[ext_resource path="res://prefabs/collectables/WeaponHarpoon.tscn" type="PackedScene" id=15]
-[ext_resource path="res://prefabs/collectables/WeaponUzi.tscn" type="PackedScene" id=16]
 
 [node name="PlaySinglePlayer" type="Node2D"]
 script = ExtResource( 4 )
@@ -52,14 +49,5 @@ one_shot = true
 [node name="GameOverNotificationTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="WeaponHarpoon" parent="." instance=ExtResource( 15 )]
-position = Vector2( 742.637, 546.701 )
-
-[node name="WeaponShotgun" parent="." instance=ExtResource( 14 )]
-position = Vector2( 892.139, 669.506 )
-
-[node name="WeaponUzi" parent="." instance=ExtResource( 16 )]
-position = Vector2( 1069.67, 602.764 )
 
 [connection signal="timeout" from="GameOverNotificationTimer" to="." method="_on_GameOverNotificationTimer_timeout"]
