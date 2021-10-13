@@ -84,6 +84,7 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 19 )
+dash_speed_multiplier = 3
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -142,3 +143,13 @@ shoot_sound = ExtResource( 24 )
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 26 )
+
+[node name="DashDurationTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashDurationTimer" to="." method="_on_DashDurationTimer_timeout"]
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_DashCooldownTimer_timeout"]
