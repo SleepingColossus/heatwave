@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/TakeDMG.ogg-ae8529f8da950cd52903b466a7f7a423.oggstr"
+
+[deps]
+
+source_file="res://audio/sound/TakeDMG.ogg"
+dest_files=[ "res://.import/TakeDMG.ogg-ae8529f8da950cd52903b466a7f7a423.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

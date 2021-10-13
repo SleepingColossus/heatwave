@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://art/Player/PlayerTop2.png" type="Texture" id=1]
 [ext_resource path="res://art/Player/PlayerRight2.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://prefabs/projectiles/ProjectilePlayerHarpoon.tscn" type="PackedScene" id=23]
 [ext_resource path="res://audio/sound/harpoon.ogg" type="AudioStream" id=24]
 [ext_resource path="res://audio/sound/shotgun.ogg" type="AudioStream" id=25]
+[ext_resource path="res://audio/sound/TakeDMG.ogg" type="AudioStream" id=26]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -138,3 +139,6 @@ shoot_sound = ExtResource( 25 )
 attack_rate = 1.0
 projectile_scene = ExtResource( 23 )
 shoot_sound = ExtResource( 24 )
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 26 )
