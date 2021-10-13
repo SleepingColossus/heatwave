@@ -49,7 +49,7 @@ func _process(delta):
 
 	elif game_state == GameState.PLAYING:
 
-		if not player.is_alive():
+		if not player.is_alive:
 			lose()
 
 		# all enemies cleared in wave?

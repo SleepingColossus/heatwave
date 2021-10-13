@@ -32,14 +32,15 @@ func _ready():
 	$HealthBar.visible = false
 
 func _process(delta):
-	poll_action()
+	if is_alive:
+		poll_action()
 
-	var direction: Vector2 = poll_movement()
-	var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
-	velocity.normalized()
+		var direction: Vector2 = poll_movement()
+		var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
+		velocity.normalized()
 
-	move_and_slide(velocity)
-	set_animation(direction)
+		move_and_slide(velocity)
+		set_animation(direction)
 
 func poll_movement() -> Vector2:
 	var direction : Vector2 = Vector2()
@@ -109,8 +110,8 @@ func set_animation_by_name(animation_name) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 
-	if current_health < 0:
-		current_health = 0
+	if current_health <= 0:
+		die()
 
 	emit_signal("health_changed", current_health, max_health)
 
@@ -144,5 +145,7 @@ func change_weapon(w) -> void:
 	else:
 		emit_signal("ammo_changed", current_ammo as String)
 
-func is_alive() -> bool:
-	return current_health > 0
+func die() -> void:
+	is_alive = false
+	set_animation_by_name("Dying")
+
