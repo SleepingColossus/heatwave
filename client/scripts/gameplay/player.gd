@@ -16,11 +16,12 @@ export var max_health: int = 5
 var current_health: int
 var is_alive: bool = true
 
-export var speed: int = 100
+export var base_speed: int = 100
 
 onready var sprite = $AnimatedSprite
 onready var hurt_sound = $HurtSound
 
+# weapons
 onready var pistol:  Weapon = $Pistol
 onready var uzi:     Weapon = $Uzi
 onready var shotgun: Weapon = $Shotgun
@@ -28,7 +29,16 @@ onready var harpoon: Weapon = $Harpoon
 var current_weapon_type = WeaponType.PISTOL
 var current_ammo = 0
 
+# dash
+onready var dash_cooldown_timer: Timer = $DashCooldownTimer
+onready var dash_duration_timer: Timer = $DashDurationTimer
+var can_dash: bool
+export var dash_speed_multiplier: int
+var dash_value: int # current multiplier
+
 func _ready():
+	can_dash = true
+	dash_value = 1
 	current_health = max_health
 	$HealthBar.visible = false
 
@@ -37,6 +47,7 @@ func _process(delta):
 		poll_action()
 
 		var direction: Vector2 = poll_movement()
+		var speed = base_speed * dash_value
 		var velocity : Vector2 = Vector2(direction.x * speed, direction.y * speed)
 		velocity.normalized()
 
@@ -77,6 +88,10 @@ func poll_action() -> void:
 
 			if current_ammo <= 0 and current_weapon_type != WeaponType.PISTOL:
 				change_weapon(WeaponType.PISTOL)
+
+	if Input.is_action_just_pressed("dash"):
+		if can_dash:
+			dash()
 
 func get_current_weapon() -> Weapon:
 	match current_weapon_type:
@@ -151,3 +166,14 @@ func die() -> void:
 	is_alive = false
 	set_animation_by_name("Dying")
 
+func dash() -> void:
+	can_dash = false
+	dash_value = dash_speed_multiplier
+	dash_duration_timer.start()
+
+func _on_DashDurationTimer_timeout() -> void:
+	dash_value = 1
+	dash_cooldown_timer.start()
+
+func _on_DashCooldownTimer_timeout() -> void:
+	can_dash = true
