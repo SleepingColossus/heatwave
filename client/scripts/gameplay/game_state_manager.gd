@@ -18,6 +18,7 @@ export var medkit: PackedScene
 onready var player = $Player
 onready var ui_manager = $CanvasLayer/UI
 onready var wave_start_timer = $WaveStartTimer
+onready var game_over_notification_timer = $GameOverNotificationTimer
 
 var game_state: int
 var current_wave: int
@@ -146,10 +147,12 @@ func generate_random_position() -> Vector2:
 func win() -> void:
 	game_state = GameState.VICTORY
 	ui_manager.show_game_state_update("You win!")
+	game_over_notification_timer.start()
 
 func lose() -> void:
 	game_state = GameState.DEFEAT
 	ui_manager.show_game_state_update("You lose!")
+	game_over_notification_timer.start()
 
 func display_wave_countdown(seconds_remaining) -> void:
 	ui_manager.show_game_state_update(seconds_remaining as String)
@@ -157,3 +160,7 @@ func display_wave_countdown(seconds_remaining) -> void:
 func wait_for_next_wave() -> void:
 	game_state = GameState.PENDING
 	wave_timer_remaining_duration = wave_timer_max_duration
+
+# show instructions after game over
+func _on_GameOverNotificationTimer_timeout():
+	ui_manager.show_game_state_update("Press R to restart  |  Press ESC for main menu")

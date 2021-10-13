@@ -30,9 +30,6 @@ script = ExtResource( 5 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 972.6, 462.779 )
 
-[node name="WaveStartTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
 tile_set = ExtResource( 6 )
@@ -43,3 +40,12 @@ tile_data = PoolIntArray( 0, 3, 0, 1, 3, 0, 2, 3, 0, 3, 3, 0, 4, 3, 0, 5, 3, 0, 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
+
+[node name="WaveStartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="GameOverNotificationTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="GameOverNotificationTimer" to="." method="_on_GameOverNotificationTimer_timeout"]
