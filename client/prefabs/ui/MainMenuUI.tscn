@@ -55,6 +55,7 @@ scene_to_load = "res://scenes/play.tscn"
 margin_top = 430.0
 margin_right = 838.0
 margin_bottom = 490.0
+scene_to_load = "res://scenes/help.tscn"
 
 [node name="QuitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
 margin_top = 510.0
