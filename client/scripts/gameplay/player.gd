@@ -28,6 +28,8 @@ onready var shotgun: Weapon = $Shotgun
 onready var harpoon: Weapon = $Harpoon
 var current_weapon_type = WeaponType.PISTOL
 var current_ammo = 0
+onready var equip_weapon_timer: Timer = $EquipWeaponTimer
+var ready_to_fire: bool
 
 # dash
 onready var dash_cooldown_timer: Timer = $DashCooldownTimer
@@ -41,6 +43,7 @@ func _ready():
 	dash_value = 1
 	current_health = max_health
 	$HealthBar.visible = false
+	ready_to_fire = true
 
 func _process(delta):
 	if is_alive:
@@ -78,7 +81,7 @@ func poll_movement() -> Vector2:
 func poll_action() -> void:
 	if Input.is_action_pressed("shoot"):
 		var current_weapon = get_current_weapon()
-		if current_weapon.can_shoot:
+		if current_weapon.can_shoot and ready_to_fire:
 			var mouse_position = get_viewport().get_mouse_position()
 			current_weapon.shoot(mouse_position)
 
@@ -162,6 +165,10 @@ func change_weapon(w) -> void:
 	else:
 		emit_signal("ammo_changed", current_ammo as String)
 
+	# disable firing for short duriation when switching weapons
+	ready_to_fire = false
+	equip_weapon_timer.start()
+
 func die() -> void:
 	is_alive = false
 	set_animation_by_name("Dying")
@@ -177,3 +184,6 @@ func _on_DashDurationTimer_timeout() -> void:
 
 func _on_DashCooldownTimer_timeout() -> void:
 	can_dash = true
+
+func _on_EquipWeaponTimer_timeout() -> void:
+	ready_to_fire = true
