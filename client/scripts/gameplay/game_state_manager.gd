@@ -15,6 +15,9 @@ export var enemy_ranged_advanced: PackedScene
 export var enemy_tank: PackedScene
 export var medkit: PackedScene
 
+# playable scenes to load
+export var main_menu_scene: PackedScene
+
 onready var player = $Player
 onready var ui_manager = $CanvasLayer/UI
 onready var wave_start_timer = $WaveStartTimer
@@ -37,6 +40,8 @@ func _ready():
 	player.connect("ammo_changed", self, "_on_player_ammo_changed")
 
 func _process(delta):
+	poll_buttons()
+
 	if game_state == GameState.PENDING:
 
 		if wave_start_timer.is_stopped():
@@ -61,6 +66,13 @@ func _process(delta):
 			# final wave
 			else:
 				win()
+
+func poll_buttons():
+	if Input.is_action_just_pressed("restart"):
+		get_tree().reload_current_scene()
+
+	if Input.is_action_just_pressed("navigate_back"):
+		get_tree().change_scene_to(main_menu_scene)
 
 func _on_player_health_changed(current_hp: int, max_hp: int) -> void:
 	ui_manager.set_player_health(current_hp)

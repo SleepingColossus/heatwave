@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://prefabs/ui/HudUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://prefabs/collectables/pickup_medkit.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/enemies/EnemyMeleeFast.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/enemies/EnemyRangedBasic.tscn" type="PackedScene" id=12]
+[ext_resource path="res://prefabs/ui/MainMenuUI.tscn" type="PackedScene" id=13]
 
 [node name="PlaySinglePlayer" type="Node2D"]
 script = ExtResource( 4 )
@@ -21,6 +22,7 @@ enemy_ranged_basic = ExtResource( 12 )
 enemy_ranged_advanced = ExtResource( 3 )
 enemy_tank = ExtResource( 8 )
 medkit = ExtResource( 10 )
+main_menu_scene = ExtResource( 13 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
