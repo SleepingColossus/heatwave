@@ -34,6 +34,7 @@ var ready_to_fire: bool
 # dash
 onready var dash_cooldown_timer: Timer = $DashCooldownTimer
 onready var dash_duration_timer: Timer = $DashDurationTimer
+onready var dash_sound: AudioStreamPlayer2D = $DashSound
 var can_dash: bool
 export var dash_speed_multiplier: int
 var dash_value: int # current multiplier
@@ -176,6 +177,7 @@ func die() -> void:
 func dash() -> void:
 	can_dash = false
 	dash_value = dash_speed_multiplier
+	dash_sound.play()
 	dash_duration_timer.start()
 
 func _on_DashDurationTimer_timeout() -> void:
