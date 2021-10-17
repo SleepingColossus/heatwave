@@ -14,9 +14,13 @@ export var enemy_ranged_basic: PackedScene
 export var enemy_ranged_advanced: PackedScene
 export var enemy_tank: PackedScene
 export var medkit: PackedScene
+export var obstacle_crate: PackedScene
+export var obstacle_barrel: PackedScene
 
 # playable scenes to load
 export var main_menu_scene: PackedScene
+
+export var number_of_obstacles: int
 
 onready var player = $Player
 onready var ui_manager = $CanvasLayer/UI
@@ -38,6 +42,8 @@ func _ready():
 	player.connect("health_changed", self, "_on_player_health_changed")
 	player.connect("weapon_changed", self, "_on_player_weapon_changed")
 	player.connect("ammo_changed", self, "_on_player_ammo_changed")
+
+	spawn_obstacles()
 
 func _process(delta):
 	poll_buttons()
@@ -177,3 +183,22 @@ func _on_GameOverNotificationTimer_timeout():
 
 func get_number_of_living_enemies() -> int:
 	return len(get_tree().get_nodes_in_group("enemy_group"))
+
+func spawn_obstacles() -> void:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+
+	var x = 0 # used to detemine prefab type
+
+	for i in range(0, number_of_obstacles):
+		var prefab = obstacle_crate if x % 2 == 0 else obstacle_barrel
+		x += 1 # increment for different prefab in next iteration
+		var instance = prefab.instance()
+
+		var window_size = OS.get_real_window_size()
+		var horizontal_position = rng.randi_range(0, window_size.x)
+		var vertical_position = rng.randi_range(0, window_size.y)
+		var spawn_position = Vector2(horizontal_position, vertical_position)
+
+		instance.position = spawn_position
+		add_child(instance)
