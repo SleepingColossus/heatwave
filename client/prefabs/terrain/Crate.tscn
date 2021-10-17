@@ -9,24 +9,24 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": false,
-"name": "DamagedLow",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "DamagedHigh",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": false,
-"name": "Destroyed",
+"name": "DamagedLow",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
 "name": "Normal",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "Destroyed",
 "speed": 5.0
 } ]
 
@@ -57,6 +57,7 @@ script = ExtResource( 5 )
 max_health = 10
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = -1
 frames = SubResource( 1 )
 animation = "Normal"
 

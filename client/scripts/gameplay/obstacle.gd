@@ -8,6 +8,7 @@ var is_alive: bool = true
 
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var debris_particles: Particles2D = $Debris
+onready var collider: CollisionShape2D = $CollisionShape2D
 
 func _ready():
 	health = max_health
@@ -21,6 +22,7 @@ func take_damage(amount: int) -> void:
 
 	if health <= 0:
 		is_alive = false
+		collider.set_deferred("disabled", true)
 
 func set_sprite() -> void:
 	if health == max_health:

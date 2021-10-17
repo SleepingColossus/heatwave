@@ -9,37 +9,37 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": false,
-"name": "DamagedLow",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
 "name": "DamagedHigh",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": false,
-"name": "Destroyed",
+"name": "DamagedLow",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "Normal",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "Destroyed",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14.1703, 15.928 )
 
-[sub_resource type="CanvasItemMaterial" id=4]
+[sub_resource type="CanvasItemMaterial" id=3]
 particles_animation = true
 particles_anim_h_frames = 4
 particles_anim_v_frames = 1
 particles_anim_loop = true
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 16, 16, 1 )
 flag_disable_z = true
@@ -57,6 +57,7 @@ script = ExtResource( 5 )
 max_health = 10
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = -1
 frames = SubResource( 1 )
 animation = "Normal"
 
@@ -64,10 +65,10 @@ animation = "Normal"
 shape = SubResource( 2 )
 
 [node name="Debris" type="Particles2D" parent="."]
-material = SubResource( 4 )
+material = SubResource( 3 )
 emitting = false
 amount = 2
 lifetime = 0.5
 one_shot = true
-process_material = SubResource( 3 )
+process_material = SubResource( 4 )
 texture = ExtResource( 6 )
