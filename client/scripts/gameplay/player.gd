@@ -35,6 +35,7 @@ var ready_to_fire: bool
 onready var dash_cooldown_timer: Timer = $DashCooldownTimer
 onready var dash_duration_timer: Timer = $DashDurationTimer
 onready var dash_sound: AudioStreamPlayer2D = $DashSound
+onready var dash_particle: Particles2D = $DashParticle
 var can_dash: bool
 export var dash_speed_multiplier: int
 var dash_value: int # current multiplier
@@ -42,6 +43,7 @@ var dash_value: int # current multiplier
 func _ready():
 	can_dash = true
 	dash_value = 1
+	dash_particle.emitting = false
 	current_health = max_health
 	$HealthBar.visible = false
 	ready_to_fire = true
@@ -178,10 +180,12 @@ func dash() -> void:
 	can_dash = false
 	dash_value = dash_speed_multiplier
 	dash_sound.play()
+	dash_particle.emitting = true
 	dash_duration_timer.start()
 
 func _on_DashDurationTimer_timeout() -> void:
 	dash_value = 1
+	dash_particle.emitting = false
 	dash_cooldown_timer.start()
 
 func _on_DashCooldownTimer_timeout() -> void:
