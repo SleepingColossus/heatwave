@@ -82,6 +82,9 @@ func poll_buttons():
 	if Input.is_action_just_pressed("navigate_back"):
 		get_tree().change_scene_to(main_menu_scene)
 
+	if Input.is_action_just_pressed("debug"):
+		debug_remaining_enemies()
+
 func _on_player_health_changed(current_hp: int, max_hp: int) -> void:
 	ui_manager.set_player_health(current_hp)
 
@@ -202,3 +205,12 @@ func spawn_obstacles() -> void:
 
 		instance.position = spawn_position
 		add_child(instance)
+
+func debug_remaining_enemies() -> void:
+	var remaining_enemies = get_tree().get_nodes_in_group("enemy_group")
+
+	print("----------------------")
+	print("Enemies remaining: %d" % len(remaining_enemies))
+
+	for e in remaining_enemies:
+		print("x: %d, y: %d" % [e.position.x, e.position.y])
