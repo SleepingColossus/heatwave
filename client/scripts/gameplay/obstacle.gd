@@ -1,0 +1,33 @@
+class_name Obstacle
+
+extends StaticBody2D
+
+export var max_health: int
+var health: int
+var is_alive: bool = true
+
+onready var sprite: AnimatedSprite = $AnimatedSprite
+onready var debris_particles: Particles2D = $Debris
+
+func _ready():
+	health = max_health
+	set_sprite()
+
+func take_damage(amount: int) -> void:
+	health -= amount
+
+	set_sprite()
+	debris_particles.emitting = true
+
+	if health <= 0:
+		is_alive = false
+
+func set_sprite() -> void:
+	if health == max_health:
+		sprite.play("Normal")
+	elif health >= (max_health / 2): # above 50%
+		sprite.play("DamagedLow")
+	elif health <= (max_health / 2) and health > 0: # below 50%
+		sprite.play("DamagedHigh")
+	else:
+		sprite.play("Destroyed")
