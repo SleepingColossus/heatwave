@@ -1,8 +1,6 @@
 class_name Enemy
 extends KinematicBody2D
 
-signal died
-
 onready var player = $"../Player"
 onready var sprite: AnimatedSprite = $AnimatedSprite
 onready var health_bar: ProgressBar = $HealthBar
@@ -154,12 +152,12 @@ func roll_weapon_drop() -> void:
 
 func die() -> void:
 	is_alive = false
+	self.remove_from_group("enemy_group")
 	roll_weapon_drop()
 	roll_medkit_drop()
 	set_animation_by_name("Dying")
 	collider.set_deferred("disabled", true)
 	health_bar.visible = false
-	emit_signal("died")
 
 func _on_LineOfSight_body_entered(body) -> void:
 	if body is Player:

@@ -58,6 +58,8 @@ func _process(delta):
 		if not player.is_alive:
 			lose()
 
+		var enemy_count = get_number_of_living_enemies()
+
 		# all enemies cleared in wave?
 		if enemy_count == 0:
 			# not final wave?
@@ -82,10 +84,6 @@ func _on_player_weapon_changed(new_weapon: int) -> void:
 
 func _on_player_ammo_changed(amount: String) -> void:
 	ui_manager.set_player_ammo(amount)
-
-func _on_enemy_died() -> void:
-	enemy_count -= 1
-	print_debug("Enemies remaining: %d" % enemy_count)
 
 func start_wave(wave_number: int) -> void:
 	game_state = GameState.PLAYING
@@ -113,8 +111,8 @@ func spawn_instance_batch(wave_dict: Dictionary, key: int, resource) -> void:
 
 func spawn_instance(resource) -> void:
 	var instance = resource.instance()
+	instance.add_to_group("enemy_group")
 	instance.position = generate_random_position()
-	instance.connect("died", self, "_on_enemy_died")
 
 	add_child(instance)
 	enemy_count += 1
@@ -176,3 +174,6 @@ func wait_for_next_wave() -> void:
 # show instructions after game over
 func _on_GameOverNotificationTimer_timeout():
 	ui_manager.show_game_state_update("Press R to restart  |  Press ESC to exit")
+
+func get_number_of_living_enemies() -> int:
+	return len(get_tree().get_nodes_in_group("enemy_group"))
