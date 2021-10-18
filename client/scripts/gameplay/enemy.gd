@@ -7,6 +7,7 @@ onready var health_bar: ProgressBar = $HealthBar
 onready var weapon : Weapon = $Weapon
 onready var line_of_sight: Area2D = $LineOfSight
 onready var collider: CollisionShape2D = $CollisionShape2D
+onready var animation_player = $AnimationPlayer
 
 export var medkit_drop: PackedScene
 export var medkit_drop_rate: int
@@ -111,6 +112,7 @@ func set_animation_by_name(animation_name) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 	health_bar.value = current_health
+	animation_player.play("Hurt")
 
 	# full health
 	if current_health == max_health:

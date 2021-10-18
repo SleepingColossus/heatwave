@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying1.png" type="Texture" id=1]
 [ext_resource path="res://art/BasicMeleeEnemy/BasicMeleeEnemyDying2.png" type="Texture" id=2]
@@ -23,29 +23,24 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "MoveLeft",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "MoveRight",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 14 ), ExtResource( 4 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "MoveTop",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "MoveBottom",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -58,22 +53,43 @@ animations = [ {
 "name": "IdleRight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "IdleLeft",
+"name": "MoveBottom",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 19 ) ],
-"loop": false,
-"name": "Dying",
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "MoveRight",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="Animation" id=2]
+resource_name = "Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 11.3859
 height = 2.56844
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
 
 [node name="_EnemyBase" type="KinematicBody2D"]
@@ -87,15 +103,18 @@ z_index = -1
 frames = SubResource( 1 )
 animation = "IdleLeft"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hurt = SubResource( 2 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 margin_left = -32.0
 margin_top = -32.0
 margin_right = 32.0
 margin_bottom = -18.0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 4 )
 value = 50.0
 percent_visible = false
 __meta__ = {

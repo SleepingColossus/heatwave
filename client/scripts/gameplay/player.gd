@@ -19,6 +19,7 @@ var is_alive: bool = true
 export var base_speed: int = 100
 
 onready var sprite = $AnimatedSprite
+onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var hurt_sound = $HurtSound
 
 # weapons
@@ -136,6 +137,7 @@ func take_damage(amount: int) -> void:
 		die()
 
 	hurt_sound.play()
+	animation_player.play("Hurt")
 	emit_signal("health_changed", current_health, max_health)
 
 func heal(amount: int) -> void:
