@@ -7,6 +7,7 @@ var health: int
 var is_alive: bool = true
 
 onready var sprite: AnimatedSprite = $AnimatedSprite
+onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var debris_particles: Particles2D = $Debris
 onready var collider: CollisionShape2D = $CollisionShape2D
 
@@ -18,6 +19,7 @@ func take_damage(amount: int) -> void:
 	health -= amount
 
 	set_sprite()
+	animation_player.play("Hurt")
 	debris_particles.emitting = true
 
 	if health <= 0:
