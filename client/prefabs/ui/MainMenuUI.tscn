@@ -47,7 +47,14 @@ margin_right = 1680.0
 margin_bottom = 920.0
 size_flags_vertical = 3
 
+[node name="BlankContainerLeft" type="CenterContainer" parent="Menu/CenterRow"]
+margin_right = 417.0
+margin_bottom = 316.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+margin_left = 421.0
 margin_right = 838.0
 margin_bottom = 316.0
 size_flags_horizontal = 3
@@ -57,24 +64,24 @@ alignment = 1
 
 [node name="PlayButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
 margin_top = 48.0
-margin_right = 838.0
+margin_right = 417.0
 margin_bottom = 108.0
 scene_to_load = "res://scenes/play.tscn"
 
 [node name="HelpButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
 margin_top = 128.0
-margin_right = 838.0
+margin_right = 417.0
 margin_bottom = 188.0
 scene_to_load = "res://scenes/help.tscn"
 
 [node name="QuitButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
 margin_top = 208.0
-margin_right = 838.0
+margin_right = 417.0
 margin_bottom = 268.0
 
 [node name="AnimationContainer" type="CenterContainer" parent="Menu/CenterRow"]
 margin_left = 842.0
-margin_right = 1680.0
+margin_right = 1259.0
 margin_bottom = 316.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -84,8 +91,17 @@ position = Vector2( 300, 150 )
 scale = Vector2( 8, 8 )
 frames = ExtResource( 8 )
 animation = "MoveLeft"
-frame = 1
 playing = true
+
+[node name="BlankContainerRight" type="CenterContainer" parent="Menu/CenterRow"]
+margin_left = 1263.0
+margin_right = 1680.0
+margin_bottom = 316.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )

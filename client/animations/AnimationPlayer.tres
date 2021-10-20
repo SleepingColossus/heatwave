@@ -24,6 +24,11 @@ animations = [ {
 "name": "Dying",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 3 ), ExtResource( 15 ), ExtResource( 3 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "MoveTop",
@@ -34,25 +39,20 @@ animations = [ {
 "name": "IdleTop",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "IdleLeft",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "IdleLeft",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "MoveBottom",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "IdleBottom",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 9 ) ],
 "loop": true,
