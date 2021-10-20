@@ -61,6 +61,12 @@ func _process(delta):
 		move_and_slide(velocity)
 		set_animation(direction)
 
+		# adjust position to stay in bounds
+		var window_size = OS.get_real_window_size()
+		var sprite_size = 32
+		position.x = clamp(position.x, 0, window_size.x - sprite_size)
+		position.y = clamp(position.y, 0, window_size.y - sprite_size)
+
 func poll_movement() -> Vector2:
 	var direction : Vector2 = Vector2()
 
