@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=17 format=2]
+
+[ext_resource path="res://art/Player/PlayerLeft1.png" type="Texture" id=1]
+[ext_resource path="res://art/Player/PlayerRight1.png" type="Texture" id=2]
+[ext_resource path="res://art/Player/PlayerTop1.png" type="Texture" id=3]
+[ext_resource path="res://art/Player/PlayerGib.png" type="Texture" id=4]
+[ext_resource path="res://art/Player/PlayerDying1.png" type="Texture" id=5]
+[ext_resource path="res://art/Player/PlayerDying3.png" type="Texture" id=6]
+[ext_resource path="res://art/Player/PlayerLeft2.png" type="Texture" id=7]
+[ext_resource path="res://art/Player/PlayerDying2.png" type="Texture" id=8]
+[ext_resource path="res://art/Player/PlayerRight3.png" type="Texture" id=9]
+[ext_resource path="res://art/Player/PlayerBottom2.png" type="Texture" id=10]
+[ext_resource path="res://art/Player/PlayerTop3.png" type="Texture" id=11]
+[ext_resource path="res://art/Player/PlayerRight2.png" type="Texture" id=12]
+[ext_resource path="res://art/Player/PlayerBottom3.png" type="Texture" id=13]
+[ext_resource path="res://art/Player/PlayerBottom1.png" type="Texture" id=14]
+[ext_resource path="res://art/Player/PlayerTop2.png" type="Texture" id=15]
+[ext_resource path="res://art/Player/PlayerLeft3.png" type="Texture" id=16]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "Dying",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 15 ), ExtResource( 3 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "IdleLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "IdleRight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "MoveBottom",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "IdleBottom",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "MoveRight",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 1 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "MoveLeft",
+"speed": 10.0
+} ]
