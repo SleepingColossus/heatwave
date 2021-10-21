@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://art/UI/Fonts/Font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://art/UI/Help/Shotgun.png" type="Texture" id=2]
+[ext_resource path="res://art/UI/Help/Uzi.png" type="Texture" id=3]
+[ext_resource path="res://art/UI/Help/Harpoon.png" type="Texture" id=4]
+[ext_resource path="res://art/UI/Help/Med kit.png" type="Texture" id=5]
+[ext_resource path="res://art/UI/Help/BasicEnemyMelee.png" type="Texture" id=6]
+[ext_resource path="res://art/UI/Help/FastEnemyMelee.png" type="Texture" id=7]
+[ext_resource path="res://art/UI/Help/BasicEnemyRanged.png" type="Texture" id=8]
+[ext_resource path="res://art/UI/Help/AdvancedEnemyRanged.png" type="Texture" id=9]
+[ext_resource path="res://art/UI/Help/Tank.png" type="Texture" id=10]
+[ext_resource path="res://art/UI/Help/Player info.png" type="Texture" id=11]
+[ext_resource path="res://art/UI/Help/Player bio.png" type="Texture" id=12]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -29,6 +40,22 @@ margin_left = 4.0
 margin_top = 71.0
 margin_right = -4.0
 margin_bottom = -4.0
+columns = 2
+
+[node name="PlayerInfo" type="TextureRect" parent="Grid/TabContainer/Player"]
+margin_right = 947.0
+margin_bottom = 991.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+
+[node name="Controls" type="TextureRect" parent="Grid/TabContainer/Player"]
+margin_left = 951.0
+margin_right = 1898.0
+margin_bottom = 991.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
 
 [node name="Enemies" type="GridContainer" parent="Grid/TabContainer"]
 visible = false
@@ -38,6 +65,47 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = 4.0
 margin_bottom = 36.0
+columns = 3
+
+[node name="PuncherInfo" type="TextureRect" parent="Grid/TabContainer/Enemies"]
+margin_right = 632.0
+margin_bottom = 533.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+
+[node name="GunnerInfo" type="TextureRect" parent="Grid/TabContainer/Enemies"]
+margin_left = 636.0
+margin_right = 1268.0
+margin_bottom = 533.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+
+[node name="BeachBallInfo" type="TextureRect" parent="Grid/TabContainer/Enemies"]
+margin_left = 1272.0
+margin_right = 1904.0
+margin_bottom = 533.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+
+[node name="HarpoonerInfo" type="TextureRect" parent="Grid/TabContainer/Enemies"]
+margin_top = 537.0
+margin_right = 632.0
+margin_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 9 )
+
+[node name="TankInfo" type="TextureRect" parent="Grid/TabContainer/Enemies"]
+margin_left = 636.0
+margin_top = 537.0
+margin_right = 1268.0
+margin_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 10 )
 
 [node name="Items" type="GridContainer" parent="Grid/TabContainer"]
 visible = false
@@ -45,8 +113,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
-margin_right = 4.0
-margin_bottom = 36.0
+margin_right = -832.0
+margin_bottom = -455.0
+columns = 2
+
+[node name="UziInfo" type="TextureRect" parent="Grid/TabContainer/Items"]
+margin_right = 533.0
+margin_bottom = 287.0
+size_flags_horizontal = 3
+texture = ExtResource( 3 )
+
+[node name="ShotgunInfo" type="TextureRect" parent="Grid/TabContainer/Items"]
+margin_left = 537.0
+margin_right = 1070.0
+margin_bottom = 287.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+
+[node name="HarpoonInfo" type="TextureRect" parent="Grid/TabContainer/Items"]
+margin_top = 291.0
+margin_right = 533.0
+margin_bottom = 579.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+
+[node name="MedkitInfo" type="TextureRect" parent="Grid/TabContainer/Items"]
+margin_left = 537.0
+margin_top = 291.0
+margin_right = 1070.0
+margin_bottom = 579.0
+texture = ExtResource( 5 )
 
 [node name="BackButton" type="Button" parent="."]
 anchor_left = 1.0
