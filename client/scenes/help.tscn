@@ -1,3 +1,75 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource path="res://art/UI/Fonts/Font.tres" type="DynamicFont" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="Grid"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1073.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+
+[node name="Player" type="GridContainer" parent="Grid/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 71.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Enemies" type="GridContainer" parent="Grid/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 4.0
+margin_bottom = 36.0
+
+[node name="Items" type="GridContainer" parent="Grid/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 4.0
+margin_bottom = 36.0
+
+[node name="BackButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -282.0
+margin_top = -92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackLabel" type="Label" parent="BackButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+text = "BACK"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
