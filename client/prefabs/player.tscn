@@ -152,7 +152,7 @@ __meta__ = {
 }
 
 [node name="Pistol" parent="." instance=ExtResource( 22 )]
-attack_rate = 0.2
+attack_rate = 0.35
 projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )
 
@@ -162,7 +162,7 @@ projectile_scene = ExtResource( 21 )
 shoot_sound = ExtResource( 16 )
 
 [node name="Shotgun" parent="." instance=ExtResource( 22 )]
-attack_rate = 1.0
+attack_rate = 0.5
 spread_amount = 4
 spread_angle = 15.0
 projectile_scene = ExtResource( 21 )
@@ -184,6 +184,7 @@ one_shot = true
 one_shot = true
 
 [node name="EquipWeaponTimer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="."]
