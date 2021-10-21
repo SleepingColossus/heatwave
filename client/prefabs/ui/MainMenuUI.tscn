@@ -91,6 +91,7 @@ position = Vector2( 300, 150 )
 scale = Vector2( 8, 8 )
 frames = ExtResource( 8 )
 animation = "MoveLeft"
+frame = 1
 playing = true
 
 [node name="BlankContainerRight" type="CenterContainer" parent="Menu/CenterRow"]
