@@ -59,6 +59,8 @@ func _process(delta):
 					die()
 					sprite.play()
 
+	destroy_off_screen()
+
 func set_direction() -> Vector2:
 	var chase_direction = Vector2()
 
@@ -168,3 +170,13 @@ func _on_LineOfSight_body_entered(body) -> void:
 func _on_LineOfSight_body_exited(body) -> void:
 	if body is Player:
 		target = null
+
+func destroy_off_screen() -> void:
+	var window_size = OS.get_real_window_size()
+	var offset = 200
+
+	if (position.x < -offset
+		or position.y < -offset
+		or position.x > window_size.x + offset
+		or position.y > window_size.y + offset):
+			queue_free()
