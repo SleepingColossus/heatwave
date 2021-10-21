@@ -31,6 +31,9 @@ var current_weapon_type = WeaponType.PISTOL
 var current_ammo = 0
 onready var equip_weapon_timer: Timer = $EquipWeaponTimer
 var ready_to_fire: bool
+export var uzi_ammo: int
+export var shotgun_ammo: int
+export var harpoon_ammo: int
 
 # dash
 onready var dash_cooldown_timer: Timer = $DashCooldownTimer
@@ -161,13 +164,13 @@ func change_weapon(w) -> void:
 			current_ammo = 0
 		WeaponType.UZI:
 			current_weapon_type = WeaponType.UZI
-			current_ammo = 20
+			current_ammo = uzi_ammo
 		WeaponType.SHOTGUN:
 			current_weapon_type = WeaponType.SHOTGUN
-			current_ammo = 5
+			current_ammo = shotgun_ammo
 		WeaponType.HARPOON:
 			current_weapon_type = WeaponType.HARPOON
-			current_ammo = 3
+			current_ammo = harpoon_ammo
 
 	emit_signal("weapon_changed", w)
 

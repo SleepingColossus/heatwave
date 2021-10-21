@@ -36,6 +36,11 @@ animations = [ {
 "name": "MoveTop",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "IdleTop",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "IdleLeft",
@@ -46,19 +51,14 @@ animations = [ {
 "name": "Dying",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "IdleTop",
+"name": "IdleRight",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "IdleBottom",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "IdleRight",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
@@ -77,7 +77,7 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Hurt"
 length = 0.2
 tracks/0/type = "value"
@@ -93,14 +93,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 12.3277
 height = 0.0
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 gravity = Vector3( 0, -50, 0 )
 angular_velocity = 202.24
@@ -110,6 +110,9 @@ orbit_velocity_random = 0.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 19 )
+uzi_ammo = 20
+shotgun_ammo = 5
+harpoon_ammo = 3
 dash_speed_multiplier = 3
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -118,11 +121,11 @@ animation = "IdleBottom"
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Hurt = SubResource( 5 )
+anims/Hurt = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Indicator" type="Sprite" parent="."]
 
@@ -141,7 +144,7 @@ margin_left = -32.0
 margin_top = -32.0
 margin_right = 32.0
 margin_bottom = -18.0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 4 )
 value = 50.0
 percent_visible = false
 __meta__ = {
@@ -189,7 +192,7 @@ stream = ExtResource( 27 )
 [node name="DashParticle" type="Particles2D" parent="."]
 amount = 16
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 5 )
 texture = ExtResource( 28 )
 
 [connection signal="timeout" from="DashDurationTimer" to="." method="_on_DashDurationTimer_timeout"]
