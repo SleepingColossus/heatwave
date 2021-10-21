@@ -31,20 +31,15 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "MoveTop",
+"name": "MoveRight",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
 "loop": true,
-"name": "IdleTop",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "IdleLeft",
-"speed": 5.0
+"name": "MoveLeft",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 15 ), ExtResource( 20 ) ],
 "loop": false,
@@ -61,20 +56,25 @@ animations = [ {
 "name": "IdleBottom",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 6 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "MoveTop",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "MoveBottom",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "MoveLeft",
-"speed": 10.0
+"name": "IdleTop",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "MoveRight",
-"speed": 10.0
+"name": "IdleLeft",
+"speed": 5.0
 } ]
 
 [sub_resource type="Animation" id=2]
@@ -110,9 +110,9 @@ orbit_velocity_random = 0.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 19 )
-uzi_ammo = 20
-shotgun_ammo = 5
-harpoon_ammo = 3
+uzi_ammo = 50
+shotgun_ammo = 20
+harpoon_ammo = 7
 dash_speed_multiplier = 3
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
