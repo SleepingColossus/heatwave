@@ -54,6 +54,28 @@ const wave_data : Dictionary = {
 		10: {
 			EnemyType.EnemyType.MELEE_FAST: 20,
 		},
+		11: {
+			EnemyType.EnemyType.MELEE_FAST: 7,
+			EnemyType.EnemyType.RANGED_BASIC: 20,
+			EnemyType.EnemyType.RANGED_ADVANCED: 5,
+		},
+		12: {
+			EnemyType.EnemyType.RANGED_ADVANCED: 10,
+			EnemyType.EnemyType.TANK: 15,
+		},
+		13: {
+			EnemyType.EnemyType.MELEE_FAST: 20,
+			EnemyType.EnemyType.RANGED_ADVANCED: 5,
+			EnemyType.EnemyType.TANK: 5,
+			EnemyType.EnemyType.RANGED_BASIC: 20,
+			EnemyType.EnemyType.MELEE_BASIC: 20,
+		},
+		14: {
+			EnemyType.EnemyType.RANGED_BASIC: 40,
+		},
+		15: {
+			EnemyType.EnemyType.MELEE_BASIC: 100,
+		},
 	}
 
 static func get_wave(wave_number: int) -> Dictionary:
