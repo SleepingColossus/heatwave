@@ -56,15 +56,15 @@ func set_player_health(amount: int) -> void:
 
 	hide_all_health_sprites()
 
-	if amount >= 5:
+	if amount >= 10:
 		sprite_player_hp_5.visible = true
-	elif amount == 4:
+	elif amount >= 8:
 		sprite_player_hp_4.visible = true
-	elif amount == 3:
+	elif amount >= 6:
 		sprite_player_hp_3.visible = true
-	elif amount == 2:
+	elif amount >= 4:
 		sprite_player_hp_2.visible = true
-	elif amount == 1:
+	elif amount >= 2:
 		sprite_player_hp_1.visible = true
 	else: # dead
 		sprite_player_hp_0.visible = true
